@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AlwaysInTarget.View.Weather">
+    <ScrollView>
+        <StackLayout Margin="5">
+            <Frame  BackgroundColor="Black"  Padding="12" CornerRadius="0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4">
+                <Label Text="Weather" TextColor="White" FontSize="22" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+            </Frame>
+
+            <Frame Padding="1" Margin="0" BorderColor="Black" BackgroundColor="LightBlue">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="3.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="3.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" TextColor="black">Alt</Label>
+                    <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" TextColor="black">Wind from</Label>
+                    <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2" TextColor="black">Wind power</Label>
+                </Grid>
+            </Frame>
+
+            <ListView ItemsSource="{Binding WeatherConditions}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BorderColor="Black" Padding="1" Margin="0" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3.0*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3.5*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding Altidute}" TextColor="black" FontSize="18"></Label>
+                                    <Entry Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding WindFrom}" TextColor="black" Placeholder="IAS" FontSize="18" Keyboard="Numeric" MaxLength="3"></Entry>
+                                    <Entry Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding WindStregngth}" TextColor="black" Placeholder="IAS" FontSize="18" Keyboard="Numeric" MaxLength="3"></Entry>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Text="Confirm"
+                x:Name="btnConfirm"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnConfirmClick"
+                WidthRequest="200"
+                BorderWidth="1"
+                BorderColor="Black"
+                />
+
+            <Button Text="Back"
+                x:Name="btnBack"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnBackButtonClick"
+                WidthRequest="200"
+                BorderWidth="1"
+                BorderColor="Black"
+                BackgroundColor="Red"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
