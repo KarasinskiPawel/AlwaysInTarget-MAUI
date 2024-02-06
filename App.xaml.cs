@@ -1,5 +1,4 @@
 ﻿using AlwaysInTarget.DbCRUD.DbRead;
-using AlwaysInTarget.Storage;
 
 namespace AlwaysInTarget
 {
@@ -8,8 +7,6 @@ namespace AlwaysInTarget
         public App()
         {
             InitializeComponent();
-
-            WeatherStorage.WeatherConditions = new RWeatherConditions().Output();
 
             MainPage = new AppShell();
         }

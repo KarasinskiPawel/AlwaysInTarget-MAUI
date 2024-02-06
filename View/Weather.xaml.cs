@@ -1,5 +1,4 @@
 using AlwaysInTarget.Models;
-using AlwaysInTarget.Storage;
 using System;
 
 namespace AlwaysInTarget.View;
@@ -11,15 +10,16 @@ public partial class Weather : ContentPage
     {
         InitializeComponent();
 
-		WeatherConditions = WeatherStorage.WeatherConditions;
-		BindingContext = this;
+        WeatherConditions = Storage.GetStorage().WeatherConditions;
+
+        BindingContext = this;
 	}
 
     private async void OnConfirmClick(object sender, EventArgs e)
     {
         try
         {
-            WeatherStorage.WeatherConditions = WeatherConditions;
+            Storage.GetStorage().WeatherConditions = WeatherConditions;
 
             await DisplayAlert("Weather", "Data approved.", "OK");
         }
