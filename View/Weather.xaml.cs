@@ -11,7 +11,6 @@ public partial class Weather : ContentPage
         InitializeComponent();
 
         WeatherConditions = Storage.GetStorage().WeatherConditions;
-
         BindingContext = this;
 	}
 

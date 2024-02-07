@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlwaysInTarget.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace AlwaysInTarget.ViewModels
 {
     public class NavigationModel
     {
-        public static string? System { get; set; }
+        public static string SystemM { get; set; } = "Metric";
         public static int Course { get; set; }
         public static decimal IAS_KM { get; set; }
         public static decimal IAS_MPH { get; set; }
@@ -21,5 +22,13 @@ namespace AlwaysInTarget.ViewModels
         public static string? WindCorrectionAngel { get; set; }
         public static string? Heading { get; set; }
         public static string? BombSightDeflection { get; set; }
+
+        public IList<SystemM> MeasureSystems { get; set; } = new List<SystemM>();
+
+        public NavigationModel()
+        {
+            MeasureSystems.Add(new SystemM { Id = 1, Name = "Metric" });
+            MeasureSystems.Add(new SystemM { Id = 2, Name = "Imperial" });
+        }
     }
 }

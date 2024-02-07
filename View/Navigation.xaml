@@ -6,18 +6,18 @@
         <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -34,19 +34,19 @@
             <Picker x:Name="eSystem" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" FontSize="18"
                     Title="...system..."    
                     ItemsSource="{Binding MeasureSystems}"
-                    SelectedIndex="0"
-                    SelectedItem="{Binding SelectedSystem}" 
-                    SelectedIndexChanged="eSystem_SelectedIndexChanged"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding System}" 
+                    SelectedIndexChanged="System_SelectedIndexChanged"
                     TitleColor="Black">
             </Picker>
 
-            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="Course:" FontSize="18" TextColor="Black"/>
-            <Entry Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eCourse" Text="{Binding Course}" Placeholder="Course" Keyboard="Numeric" MaxLength="3"/>
+            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="Course:" FontSize="18" TextColor="Black" Padding="4"/>
+            <Entry Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eCourse" Text="{Binding Course}" Placeholder="Course" Keyboard="Numeric" MaxLength="3" />
 
-            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lSpeed" Text="{Binding SpeedLabel, Mode=TwoWay}" FontSize="18" TextColor="Black"/>
+            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lSpeed" Text="{Binding SpeedLabel, Mode=TwoWay}" FontSize="18" TextColor="Black" Padding="6"/>
             <Entry Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eIas" Text="{Binding IAS}" Placeholder="IAS" Keyboard="Numeric" MaxLength="3"/>
 
-            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lAlt" Text="{Binding AltLabel, Mode=TwoWay}" FontSize="18" TextColor="Black"/>
+            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lAlt" Text="{Binding AltLabel, Mode=TwoWay}" FontSize="18" TextColor="Black" Padding="8"/>
             <Entry Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eAltitude" TextChanged="OnAltitudeChanged" Text="{Binding Altitude}" Placeholder="Altitude" Keyboard="Numeric" MaxLength="5"/>
 
             <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind from:" FontSize="18" TextColor="Black"/>
@@ -69,6 +69,7 @@
                 HorizontalOptions="Center"
                 Clicked="OnCalculateButtonClick"
                 WidthRequest="200"
+                HeightRequest="40"
                 BorderWidth="1"
                 BorderColor="Black"
                 Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2"/>
@@ -79,7 +80,7 @@
                 HorizontalOptions="Center"
                 Clicked="OnAddToPlanButtonClick"
                 WidthRequest="200"
-                BorderWidth="1"
+                HeightRequest="40"
                 BorderColor="Black"
                 IsEnabled="{Binding NavigationPointAdded}"
                 Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"/>
@@ -90,6 +91,7 @@
                 HorizontalOptions="Center"
                 Clicked="OnFlightplanButtonClick"
                 WidthRequest="200"
+                HeightRequest="40"
                 BorderWidth="1"
                 BorderColor="Black"
                 Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2"/>
@@ -100,6 +102,7 @@
                 HorizontalOptions="Center"
                 Clicked="OnBackButtonClick"
                 WidthRequest="200"
+                HeightRequest="40"
                 BorderWidth="1"
                 BorderColor="Black"
                 BackgroundColor="Red"

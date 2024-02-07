@@ -1,11 +1,18 @@
+using AlwaysInTarget.ViewModels;
+
 namespace AlwaysInTarget.View;
 
 public partial class Navigation : ContentPage
 {
-	public Navigation()
+	public NavigationModel NavigationModel;
+
+    public Navigation()
 	{
 		InitializeComponent();
-	}
+
+		NavigationModel = Storage.GetStorage().NavigationModel;
+        BindingContext = this;
+    }
 
     private void OnAltitudeChanged(object sender, EventArgs e)
     {
@@ -27,12 +34,12 @@ public partial class Navigation : ContentPage
 
 	}
 
-	private void OnBackButtonClick(object sender, EventArgs e)
+	private async void OnBackButtonClick(object sender, EventArgs e)
 	{
+        await Navigation.PushAsync(new MainPage());
+    }
 
-	}
-
-    private void eSystem_SelectedIndexChanged(object sender, EventArgs e)
+    private void System_SelectedIndexChanged(object sender, EventArgs e)
 	{
 
 	}
