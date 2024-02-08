@@ -30,36 +30,36 @@
                 <Label Text="Navigation - wind correction" TextColor="White" FontSize="22" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
             </Frame>
 
-            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="System:" FontSize="18" TextColor="Black"/>
-            <Picker x:Name="eSystem" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" FontSize="18"
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="System:" FontSize="18" TextColor="Black" MaximumHeightRequest="40"/>
+            <Picker x:Name="eSystem" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" FontSize="18" MaximumHeightRequest="40"
                     Title="...system..."    
                     ItemsSource="{Binding MeasureSystems}"
-                    ItemDisplayBinding="{Binding Name}"
-                    SelectedItem="{Binding System}" 
+                    SelectedIndex="0"
+                    SelectedItem="{Binding SelectedSystem}" 
                     SelectedIndexChanged="System_SelectedIndexChanged"
                     TitleColor="Black">
             </Picker>
 
-            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="Course:" FontSize="18" TextColor="Black" Padding="4"/>
-            <Entry Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eCourse" Text="{Binding Course}" Placeholder="Course" Keyboard="Numeric" MaxLength="3" />
+            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="Course:" FontSize="18" TextColor="Black" MaximumHeightRequest="40"/>
+            <Entry Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eCourse" Text="{Binding Course}" Placeholder="Course" Keyboard="Numeric" MaxLength="3" MaximumHeightRequest="40"/>
 
-            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lSpeed" Text="{Binding SpeedLabel, Mode=TwoWay}" FontSize="18" TextColor="Black" Padding="6"/>
-            <Entry Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eIas" Text="{Binding IAS}" Placeholder="IAS" Keyboard="Numeric" MaxLength="3"/>
+            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lSpeed" FontSize="18" TextColor="Black" MaximumHeightRequest="40"/>
+            <Entry Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eIas" Text="{Binding IAS}" Placeholder="IAS" Keyboard="Numeric" MaxLength="3" MaximumHeightRequest="40"/>
 
-            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lAlt" Text="{Binding AltLabel, Mode=TwoWay}" FontSize="18" TextColor="Black" Padding="8"/>
-            <Entry Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eAltitude" TextChanged="OnAltitudeChanged" Text="{Binding Altitude}" Placeholder="Altitude" Keyboard="Numeric" MaxLength="5"/>
+            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lAlt" FontSize="18" TextColor="Black" MaximumHeightRequest="40"/>
+            <Entry Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eAltitude" TextChanged="OnAltitudeChanged" Text="{Binding Altitude}" Placeholder="Altitude" Keyboard="Numeric" MaxLength="5" MaximumHeightRequest="40"/>
 
-            <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind from:" FontSize="18" TextColor="Black"/>
-            <Entry Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eWindDirection" Text="{Binding WindDirection}" Placeholder="Wind direction" Keyboard="Numeric" MaxLength="3"/>
+            <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind from:" FontSize="18" TextColor="Black" MaximumHeightRequest="40"/>
+            <Entry Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eWindDirection" Text="{Binding WindDirection}" Placeholder="Wind direction" Keyboard="Numeric" MaxLength="3" MaximumHeightRequest="40"/>
 
-            <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind strength (m/s):" FontSize="18" TextColor="Black"/>
-            <Entry Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eWindStrenght" Text="{Binding WindStrenght}" Placeholder="WindStrength" Keyboard="Numeric" MaxLength="5"/>
+            <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind strength (m/s):" FontSize="18" TextColor="Black" MaximumHeightRequest="40"/>
+            <Entry Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eWindStrenght" Text="{Binding WindStrenght}" Placeholder="WindStrength" Keyboard="Numeric" MaxLength="5" MaximumHeightRequest="40"/>
 
-            <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind Correction Angle:" FontSize="18" TextColor="Black"/>
-            <Entry Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eCorrectionAngle" Text="{Binding WindCorrectionAngel}" Placeholder=" - - - " IsEnabled="False"/>
+            <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind Correction Angle:" FontSize="18" TextColor="Black" MaximumHeightRequest="40"/>
+            <Entry Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eCorrectionAngle" Text="{Binding WindCorrectionAngel}" Placeholder=" - - - " IsEnabled="False" MaximumHeightRequest="40"/>
 
-            <Label Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="Heading:" FontSize="18" TextColor="Black"/>
-            <Entry Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eHeading" Text="{Binding Heading}" Placeholder=" - - - " IsEnabled="False"/>
+            <Label Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="Heading:" FontSize="18" TextColor="Black" MaximumHeightRequest="40"/>
+            <Entry Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eHeading" Text="{Binding Heading}" Placeholder=" - - - " IsEnabled="False" MaximumHeightRequest="40"/>
 
 
 
