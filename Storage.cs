@@ -17,10 +17,13 @@ namespace AlwaysInTarget
         public List<WeatherConditionM> WeatherConditions { get; set; }
         public NavigationModel NavigationModel { get; set; }
 
+        public BombSightModel BombSightModel { get; set; }
+
         private Storage()
         {
-            WeatherConditions = new RWeatherConditions().Output();
+            WeatherConditions = new RWeatherConditionsMock().Output();
             NavigationModel = new NavigationModel();
+            BombSightModel = new BombSightModel();
         }
 
         public static Storage GetStorage()

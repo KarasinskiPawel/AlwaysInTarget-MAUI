@@ -42,7 +42,7 @@
 
                                     <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding Altidute}" TextColor="black" FontSize="18"></Label>
                                     <Entry Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding WindFrom}" TextColor="black" Placeholder="IAS" FontSize="18" Keyboard="Numeric" MaxLength="3"></Entry>
-                                    <Entry Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding WindStregngth}" TextColor="black" Placeholder="IAS" FontSize="18" Keyboard="Numeric" MaxLength="3"></Entry>
+                                    <Entry Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding WindStregngth}" TextColor="black" Placeholder="IAS" FontSize="18" Keyboard="Numeric" MaxLength="5"></Entry>
                                 </Grid>
                             </Frame>
                         </ViewCell>

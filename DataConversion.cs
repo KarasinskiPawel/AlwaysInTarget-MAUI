@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlwaysInTarget
 {
-    internal class DataRecalculationRequest
+    internal class DataConversion
     {
         public decimal IAS_KM { get; set; }
         public decimal IAS_MPH { get; set; }
@@ -15,17 +15,17 @@ namespace AlwaysInTarget
         public int Altitude_M { get; set; }
         public int Altitude_FT { get; set; }
 
-        public DataRecalculationRequest(string system, int ias)
+        public DataConversion(string system, int ias)
         {
             SetIas(ias, system);
         }
 
-        public DataRecalculationRequest(int altitude, string system)
+        public DataConversion(int altitude, string system)
         {
             SetAltitude(altitude, system);
         }
 
-        public DataRecalculationRequest(int ias, int altitude, string system)
+        public DataConversion(int ias, int altitude, string system)
         {
             SetIas(ias, system);
             SetAltitude(altitude, system);

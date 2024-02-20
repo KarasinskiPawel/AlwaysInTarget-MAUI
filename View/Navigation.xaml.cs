@@ -1,3 +1,4 @@
+using AlwaysInTarget.Calculate;
 using AlwaysInTarget.ViewModels;
 using AlwaysInTarget.WindStrengthAndDirection;
 using System.Diagnostics;
@@ -6,8 +7,6 @@ namespace AlwaysInTarget.View;
 
 public partial class Navigation : ContentPage
 {
-	public NavigationModel NavigationModel;
-
     public Navigation()
 	{
 		InitializeComponent();
@@ -22,31 +21,35 @@ public partial class Navigation : ContentPage
         if(Storage.GetStorage().NavigationModel.Altitude > 0)
         {
             WeatherConditionsSystem weatherConditionsSystem = new WeatherConditionsSystem(
-                new DataRecalculationRequest(Storage.GetStorage().NavigationModel.Altitude
+                new DataConversion(Storage.GetStorage().NavigationModel.Altitude
                 , Storage.GetStorage().NavigationModel.SelectedSystem), Storage.GetStorage().WeatherConditions
                 );
 
             Storage.GetStorage().NavigationModel.WindStrenght = weatherConditionsSystem.GetWindStrength();
             Storage.GetStorage().NavigationModel.WindDirection = weatherConditionsSystem.GetWindDirection();
-
-            BindingContext = Storage.GetStorage().NavigationModel;
         }
     }
 
 	private void OnCalculateButtonClick(object sender, EventArgs e)
 	{
+        var output = new AccurateNavigationCalculator(Storage.GetStorage().NavigationModel, new DataConversion(Storage.GetStorage().NavigationModel.IAS, Storage.GetStorage().NavigationModel.Altitude, Storage.GetStorage().NavigationModel.SelectedSystem)).Output();
 
-	}
+        Storage.GetStorage().NavigationModel.WindCorrectionAngel = output.WindCorrectionAngel;
+        Storage.GetStorage().NavigationModel.Heading = output.Heading;
+
+        Storage.GetStorage().NavigationModel.NavigationPointAdded = output.Correct;
+
+    }
 
 	private void OnAddToPlanButtonClick(object sender, EventArgs e)
 	{
 
 	}
 
-	private void OnFlightplanButtonClick(object sender, EventArgs e)
+	private async void OnFlightplanButtonClick(object sender, EventArgs e)
 	{
-
-	}
+        await Navigation.PushAsync(new FlightPlan());
+    }
 
 	private async void OnBackButtonClick(object sender, EventArgs e)
 	{

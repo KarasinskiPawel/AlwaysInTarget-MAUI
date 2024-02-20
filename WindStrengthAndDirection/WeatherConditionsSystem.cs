@@ -1,6 +1,7 @@
 ﻿using AlwaysInTarget.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -8,11 +9,11 @@ namespace AlwaysInTarget.WindStrengthAndDirection
 {
     internal class WeatherConditionsSystem
     {
-        readonly DataRecalculationRequest data;
+        readonly DataConversion data;
 
         public List<WeatherConditionM> WeatherConditions { get; }
 
-        public WeatherConditionsSystem(DataRecalculationRequest dataRecalculationRequest, List<WeatherConditionM> WeatherConditions)
+        public WeatherConditionsSystem(DataConversion dataRecalculationRequest, List<WeatherConditionM> WeatherConditions)
         {
             data = dataRecalculationRequest;
             this.WeatherConditions = WeatherConditions;
@@ -45,12 +46,12 @@ namespace AlwaysInTarget.WindStrengthAndDirection
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
-
+                Debug.WriteLine($"GetWindStrength: {e.Message}");
             }
 
-            return output;
+            return Math.Round(output, 2);
         }
 
         public int GetWindDirection()
@@ -80,9 +81,9 @@ namespace AlwaysInTarget.WindStrengthAndDirection
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
-
+                Debug.WriteLine($"GetWindDirection: {e.Message}");
             }
 
             return Convert.ToInt32(output);
