@@ -1,12 +1,61 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AlwaysInTarget.View.BombSight"
-             Title="BombSight">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="AlwaysInTarget.View.BombSight">
+    <ScrollView>
+        <Grid Margin="5">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="250" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Frame  BackgroundColor="Black"  Padding="12" CornerRadius="0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4">
+                    <Label Text="Bombsight wind correction" TextColor="White" FontSize="22" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                </Frame>
+
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Course:" FontSize="18" TextColor="Black"/>
+                <Entry Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eCourse" Text="{Binding Course}" Placeholder="Heading" Keyboard="Numeric" MaxLength="3"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind from:" FontSize="18" TextColor="Black"/>
+                <Entry Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eWindDirection" Text="{Binding WindDirection}" Placeholder="Wind direction" Keyboard="Numeric" MaxLength="3"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="Deviation:" FontSize="18" TextColor="Black"/>
+                <Entry Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding BombSightDeflection}" x:Name="eDeviation" IsEnabled="False"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Course (0 - 359):" FontSize="18" TextColor="Black"/>
+                <Slider Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Minimum="0" Maximum="359" Value="{Binding Course}"></Slider>
+
+                <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind from: (0 - 359)" FontSize="18" TextColor="Black"/>
+                <Slider Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="4" Minimum="0" Maximum="359" Value="{Binding WindDirection}"></Slider>
+                
+
+                <Button Text="Back"
+                x:Name="btnBack"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnBackButtonClick"
+                WidthRequest="200"
+                BorderWidth="1"
+                BorderColor="Black"
+                BackgroundColor="Red"
+                Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"/>
+            </Grid>
+        </Grid>
+    </ScrollView>
 </ContentPage>

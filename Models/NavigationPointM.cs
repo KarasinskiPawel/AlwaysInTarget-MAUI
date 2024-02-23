@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AlwaysInTarget.Models
 {
-    internal class NavigationPointM
+    public class NavigationPointM
     {
         public int Lp { get; set; }
         public int Course { get; set; }

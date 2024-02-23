@@ -15,6 +15,7 @@ namespace AlwaysInTarget
         private static object obj = new();
 
         public List<WeatherConditionM> WeatherConditions { get; set; }
+        public FlightPlanModel FlightPlanModel { get; set; }
         public NavigationModel NavigationModel { get; set; }
 
         public BombSightModel BombSightModel { get; set; }
@@ -24,6 +25,7 @@ namespace AlwaysInTarget
             WeatherConditions = new RWeatherConditionsMock().Output();
             NavigationModel = new NavigationModel();
             BombSightModel = new BombSightModel();
+            FlightPlanModel = new FlightPlanModel();
         }
 
         public static Storage GetStorage()

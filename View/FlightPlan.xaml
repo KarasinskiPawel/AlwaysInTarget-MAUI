@@ -1,12 +1,149 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AlwaysInTarget.View.FlightPlan"
-             Title="FlightPlan">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="AlwaysInTarget.View.FlightPlan">
+    <ScrollView>
+        <StackLayout Margin="5">
+            <Frame  BackgroundColor="Black"  Padding="12" CornerRadius="0">
+                <Label Text="Flight plan" TextColor="White" FontSize="22" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+            </Frame>
+
+            <Frame Padding="1" Margin="2" BorderColor="Black" BackgroundColor="LightBlue">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="3.0*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" TextColor="black">Lp.</Label>
+                    <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" TextColor="black">Heading</Label>
+                    <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2" TextColor="black">Speed</Label>
+                    <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="3" TextColor="black">Alt</Label>
+                    <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="4" TextColor="black">Deflection</Label>
+                </Grid>
+            </Frame>
+
+            <ListView ItemsSource="{Binding NavigationPoints}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BorderColor="Black" Padding="1" Margin="2">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.0*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3.0*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding Lp}" TextColor="black"></Label>
+
+                                    <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Start" Text="{Binding Course}" TextColor="black"></Label>
+                                    <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End" Text="{Binding Heading}" TextColor="black"></Label>
+
+                                    <Label Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Start" Text="{Binding IAS}" TextColor="black">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="IAS: "></Span>
+                                                <Span Text="{Binding IAS}"></Span>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="End" Text="{Binding TAS}" TextColor="black">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="TAS: "></Span>
+                                                <Span Text="{Binding TAS}"></Span>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label Grid.Row="0" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding Altitude}" TextColor="black"></Label>
+
+                                    <Label Grid.Row="0" Grid.Column="4" HorizontalOptions="Start" VerticalOptions="Start" Text="{Binding WindCorrectionAngel}" TextColor="black">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="HDG: "></Span>
+                                                <Span Text="{Binding WindCorrectionAngel}" TextColor="black"></Span>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="0" Grid.Column="4" HorizontalOptions="Start" VerticalOptions="End" Text="{Binding BombSightDeflection}" TextColor="black">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="BSD: "></Span>
+                                                <Span Text="{Binding BombSightDeflection}"></Span>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="44"></RowDefinition>
+                    <RowDefinition Height="44"></RowDefinition>
+                    <RowDefinition Height="44"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button Text="Navigation"
+                x:Name="btnNavigation"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnNavigationButtonClick"
+                WidthRequest="200"
+                MaximumHeightRequest="40"
+                BorderWidth="1"
+                Grid.Row="0"
+                Grid.Column="0"
+                BorderColor="Black"
+                />
+
+                <Button Text="Remove plan"
+                x:Name="btnRemoveAll"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnRemoveAllClick"
+                WidthRequest="200"
+                MaximumHeightRequest="40"
+                BorderWidth="1"
+                Grid.Row="1"
+                Grid.Column="0"
+                BorderColor="Black"
+                />
+
+                <Button Text="Back"
+                x:Name="btnBack"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnBackButtonClick"
+                WidthRequest="200"
+                MaximumHeightRequest="40"
+                BorderWidth="1"
+                Grid.Row="2"
+                Grid.Column="1"
+                BorderColor="Black"
+                BackgroundColor="Red"
+                />
+            </Grid>
+
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

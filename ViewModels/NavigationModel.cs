@@ -22,9 +22,23 @@ namespace AlwaysInTarget.ViewModels
         private string _bombSightDeflection = string.Empty;
         private bool _navigationPointAdded = false;
 
+        private int _tas_KM;
+
         public string SelectedSystem { get; set; }
         public int Course { get; set; }
         public int IAS { get; set; }
+        public int TAS_KM {
+            get => _tas_KM;
+            set
+            {
+                if (_tas_KM == value)
+                    return;
+
+                _tas_KM = value;
+                TAS_MPH = Convert.ToInt32(value / 1.609M);
+            }
+        }
+        public int TAS_MPH { get; set; }
         public  int Altitude { get; set; }    
         public int WindDirection
         {

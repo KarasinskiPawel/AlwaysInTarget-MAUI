@@ -24,8 +24,9 @@ namespace AlwaysInTarget.ViewModels
             {
                 _course = value;
 
-                if (_windDirection > 0 && _course > 0)
+                //if (_windDirection > 0 && _course > 0)
                     BombSightDeflection = new BombSightCalculate(_course, _windDirection).Output();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Course)));
             }
         }
 
@@ -36,8 +37,9 @@ namespace AlwaysInTarget.ViewModels
             {
                 _windDirection = value;
 
-                if (_windDirection > 0 && _course > 0)
+                //if (_windDirection > 0 && _course > 0)
                     BombSightDeflection = new BombSightCalculate(_course, _windDirection).Output();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(WindDirection)));
             }
         }
 

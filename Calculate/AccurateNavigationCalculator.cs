@@ -126,6 +126,9 @@ namespace AlwaysInTarget.Calculate
 
                     Storage.GetStorage().BombSightModel.Course = Convert.ToInt32(r);
                     Storage.GetStorage().BombSightModel.WindDirection = navigationModel.WindDirection;
+                    Storage.GetStorage().NavigationModel.TAS_KM = Convert.ToInt32(convertedData.TAS_KM);
+
+
                 }
                 else
                 {

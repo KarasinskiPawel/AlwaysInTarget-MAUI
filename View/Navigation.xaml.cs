@@ -1,4 +1,5 @@
 using AlwaysInTarget.Calculate;
+using AlwaysInTarget.Models;
 using AlwaysInTarget.ViewModels;
 using AlwaysInTarget.WindStrengthAndDirection;
 using System.Diagnostics;
@@ -41,9 +42,36 @@ public partial class Navigation : ContentPage
 
     }
 
-	private void OnAddToPlanButtonClick(object sender, EventArgs e)
+	private async void OnAddToPlanButtonClick(object sender, EventArgs e)
 	{
+        DataConversion conversion = new DataConversion(Storage.GetStorage().NavigationModel.IAS, Storage.GetStorage().NavigationModel.Altitude, Storage.GetStorage().NavigationModel.SelectedSystem);
+        NavigationPointM point = new();
 
+        switch (Storage.GetStorage().NavigationModel.SelectedSystem)
+        {
+            case "Metric":
+                point = new(Storage.GetStorage().NavigationModel.Course, conversion.IAS_KM, Storage.GetStorage().NavigationModel.TAS_KM, conversion.Altitude_M, Storage.GetStorage().NavigationModel.WindCorrectionAngel, Storage.GetStorage().NavigationModel.Heading, Storage.GetStorage().BombSightModel.BombSightDeflection); 
+                break;
+            case "Imperial":
+                point = new(Storage.GetStorage().NavigationModel.Course, conversion.IAS_MPH, Storage.GetStorage().NavigationModel.TAS_MPH, conversion.Altitude_FT, Storage.GetStorage().NavigationModel.WindCorrectionAngel, Storage.GetStorage().NavigationModel.Heading, Storage.GetStorage().BombSightModel.BombSightDeflection);
+                break;
+            default:
+                await DisplayAlert("Navigation", "Error - incorrect system.", "OK");
+                break;
+        }
+
+        if(point is not null)
+        {
+            if (Storage.GetStorage().FlightPlanModel.Add(point))
+            {
+                await DisplayAlert("Navigation", "Point added.", "OK");
+                Storage.GetStorage().NavigationModel.NavigationPointAdded = false;
+            }
+            else
+            {
+                await DisplayAlert("Navigation", "Error", "OK");
+            }
+        }
 	}
 
 	private async void OnFlightplanButtonClick(object sender, EventArgs e)
@@ -86,6 +114,4 @@ public partial class Navigation : ContentPage
             DisplayAlert("Error", "B³¹d podczas zmiany sytemu.", "OK");
         }
     }
-
-
 }
