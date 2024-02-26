@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AlwaysInTarget.View.About"
-             Title="About">
-    <VerticalStackLayout>
+             x:Class="AlwaysInTarget.View.About">
+
+    <StackLayout Margin="5">
+        <Frame  BackgroundColor="Black"  Padding="12" CornerRadius="0">
+            <Label Text="About" TextColor="White" FontSize="22" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+        </Frame>
+        
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Welcome to the Always in Target mobile application. If you have any questions, you can find us on the =Winged Hussars= discord server."
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+            HorizontalOptions="Center" 
+            Margin="5, 20"/>
+
+        <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                       Text="Version 4.00 MAUI"
+                       Margin="5, 20"/>
+
+        <Button Text="Back"
+                x:Name="btnBack"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnBackButtonClick"
+                WidthRequest="200"
+                BorderWidth="1"
+                BorderColor="Black"
+                BackgroundColor="Red"
+                Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"/>
+    </StackLayout>
+    
 </ContentPage>

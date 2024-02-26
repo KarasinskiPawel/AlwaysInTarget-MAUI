@@ -6,4 +6,9 @@ public partial class About : ContentPage
 	{
 		InitializeComponent();
 	}
+
+	public async void OnBackButtonClick(object sender, EventArgs e)
+	{
+        await Navigation.PushAsync(new MainPage());
+    }
 }
