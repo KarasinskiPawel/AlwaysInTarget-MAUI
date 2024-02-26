@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AlwaysInTarget.Calculate
 {
-    internal class WindRose
+    public class WindRose
     {
         private readonly int _NKDM;
         private readonly int _DM;
@@ -106,7 +106,7 @@ namespace AlwaysInTarget.Calculate
             }
         }
 
-        internal int Output()
+        public int Output()
         {
             return quarterCompassRose;
         }
