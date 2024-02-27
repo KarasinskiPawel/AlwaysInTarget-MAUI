@@ -4,12 +4,12 @@ using System.Text;
 
 namespace AlwaysInTarget.Calculate
 {
-    internal class BombSightCalculate
+    public class BombSightCalculate
     {
         private readonly int _course;
         private readonly int _windDirection;
 
-        private string result = default;
+        private string result = string.Empty;
 
         public BombSightCalculate(int course, int windDirection)
         {
