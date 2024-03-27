@@ -10,6 +10,8 @@ public partial class Weather : ContentPage
     {
         InitializeComponent();
 
+        NavigationPage.SetHasBackButton(this, false);
+
         WeatherConditions = Storage.GetStorage().WeatherConditions;
         BindingContext = this;
 	}

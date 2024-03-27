@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AlwaysInTarget.View.FlightPlan">
+             x:Class="AlwaysInTarget.View.FlightPlan"
+             Shell.NavBarIsVisible="false">
+    
     <ScrollView>
-        <StackLayout Margin="5">
-            <Frame  BackgroundColor="Black"  Padding="12" CornerRadius="0">
+        <StackLayout BackgroundColor="Black">
+            <Frame  BackgroundColor="Blue"  Padding="12" CornerRadius="5" Margin="0, 0, 0, 10">
                 <Label Text="Flight plan" TextColor="White" FontSize="22" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
             </Frame>
 
-            <Frame Padding="1" Margin="2" BorderColor="Black" BackgroundColor="LightBlue">
+            <Frame Padding="1" Margin="0, 10, 0, 0" BorderColor="Black" BackgroundColor="LightBlue">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20"></RowDefinition>
@@ -82,7 +84,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="BSD: "></Span>
-                                                <Span Text="{Binding BombSightDeflection}"></Span>
+                                                <Span Text="{Binding BombSightDeflection}" TextColor="black"></Span>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>

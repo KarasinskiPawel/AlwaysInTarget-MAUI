@@ -8,6 +8,8 @@ namespace AlwaysInTarget
         public MainPage()
         {
             InitializeComponent();
+
+            NavigationPage.SetHasBackButton(this, false);
         }
 
         private async void OnWeatherButtonClick(object sender, EventArgs e)
