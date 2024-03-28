@@ -35,8 +35,10 @@
                 Clicked="OnWeatherButtonClick"
                 WidthRequest="200"
                 HeightRequest="40"
-                BorderWidth="1"
-                BorderColor="Black"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
                 Grid.Row="2" Grid.Column="1"/>
 
             <Button Text="Bomb sight"
@@ -46,8 +48,10 @@
                 Clicked="OnBombSightButtonClick"
                 WidthRequest="200"
                 HeightRequest="40"
-                BorderWidth="1"
-                BorderColor="Black"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
                 Grid.Row="3" Grid.Column="1"/>
 
             <Button Text="Navigation"
@@ -57,8 +61,10 @@
                 Clicked="OnNavigationButtonClick"
                 WidthRequest="200"
                 HeightRequest="40"
-                BorderWidth="1"
-                BorderColor="Black"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
                 Grid.Row="4" Grid.Column="1"/>
 
             <Button Text="Flight plan"
@@ -68,8 +74,10 @@
                 Clicked="OnFlightplanButtonClick"
                 WidthRequest="200"
                 HeightRequest="40"
-                BorderWidth="1"
-                BorderColor="Black"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
                 Grid.Row="5" Grid.Column="1"/>
 
             <Button Text="About"
@@ -79,8 +87,10 @@
                 Clicked="OnAboutButtonClick"
                 WidthRequest="200"
                 HeightRequest="40"
-                BorderWidth="1"
-                BorderColor="Black"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
                 Grid.Row="6" Grid.Column="1"/>
         </Grid>
     </ScrollView>

@@ -73,8 +73,10 @@
                 Clicked="OnCalculateButtonClick"
                 WidthRequest="200"
                 MaximumHeightRequest="40"
-                BorderWidth="1"
-                BorderColor="Black"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
                 Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2"/>
 
             <Button Text="Add to plan"
@@ -84,7 +86,10 @@
                 Clicked="OnAddToPlanButtonClick"
                 WidthRequest="200"
                 MaximumHeightRequest="40"
-                BorderColor="Black"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
                 IsEnabled="{Binding NavigationPointAdded}"
                 Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"/>
 
@@ -95,8 +100,10 @@
                 Clicked="OnFlightplanButtonClick"
                 WidthRequest="200"
                 MaximumHeightRequest="40"
-                BorderWidth="1"
-                BorderColor="Black"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
                 Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2"/>
 
             <Button Text="Back"
@@ -106,8 +113,8 @@
                 Clicked="OnBackButtonClick"
                 WidthRequest="200"
                 MaximumHeightRequest="40"
-                BorderWidth="1"
-                BorderColor="Black"
+                BorderWidth="3"
+                BorderColor="Ivory"
                 BackgroundColor="Red"
                 Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2"/>
 

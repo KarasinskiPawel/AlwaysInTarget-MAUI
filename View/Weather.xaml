@@ -58,8 +58,10 @@
                 HorizontalOptions="Center"
                 Clicked="OnConfirmClick"
                 WidthRequest="200"
-                BorderWidth="1"
-                BorderColor="Black"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
                 />
 
             <Button Text="Back"
@@ -68,9 +70,10 @@
                 HorizontalOptions="Center"
                 Clicked="OnBackButtonClick"
                 WidthRequest="200"
-                BorderWidth="1"
-                BorderColor="Black"
-                BackgroundColor="Red"/>
+                BorderWidth="3"
+                BorderColor="Ivory"
+                BackgroundColor="Red"
+                />
         </StackLayout>
     </ScrollView>
 </ContentPage>
