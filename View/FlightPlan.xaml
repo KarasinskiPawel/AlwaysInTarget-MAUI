@@ -51,13 +51,13 @@
                                     <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding Lp}" TextColor="black"></Label>
 
                                     <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Start" Text="{Binding Course}" TextColor="black"></Label>
-                                    <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End" Text="{Binding Heading}" TextColor="black"></Label>
+                                    <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End" Text="{Binding Heading}" TextColor="red"></Label>
 
                                     <Label Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Start" Text="{Binding IAS}" TextColor="black">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="IAS: "></Span>
-                                                <Span Text="{Binding IAS}"></Span>
+                                                <Span Text="{Binding IAS}" TextColor="Black"></Span>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -65,7 +65,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="TAS: "></Span>
-                                                <Span Text="{Binding TAS}"></Span>
+                                                <Span Text="{Binding TAS}" TextColor="black"></Span>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -84,7 +84,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="BSD: "></Span>
-                                                <Span Text="{Binding BombSightDeflection}" TextColor="black"></Span>
+                                                <Span Text="{Binding BombSightDeflection}" TextColor="red"></Span>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
