@@ -9,14 +9,18 @@ using System.Net.Sockets;
 
 namespace AlwaysInTarget.Network
 {
-    public static class TCPServer
+    public class TCPServer
     {
-        public static async Task Run()
+        TcpListener tcpListener;
+
+        public TCPServer()
         {
             IPAddress iPAddress = IPAddress.Parse(Storage.GetStorage().Il2DialServerModel.IPAddres);
 
-            TcpListener tcpListener = new TcpListener(iPAddress, Storage.GetStorage().Il2DialServerModel.Port);
-
+            tcpListener = new TcpListener(iPAddress, Storage.GetStorage().Il2DialServerModel.Port);
+        }
+        public async Task Run()
+        {
             try
             {
                 tcpListener.Start();
@@ -28,7 +32,9 @@ namespace AlwaysInTarget.Network
                     Storage.GetStorage().Il2DialServerModel.ServerStatus = "Waiting for calls.";
 
                     TcpClient client = await tcpListener.AcceptTcpClientAsync();
+
                     Storage.GetStorage().Il2DialServerModel.ServerStatus = "Connection established.";
+                    Storage.GetStorage().Il2DialServerModel.Connected = true;
 
                     _ = HandleClientAsync(client);
                 }
@@ -40,8 +46,16 @@ namespace AlwaysInTarget.Network
             finally
             {
                 tcpListener.Stop();
+                Storage.GetStorage().Il2DialServerModel.Connected = false;
                 Storage.GetStorage().Il2DialServerModel.ServerStatus = "Server stopped.";
             }
+        }
+
+        public void Stop()
+        {
+            tcpListener.Stop();
+            Storage.GetStorage().Il2DialServerModel.Connected = false;
+            Storage.GetStorage().Il2DialServerModel.ServerStatus = "Server stopped.";
         }
 
         static async Task HandleClientAsync(TcpClient client)

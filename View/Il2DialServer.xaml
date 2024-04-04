@@ -46,6 +46,34 @@
             <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Server status:"  FontSize="18" TextColor="White" Padding="6"/>
             <Entry Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eServerStatus" Text="{Binding ServerStatus}" Placeholder="..." TextColor="White" IsReadOnly="true"/>
 
+            <Button Text="Connect"
+                x:Name="btnConnect"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnConnectButtonClick"
+                WidthRequest="100"
+                MaximumHeightRequest="40"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
+                IsEnabled="{Binding !Connected}"
+                Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+            <Button Text="Disconnect"
+                x:Name="btnDisconnect"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnDisconnectButtonClick"
+                WidthRequest="100"
+                MaximumHeightRequest="40"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
+                IsEnabled="{Binding Connected}"
+                Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2"/>
+
             <Button Text="Back"
                 x:Name="btnBack"
                 VerticalOptions="CenterAndExpand"

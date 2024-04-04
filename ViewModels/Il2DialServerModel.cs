@@ -65,6 +65,12 @@ namespace AlwaysInTarget.ViewModels
             Connected = false;
         }
 
+        public void SetServerStatus(bool connected, string message)
+        {
+            Connected = connected;
+            ServerStatus = message;
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

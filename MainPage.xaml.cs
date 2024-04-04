@@ -9,8 +9,6 @@ namespace AlwaysInTarget
         public MainPage()
         {
             InitializeComponent();
-
-            Task.Run(() => TCPServer.Run());
         }
 
         private async void OnWeatherButtonClick(object sender, EventArgs e)
