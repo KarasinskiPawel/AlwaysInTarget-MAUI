@@ -15,6 +15,9 @@
                 <RowDefinition Height="44" />
                 <RowDefinition Height="44" />
                 <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
+                <RowDefinition Height="44" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100" />
@@ -67,6 +70,19 @@
                 TextColor="Black"
                 Grid.Row="4" Grid.Column="1"/>
 
+            <Button Text="Navigation online"
+                x:Name="btnNavigationOnline"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnNavigationOnlineButtonClick"
+                WidthRequest="200"
+                HeightRequest="40"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
+                Grid.Row="5" Grid.Column="1"/>
+
             <Button Text="Flight plan"
                 x:Name="btnFlightplan"
                 VerticalOptions="CenterAndExpand"
@@ -78,7 +94,20 @@
                 BorderColor="Gray"
                 BackgroundColor="ivory"
                 TextColor="Black"
-                Grid.Row="5" Grid.Column="1"/>
+                Grid.Row="6" Grid.Column="1"/>
+
+            <Button Text="Il 2 Dial Server"
+                x:Name="btnDialServer"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnDialServerClick"
+                WidthRequest="200"
+                HeightRequest="40"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="red"
+                TextColor="Black"
+                Grid.Row="7" Grid.Column="1"/>
 
             <Button Text="About"
                 x:Name="btnAbout"
@@ -91,7 +120,7 @@
                 BorderColor="Gray"
                 BackgroundColor="ivory"
                 TextColor="Black"
-                Grid.Row="6" Grid.Column="1"/>
+                Grid.Row="10" Grid.Column="1"/>
         </Grid>
     </ScrollView>
 

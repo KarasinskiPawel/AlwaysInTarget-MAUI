@@ -44,9 +44,9 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="White"/>
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="White" />
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg"/>
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -80,12 +80,22 @@
 	  <MauiXaml Update="View\FlightPlan.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\Il2DialServer.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Navigation.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\NavigationOnline.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Weather.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="WebSocketServer\" />
 	</ItemGroup>
 
 </Project>

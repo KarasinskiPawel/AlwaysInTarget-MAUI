@@ -1,4 +1,5 @@
-﻿using AlwaysInTarget.View;
+﻿using AlwaysInTarget.Network;
+using AlwaysInTarget.View;
 using System.Diagnostics;
 
 namespace AlwaysInTarget
@@ -9,7 +10,7 @@ namespace AlwaysInTarget
         {
             InitializeComponent();
 
-            NavigationPage.SetHasBackButton(this, false);
+            Task.Run(() => TCPServer.Run());
         }
 
         private async void OnWeatherButtonClick(object sender, EventArgs e)
@@ -27,9 +28,19 @@ namespace AlwaysInTarget
             await Navigation.PushAsync(new Navigation());
         }
 
+        private async void OnNavigationOnlineButtonClick(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new NavigationOnline());
+        }
+
         private async void OnFlightplanButtonClick(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new FlightPlan());
+        }
+
+        private async void OnDialServerClick(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Il2DialServer());
         }
 
         private async void OnAboutButtonClick(object sender, EventArgs e)

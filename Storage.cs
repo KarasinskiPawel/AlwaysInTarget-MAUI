@@ -1,5 +1,6 @@
 ﻿using AlwaysInTarget.DbCRUD.DbRead;
 using AlwaysInTarget.Models;
+using AlwaysInTarget.Network;
 using AlwaysInTarget.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace AlwaysInTarget
         public NavigationModel NavigationModel { get; set; }
 
         public BombSightModel BombSightModel { get; set; }
+        public Il2DialServerModel Il2DialServerModel { get; set; }
 
         private Storage()
         {
@@ -26,6 +28,7 @@ namespace AlwaysInTarget
             NavigationModel = new NavigationModel();
             BombSightModel = new BombSightModel();
             FlightPlanModel = new FlightPlanModel();
+            Il2DialServerModel = new Il2DialServerModel();
         }
 
         public static Storage GetStorage()
