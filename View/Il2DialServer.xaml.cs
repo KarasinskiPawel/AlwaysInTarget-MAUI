@@ -1,4 +1,4 @@
-#nul
+#nullable disable
 
 using AlwaysInTarget.Calculate;
 using AlwaysInTarget.Models;
@@ -12,12 +12,8 @@ namespace AlwaysInTarget.View;
 
 public partial class Il2DialServer : ContentPage
 {
-    TCPServer server;
-
     public Il2DialServer()
 	{
-        server = new TCPServer();
-
         BindingContext = Storage.GetStorage().Il2DialServerModel;
 
 		InitializeComponent();
@@ -25,12 +21,12 @@ public partial class Il2DialServer : ContentPage
 
     private async void OnConnectButtonClick(object sender, EventArgs e)
     {
-        await Task.Run(() => server.Run());
+        await Task.Run(() => Storage.GetStorage().UdpClient.Scan());
     }
 
-    private void OnDisconnectButtonClick(object sender, EventArgs e)
+    private async void OnDisconnectButtonClick(object sender, EventArgs e)
     {
-        server.Stop();
+        await Task.Run(() => Storage.GetStorage().UdpClient.Scan());
     }
 
     private async void OnBackButtonClick(object sender, EventArgs e)

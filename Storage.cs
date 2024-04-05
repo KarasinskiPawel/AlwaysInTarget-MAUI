@@ -22,6 +22,8 @@ namespace AlwaysInTarget
         public BombSightModel BombSightModel { get; set; }
         public Il2DialServerModel Il2DialServerModel { get; set; }
 
+        public UDPClient UdpClient { get; set; }
+
         private Storage()
         {
             WeatherConditions = new RWeatherConditions().Output();
@@ -29,6 +31,7 @@ namespace AlwaysInTarget
             BombSightModel = new BombSightModel();
             FlightPlanModel = new FlightPlanModel();
             Il2DialServerModel = new Il2DialServerModel();
+            UdpClient = new UDPClient();
         }
 
         public static Storage GetStorage()

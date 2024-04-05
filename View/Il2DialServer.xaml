@@ -35,16 +35,16 @@
             </Frame>
 
             <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="IP Address:" FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eIPAddress" Text="{Binding IPAddres}" Placeholder="IP Address" MaxLength="15" TextColor="White"/>
+            <Entry Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eIPAddress" Text="{Binding IPAddres}" Placeholder="IP Address" IsReadOnly="true" MaxLength="15" TextColor="White"/>
 
             <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="Port:" x:Name="lSpeed" FontSize="18" TextColor="White" Padding="6"/>
             <Entry Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" x:Name="ePort" Text="{Binding Port}" Placeholder="Port" Keyboard="Numeric" MaxLength="5" TextColor="White"/>
 
             <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="Scanning IP:"  FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eAltitude" Text="{Binding MasterServerIP}" Placeholder="Master server IP" MaxLength="15" TextColor="White" IsReadOnly="true"/>
+            <Entry Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eAltitude" Text="{Binding MasterServerIP}" Placeholder="Master server IP" MaxLength="15" TextColor="White"/>
 
             <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Server status:"  FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eServerStatus" Text="{Binding ServerStatus}" Placeholder="..." TextColor="White" IsReadOnly="true"/>
+            <Entry Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eServerStatus" Text="{Binding ServerStatus}" Placeholder="..." TextColor="White" IsReadOnly="True"/>
 
             <Button Text="Connect"
                 x:Name="btnConnect"
