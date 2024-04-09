@@ -8,6 +8,10 @@ namespace AlwaysInTarget
     {
         public MainPage()
         {
+            Storage.GetStorage().MainPageModel.Connected = Storage.GetStorage().Il2DialServerModel.Disconnected;
+
+            BindingContext = Storage.GetStorage().MainPageModel;
+
             InitializeComponent();
         }
 

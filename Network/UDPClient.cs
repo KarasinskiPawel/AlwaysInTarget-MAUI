@@ -22,18 +22,33 @@ namespace AlwaysInTarget.Network
     {
         private const int sendRate = 16; //
         private bool testPrediction = false;
-        private PlaneDataM planeDataM;
 
-        bool connected =  false;
+        private PlaneDataM planeDataM = new PlaneDataM();
+        private ConnectionM connectionM = new ConnectionM();
+
+        private bool threadStop = false;
+
+        Thread udpListenerThread;
 
         public UDPClient() 
         {
         
         }
 
+        public PlaneDataM GetPlaneDataM() => planeDataM;
+
+        public ConnectionM GetConnectionM() => connectionM;
+
+        public void CloseConnection()
+        {
+            threadStop = true;
+            connectionM.SetConnectionStatus("0.0.0.0", "Disconnected", false);
+        }
+
         public void Scan()
         {
-            string serverAddress = Storage.GetStorage().Il2DialServerModel.MasterServerIP;
+            threadStop = false;
+            string serverAddress = Storage.GetStorage().Il2DialServerModel.HostIp;
 
             if(serverAddress == "0.0.0.0")
             {
@@ -41,13 +56,13 @@ namespace AlwaysInTarget.Network
                 {
                     for (int j = 118; j <= 255; j++)
                     {
-                        if (!connected)
+                        if (!connectionM.Connected)
                         {
-                            Storage.GetStorage().Il2DialServerModel.MasterServerIP = $"192.168.{i}.{j}";
+                            Storage.GetStorage().Il2DialServerModel.HostIp = $"192.168.{i}.{j}";
 
                             Thread.Sleep(16);
 
-                            Thread thread = new Thread(() => UDPScanner(Storage.GetStorage().Il2DialServerModel.MasterServerIP));
+                            Thread thread = new Thread(() => UDPScanner(Storage.GetStorage().Il2DialServerModel.HostIp));
                             thread.IsBackground = true;
                             thread.Start();
                         }
@@ -56,11 +71,14 @@ namespace AlwaysInTarget.Network
                             break;
                         }
                     }
+
+                    if (connectionM.Connected)
+                        break;
                 }
             }
             else
             {
-                Thread thread = new Thread(() => UDPScanner(Storage.GetStorage().Il2DialServerModel.MasterServerIP));
+                Thread thread = new Thread(() => UDPScanner(Storage.GetStorage().Il2DialServerModel.HostIp));
                 thread.IsBackground = true;
                 thread.Start();
             }
@@ -94,7 +112,6 @@ namespace AlwaysInTarget.Network
             }
             catch(Exception e)
             {
-                Storage.GetStorage().Il2DialServerModel.SetServerStatus(false, e.Message);
                 client.Close();
             }
         }
@@ -111,14 +128,9 @@ namespace AlwaysInTarget.Network
             client.Connect(ep);
 
             //now we have an end point create a listener on a seperate thread
-            Thread thread = new Thread(() => UDPListener(client, ep));
-            thread.IsBackground = true;
-            thread.Start();
-
-            //BackgroundWorker worker = new BackgroundWorker();
-            //worker.DoWork += new DoWorkEventHandler(bg_DoWork);
-            //worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bg_RunWorkerCompleted);
-            //worker.RunWorkerAsync();
+            udpListenerThread = new Thread(() => UDPListener(client, ep));
+            udpListenerThread.IsBackground = true;
+            udpListenerThread.Start();
 
             try
             {
@@ -140,35 +152,17 @@ namespace AlwaysInTarget.Network
             client.Close();
         }
 
-        //static void bg_DoWork(object sender, DoWorkEventArgs e)
-        //{
-        //    for (int i = 1; i <= 5; i++)
-        //    {
-        //        Console.WriteLine("Work Line: " + i + ", tid " + Thread.CurrentThread.ManagedThreadId);
-        //        Thread.Sleep(500);
-        //    }
-        //}
-
-        //private void bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-        //    Console.WriteLine("Completed, tid " + Thread.CurrentThread.ManagedThreadId);
-        //    connected = true;
-        //}
 
         private void UDPListener(UdpClient udpClient, IPEndPoint ep)
         {
-            connected = true;
-
-            //StaticStorage.il2DialServerModel.Connected = true;
-            //StaticStorage.il2DialServerModel.ServerStatus = "Connected";
-            //StaticStorage.il2DialServerModel.MasterServerIP = ep.ToString();
-
             bool udpReceived = false;
 
             try
             {
-                while (true)
+                while (!threadStop)
                 {
+                    connectionM.SetConnectionStatus(ep.Address.MapToIPv4().ToString(), "Connected", true);
+
                     udpReceived = false;
 
                     //////blocking call
@@ -183,7 +177,7 @@ namespace AlwaysInTarget.Network
             }
             catch (Exception e)
             {
-                Storage.GetStorage().Il2DialServerModel.SetServerStatus(false, e.Message);
+                connectionM.SetConnectionStatus(ep.ToString(), e.Message, false);
             }
         }
 
@@ -247,9 +241,8 @@ namespace AlwaysInTarget.Network
                 return result;
 
             }
-            catch (Exception e)
+            catch
             {
-                Storage.GetStorage().Il2DialServerModel.SetServerStatus(false, e.Message);
                 return null;
             }
 

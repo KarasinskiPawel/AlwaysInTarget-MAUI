@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AlwaysInTarget.Models
 {
-    internal class PlaneDataM
+    public class PlaneDataM
     {
         public float Altitude { get; set; }
         public float Mmhg { get; set; }

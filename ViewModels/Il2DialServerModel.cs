@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using AlwaysInTarget.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,12 +13,11 @@ namespace AlwaysInTarget.ViewModels
 {
     public class Il2DialServerModel : INotifyPropertyChanged
     {
-        Regex ip = new Regex(@"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b");
-
         private string _iPAddres;
         private int _port;
-        private string _masterServerIP;
+        private string _hostIp;
         private bool _connected;
+        private bool _disconnected;
         private string _serverStatus;
 
         public string IPAddres {
@@ -34,11 +34,11 @@ namespace AlwaysInTarget.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Port)));
             }
         }
-        public string MasterServerIP {
-            get => _masterServerIP;
+        public string HostIp {
+            get => _hostIp;
             set {
-                _masterServerIP = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MasterServerIP)));
+                _hostIp = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HostIp)));
             }
         }
 
@@ -49,6 +49,16 @@ namespace AlwaysInTarget.ViewModels
             {
                 _connected = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Connected)));
+            }
+        }
+
+        public bool Disconnected
+        {
+            get => _disconnected;
+            set
+            {
+                _disconnected = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Disconnected)));
             }
         }
 
@@ -64,36 +74,16 @@ namespace AlwaysInTarget.ViewModels
         {
             IPAddres = "127.0.0.1";
             Port = 11200;
-            MasterServerIP = "0.0.0.0";
-            Connected = false;
+            HostIp = "0.0.0.0";
+            Connected = true;
+            Disconnected = false;
         }
-
-        //private string IpRegex(string val)
-        //{
-        //    string output = string.Empty;
-
-        //    if (string.IsNullOrWhiteSpace(val))
-        //    {
-        //        MatchCollection result = ip.Matches(val);
-
-        //        if(!(result is null) && result.Count > 0)
-        //            output = result[0].ToString();
-        //    }
-
-        //    return output;
-        //}
-
-        public void SetServerStatus(bool connected, string message)
+        public void SetServerStatus(ConnectionM connectionM)
         {
-            Connected = connected;
-            ServerStatus = message;
-        }
-
-        public void SetServerStatus(bool connected, string message, string masterServerIP)
-        {
-            Connected = connected;
-            ServerStatus = message;
-            MasterServerIP= masterServerIP;
+            Connected = !connectionM.Connected;
+            Disconnected = connectionM.Connected;
+            ServerStatus = connectionM.ConnectionStatus;
+            HostIp = connectionM.HostIp;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

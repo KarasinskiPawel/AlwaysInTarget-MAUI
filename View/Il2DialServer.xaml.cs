@@ -22,11 +22,21 @@ public partial class Il2DialServer : ContentPage
     private async void OnConnectButtonClick(object sender, EventArgs e)
     {
         await Task.Run(() => Storage.GetStorage().UdpClient.Scan());
+        await Task.Run(() => RefreshModel());
     }
 
-    private async void OnDisconnectButtonClick(object sender, EventArgs e)
+    private void RefreshModel()
     {
-        await Task.Run(() => Storage.GetStorage().UdpClient.Scan());
+        while (true)
+        {
+            Storage.GetStorage().Il2DialServerModel.SetServerStatus(Storage.GetStorage().UdpClient.GetConnectionM());
+            Thread.Sleep(1000);
+        }
+    }
+
+    private void OnDisconnectButtonClick(object sender, EventArgs e)
+    {
+        Storage.GetStorage().UdpClient.CloseConnection();
     }
 
     private async void OnBackButtonClick(object sender, EventArgs e)

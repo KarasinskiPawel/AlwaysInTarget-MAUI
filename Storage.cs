@@ -23,6 +23,7 @@ namespace AlwaysInTarget
         public Il2DialServerModel Il2DialServerModel { get; set; }
 
         public UDPClient UdpClient { get; set; }
+        public MainPageModel MainPageModel { get; set; }
 
         private Storage()
         {
@@ -32,6 +33,7 @@ namespace AlwaysInTarget
             FlightPlanModel = new FlightPlanModel();
             Il2DialServerModel = new Il2DialServerModel();
             UdpClient = new UDPClient();
+            MainPageModel = new MainPageModel();
         }
 
         public static Storage GetStorage()
