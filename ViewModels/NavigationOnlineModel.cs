@@ -13,8 +13,9 @@ namespace AlwaysInTarget.ViewModels
     {
         private string _planeType = string.Empty;
         private int _course;
-        private int _realCourse { get; set; }
+        private int _trueHeading { get; set; }
         private int _altitude { get; set; }
+        private int _tas_KM;
         private int _windDirection { get; set; }
         private decimal _windStrenght { get; set; }
         private string _windCorrectionAngel { get; set; }
@@ -35,14 +36,29 @@ namespace AlwaysInTarget.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Course)));
             }
         }
-        public int RealCourse {
-            get => _realCourse;
+        public int TrueHeading {
+            get => _trueHeading;
             set {
-                _realCourse = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RealCourse)));
+                _trueHeading = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TrueHeading)));
             }
         }
-        public int PlannedCourse { get; set; }
+        public int TrueCourse { get; set; }
+
+        public int IAS { get; set; }
+        public int TAS_KM
+        {
+            get => _tas_KM;
+            set
+            {
+                if (_tas_KM == value)
+                    return;
+
+                _tas_KM = value;
+                TAS_MPH = Convert.ToInt32(value / 1.609M);
+            }
+        }
+        public int TAS_MPH { get; set; }
         public int Altitude {
             get => _altitude;
             set {
