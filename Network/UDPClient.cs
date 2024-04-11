@@ -1,6 +1,7 @@
 ﻿#nullable disable
 
 using AlwaysInTarget.Models;
+using AlwaysInTarget.TestDataGenerator;
 using AlwaysInTarget.ViewModels;
 
 using FluentAssertions;
@@ -172,7 +173,9 @@ namespace AlwaysInTarget.Network
 
                     udpReceived = true;
 
-                    Thread.Sleep(1000);
+                    //Test
+                    //Thread.Sleep(3000);
+                    Thread.Sleep(250);
                 }
             }
             catch (Exception e)
@@ -197,9 +200,12 @@ namespace AlwaysInTarget.Network
             if (!testPrediction)
             {
                 planeDataM = new PlaneDataM(floats[0], floats[1], floats[2], floats[3], floats[6]);
+
+                //test
+                //planeDataM = new Generator().Output();
             }
 
-            Debug.WriteLine($"Plane alt: {planeDataM.Altitude}, plane speed: {planeDataM.Airspeed}, plane heading: {planeDataM.Heading}");
+            //Debug.WriteLine($"Plane alt: {planeDataM.Altitude}, plane speed: {planeDataM.Airspeed}, plane heading: {planeDataM.Heading}");
 
             p += floatArrayLengthBytes;
 

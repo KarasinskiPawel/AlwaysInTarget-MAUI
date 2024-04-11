@@ -34,7 +34,7 @@
             </Frame>
 
             <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Plane:" FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="ePlaneType" Text="{Binding PlaneType}" Placeholder="...waiting..." Keyboard="Numeric" MaxLength="3" TextColor="White" IsEnabled="False"/>
+            <Entry Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="ePlaneType" Text="{Binding PlaneType}" Placeholder="...waiting..." Keyboard="Numeric" TextColor="White" IsEnabled="False"/>
 
             <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="System:" FontSize="18" TextColor="White" MaximumHeightRequest="40" Padding="6"/>
             <Picker x:Name="eSystem" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontSize="18" MaximumHeightRequest="40" TextColor="White"
@@ -50,15 +50,20 @@
             <Entry Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1" x:Name="eCompassHeading" Text="{Binding Course}" Placeholder="...err..." Keyboard="Numeric" MaxLength="3" TextColor="White" IsEnabled="False"/>
 
             <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="1" Text="True hdg: " FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" x:Name="eTrueHeading" Text="{Binding TrueHeading}" Placeholder="...err..." Keyboard="Numeric" MaxLength="3" TextColor="White" IsEnabled="False"/>
+            <Entry Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" x:Name="eTrueHeading" Text="{Binding TrueHeading}" Placeholder="...err..." Keyboard="Numeric" MaxLength="6" TextColor="White" IsEnabled="False"/>
 
             <Label Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" Text="Map:" FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="1" x:Name="eTrueCourse" Text="{Binding TrueCourse}" Placeholder=" - - - " Keyboard="Numeric" MaxLength="3" TextColor="White"/>
+            <Entry Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="1" x:Name="eTrueCourse" Text="{Binding TrueCourse}" Placeholder=" - - - " Keyboard="Numeric" MaxLength="6" TextColor="White"/>
 
 
 
-            <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lSpeed" FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eIas" Text="{Binding IAS}" Placeholder="IAS" Keyboard="Numeric" MaxLength="3" TextColor="White" IsEnabled="False"/>
+            <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="1" x:Name="lSpeedIas" FontSize="14" TextColor="White" Padding="10"/>
+            <Entry Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" x:Name="eIas" Text="{Binding IAS}" Placeholder="IAS" Keyboard="Numeric" MaxLength="3" TextColor="White" IsEnabled="False"/>
+
+            <Label Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="1" x:Name="lSpeedTas" FontSize="14" TextColor="White" Padding="10"/>
+            <Entry Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="1" x:Name="eTas" Text="{Binding TAS}" Placeholder="IAS" Keyboard="Numeric" MaxLength="3" TextColor="White" IsEnabled="False"/>
+            
+            
 
             <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lAlt" FontSize="18" TextColor="White" Padding="6"/>
             <Entry Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eAltitude" Text="{Binding Altitude}" Placeholder="Altitude" Keyboard="Numeric" MaxLength="6" TextColor="White" IsEnabled="False"/>

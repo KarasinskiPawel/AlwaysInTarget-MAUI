@@ -28,5 +28,16 @@ namespace AlwaysInTarget.Models
             Heading = heading;
             VerticalSpeed = varticalSpeed;
         }
+
+        public void SetPlaneData(PlaneDataM newData)
+        {
+            Altitude = newData.Altitude;
+            Mmhg= newData.Mmhg;
+            Airspeed = newData.Airspeed;
+            Heading = newData.Heading;
+            VerticalSpeed = newData.VerticalSpeed;
+            ServerVersion = newData.ServerVersion;
+            PlaneType = newData.PlaneType;
+        }
     }
 }

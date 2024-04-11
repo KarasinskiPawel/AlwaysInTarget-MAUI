@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using AlwaysInTarget.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +14,10 @@ namespace AlwaysInTarget.ViewModels
     {
         private string _planeType = string.Empty;
         private int _course;
-        private int _trueHeading { get; set; }
+        private string _trueHeading { get; set; }
         private int _altitude { get; set; }
+        private int _ias;
+        private int _tas;
         private int _tas_KM;
         private int _windDirection { get; set; }
         private decimal _windStrenght { get; set; }
@@ -36,7 +39,7 @@ namespace AlwaysInTarget.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Course)));
             }
         }
-        public int TrueHeading {
+        public string TrueHeading {
             get => _trueHeading;
             set {
                 _trueHeading = value;
@@ -45,7 +48,22 @@ namespace AlwaysInTarget.ViewModels
         }
         public int TrueCourse { get; set; }
 
-        public int IAS { get; set; }
+        public int IAS { 
+            get => _ias;
+            set 
+            {
+                _ias = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IAS)));
+            }
+        }
+        public int TAS {
+            get => _tas;
+            set
+            {
+                _tas = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TAS)));
+            }
+        }
         public int TAS_KM
         {
             get => _tas_KM;
@@ -63,8 +81,10 @@ namespace AlwaysInTarget.ViewModels
             get => _altitude;
             set {
                 _altitude = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Altitude)));
             }
         }
+
         public int WindDirection
         {
             get => _windDirection;
@@ -111,6 +131,8 @@ namespace AlwaysInTarget.ViewModels
         {
             SelectedSystem = "Metric";
         }
+
+        public PlaneDataM planeDataM { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

@@ -15,6 +15,7 @@ namespace AlwaysInTarget.Calculate
     {
         NavigationCalculationResult output = new NavigationCalculationResult();
         NavigationModel navigationModel;
+        NavigationOnlineModel navigationOnlineModel;
         DataConversion convertedData;
 
         int DM = default(int); //wiatr z kierunku
@@ -38,6 +39,19 @@ namespace AlwaysInTarget.Calculate
             NKDM = navigationModel.Course;
             U = navigationModel.WindStrenght;
             system = navigationModel.SelectedSystem;
+
+            Execute();
+        }
+
+        public AccurateNavigationCalculator(NavigationOnlineModel navigationModel, DataConversion convertedData)
+        {
+            this.navigationOnlineModel = navigationModel;
+            this.convertedData = convertedData;
+
+            DM = navigationOnlineModel.WindDirection;
+            NKDM = navigationOnlineModel.Course;
+            U = navigationOnlineModel.WindStrenght;
+            system = navigationOnlineModel.SelectedSystem;
 
             Execute();
         }
@@ -125,15 +139,21 @@ namespace AlwaysInTarget.Calculate
                     output.Correct = true;
 
                     Storage.GetStorage().BombSightModel.Course = Convert.ToInt32(r);
-                    Storage.GetStorage().BombSightModel.WindDirection = navigationModel.WindDirection;
+
+                    if(!(navigationModel is null))
+                        Storage.GetStorage().BombSightModel.WindDirection = navigationModel.WindDirection;
+
+                    if(!(navigationOnlineModel is null))
+                        Storage.GetStorage().BombSightModel.WindDirection = navigationOnlineModel.WindDirection;
+
                     Storage.GetStorage().NavigationModel.TAS_KM = Convert.ToInt32(convertedData.TAS_KM);
 
 
                 }
                 else
                 {
-                    output.WindCorrectionAngel = "IAS cannot be 0!";
-                    output.Heading = "Incorrect data";
+                    output.WindCorrectionAngel = "- - -";
+                    output.Heading = "- - -";
                     output.Correct = false;
                 }
             }

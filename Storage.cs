@@ -18,6 +18,7 @@ namespace AlwaysInTarget
         public List<WeatherConditionM> WeatherConditions { get; set; }
         public FlightPlanModel FlightPlanModel { get; set; }
         public NavigationModel NavigationModel { get; set; }
+        public NavigationOnlineModel NavigationOnlineModel { get; set; }
 
         public BombSightModel BombSightModel { get; set; }
         public Il2DialServerModel Il2DialServerModel { get; set; }
@@ -27,8 +28,9 @@ namespace AlwaysInTarget
 
         private Storage()
         {
-            WeatherConditions = new RWeatherConditions().Output();
+            WeatherConditions = new RWeatherConditionsMock().Output();
             NavigationModel = new NavigationModel();
+            NavigationOnlineModel = new NavigationOnlineModel();
             BombSightModel = new BombSightModel();
             FlightPlanModel = new FlightPlanModel();
             Il2DialServerModel = new Il2DialServerModel();
