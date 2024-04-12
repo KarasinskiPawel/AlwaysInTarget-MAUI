@@ -9,6 +9,6 @@ namespace AlwaysInTarget
             InitializeComponent();
 
             MainPage = new AppShell();
-        }
+        }       
     }
 }

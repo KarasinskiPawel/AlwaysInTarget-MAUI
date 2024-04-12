@@ -1,14 +1,20 @@
+#nullable disable
+
 using AlwaysInTarget.Auxiliary;
 using AlwaysInTarget.Calculate;
 using AlwaysInTarget.Models;
 using AlwaysInTarget.ViewModels;
 using AlwaysInTarget.WindStrengthAndDirection;
+using System.Diagnostics;
+using System.Numerics;
 
 namespace AlwaysInTarget.View;
 
 public partial class NavigationOnline : ContentPage
 {
     NavigationOnlineModel navigation = new NavigationOnlineModel();
+    Thread dataRefresh;
+    bool dataRefreshStop = false;
 
     public NavigationOnline()
 	{
@@ -21,9 +27,12 @@ public partial class NavigationOnline : ContentPage
         RunRefresh();
     }
 
-    private async void RunRefresh()
+    private void RunRefresh()
     {
-        await Task.Run(() => RefershPlaneDataModel());
+        //await Task.Run(() => RefershPlaneDataModel());
+        dataRefresh = new Thread(() => RefershPlaneDataModel());
+        dataRefresh.IsBackground = true;
+        dataRefresh.Start();
     }
 
     private void RefershPlaneDataModel()
@@ -31,38 +40,44 @@ public partial class NavigationOnline : ContentPage
         PlaneDataM planeData;
         DataConversion conversion;
 
-        while (true)
+        while (!dataRefreshStop)
         {
             planeData = Storage.GetStorage().UdpClient.GetPlaneDataM();
 
             if (planeData != null)
             {
+                //dane z Il 2 Dial server zawsze s¹ w systemie metrycznym.
+                conversion = new DataConversion((int)planeData.Airspeed_KM, (int)planeData.Altitude_M, "Metric");
+
+                //Rozmieszczenie danuych na wyœwietlaczu.
                 navigation.PlaneType = planeData.PlaneType;
-                navigation.Altitude = (int)planeData.Altitude;
+
+                switch (navigation.SelectedSystem)
+                {
+                    case "Metric":
+                        navigation.Altitude = conversion.Altitude_M;
+                        navigation.IAS = (int)conversion.IAS_KM;
+                        navigation.TAS = new IasToTasConversion(conversion.IAS_KM, conversion.Altitude_FT).GetTAS_KM_H();
+                        break;
+                    case "Imperial":
+                        navigation.Altitude = conversion.Altitude_FT;
+                        navigation.IAS = (int)conversion.IAS_MPH;
+                        navigation.TAS = new IasToTasConversion(conversion.IAS_KM, conversion.Altitude_FT).GetTAS_MPH();
+                        break;
+                }
+
+                navigation.Course = (int)planeData.Heading;               
 
                 if (navigation.Altitude > 0)
                 {
-                    WeatherConditionsSystem weatherConditionsSystem = new WeatherConditionsSystem(
-                        new DataConversion(
-                            navigation.Altitude,
-                            navigation.SelectedSystem),
-                            Storage.GetStorage().WeatherConditions
-                        );
+                    WeatherConditionsSystem weatherConditionsSystem = new WeatherConditionsSystem(conversion, Storage.GetStorage().WeatherConditions);
 
                     navigation.WindStrenght = weatherConditionsSystem.GetWindStrength();
                     navigation.WindDirection = weatherConditionsSystem.GetWindDirection();
                 }
 
-                navigation.Course = (int)planeData.Heading;
-
-                navigation.IAS = (int)planeData.Airspeed;
-
-                conversion = new DataConversion((int)planeData.Airspeed, (int)planeData.Altitude, navigation.SelectedSystem);
-
-                navigation.TAS = new IasToTasConversion(conversion.IAS_KM, conversion.Altitude_FT, navigation.SelectedSystem).GetTAS();
-
                 //poprawki
-                var output = new AccurateNavigationCalculator(navigation, new DataConversion(navigation.IAS, navigation.Altitude, navigation.SelectedSystem)).Output();
+                var output = new AccurateNavigationCalculator(navigation, conversion).Output();
 
                 navigation.WindCorrectionAngel = output.WindCorrectionAngel;
                 navigation.TrueHeading = output.Heading;
@@ -70,12 +85,19 @@ public partial class NavigationOnline : ContentPage
                 navigation.BombSightDeflection = Storage.GetStorage().BombSightModel.BombSightDeflection;
             }
 
-            Thread.Sleep(250);
+            Thread.Sleep(17);
         }
+    }
+
+    private void Course(float heading)
+    {
+
     }
 
     private async void OnBackButtonClick(object sender, EventArgs e)
     {
+        dataRefreshStop = true;
+
         await Navigation.PushAsync(new MainPage());
     }
 

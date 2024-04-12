@@ -10,16 +10,14 @@ namespace AlwaysInTarget.Auxiliary
         private readonly int _altitudeInFeet = default;
         private int speedInKM = default;
         private int TAS = default;
-        private string _system = string.Empty;
 
         private static decimal FEET = 3.045M;
         private static decimal ANGLO_SAXON_MILE = 1.604m;
 
-        public IasToTasConversion(decimal IAS, int altitudeInFeet, string system)
+        public IasToTasConversion(decimal IAS, int altitudeInFeet)
         {
             _IAS = Convert.ToInt32(IAS);
             _altitudeInFeet = altitudeInFeet;
-            _system = system;
 
             Execute();
         }
@@ -48,9 +46,14 @@ namespace AlwaysInTarget.Auxiliary
             }
         }
 
-        public int GetTAS()
+        public int GetTAS_KM_H()
         {
             return TAS;
+        }
+
+        public int GetTAS_MPH()
+        {
+            return Convert.ToInt32(TAS / 1.609M);
         }
     }
 }

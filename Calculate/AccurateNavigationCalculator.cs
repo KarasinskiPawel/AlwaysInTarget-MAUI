@@ -62,7 +62,7 @@ namespace AlwaysInTarget.Calculate
             {
                 U = U * 1.94M; //Convert wind speed from m/s to knots.
 
-                convertedData.TAS_KM = new IasToTasConversion(convertedData.IAS_KM, convertedData.Altitude_FT, system).GetTAS();
+                convertedData.TAS_KM = new IasToTasConversion(convertedData.IAS_KM, convertedData.Altitude_FT).GetTAS_KM_H();
 
                 if(convertedData.TAS_KM > 0)
                 {

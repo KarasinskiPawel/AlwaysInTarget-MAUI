@@ -89,7 +89,7 @@ namespace AlwaysInTarget.Calculate
 
                 for(int i = 0; i < windRoseDirections.Count; i++)
                 {
-                    Debug.WriteLine($"Quarter: { windRoseDirections[i].Quarter}, Bearing: {windRoseDirections[i].Value}");
+                    //Debug.WriteLine($"Quarter: { windRoseDirections[i].Quarter}, Bearing: {windRoseDirections[i].Value}");
 
                     if (!(windRoseDirections[i+1] is null))
                     {

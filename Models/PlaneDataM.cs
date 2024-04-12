@@ -10,9 +10,9 @@ namespace AlwaysInTarget.Models
 {
     public class PlaneDataM
     {
-        public float Altitude { get; set; }
+        public float Altitude_M { get; set; }
         public float Mmhg { get; set; }
-        public float Airspeed { get; set; }
+        public float Airspeed_KM { get; set; }
         public float Heading { get; set; }
         public float VerticalSpeed { get; set; }
         public float ServerVersion { get; set; }
@@ -22,18 +22,39 @@ namespace AlwaysInTarget.Models
 
         public PlaneDataM(float altitude, float mmhg, float airspeed, float heading, float varticalSpeed)
         {
-            Altitude = altitude;
+            ///Dane z gry:
+            ///wysokość - zawsze w metrach
+            ///Prędkość - zawsze w km/h
+            ///kierunek - radiany
+
+            Altitude_M = altitude;
             Mmhg = mmhg;
-            Airspeed = airspeed;
-            Heading = heading;
+            Airspeed_KM = airspeed;
+            Heading = RadiansToDegrees(heading);
             VerticalSpeed = varticalSpeed;
+        }
+
+        private int RadiansToDegrees(float radians)
+        {
+            int output;
+
+            try
+            {
+                output = Convert.ToInt32((radians * Math.PI) / 180);
+            }
+            catch
+            {
+                output = 0;
+            }
+
+            return output;
         }
 
         public void SetPlaneData(PlaneDataM newData)
         {
-            Altitude = newData.Altitude;
+            Altitude_M = newData.Altitude_M;
             Mmhg= newData.Mmhg;
-            Airspeed = newData.Airspeed;
+            Airspeed_KM = newData.Airspeed_KM;
             Heading = newData.Heading;
             VerticalSpeed = newData.VerticalSpeed;
             ServerVersion = newData.ServerVersion;

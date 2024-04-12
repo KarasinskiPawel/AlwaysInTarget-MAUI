@@ -53,9 +53,9 @@ namespace AlwaysInTarget.Network
 
             if(serverAddress == "0.0.0.0")
             {
-                for (int i = 50; i <= 255; i++)
+                for (int i = 0; i <= 255; i++)
                 {
-                    for (int j = 118; j <= 255; j++)
+                    for (int j = 0; j <= 255; j++)
                     {
                         if (!connectionM.Connected)
                         {
@@ -156,26 +156,16 @@ namespace AlwaysInTarget.Network
 
         private void UDPListener(UdpClient udpClient, IPEndPoint ep)
         {
-            bool udpReceived = false;
-
             try
             {
                 while (!threadStop)
                 {
                     connectionM.SetConnectionStatus(ep.Address.MapToIPv4().ToString(), "Connected", true);
 
-                    udpReceived = false;
-
                     //////blocking call
                     byte[] receivedData = udpClient.Receive(ref ep);
 
                     ProcessPackage(receivedData);
-
-                    udpReceived = true;
-
-                    //Test
-                    //Thread.Sleep(3000);
-                    Thread.Sleep(250);
                 }
             }
             catch (Exception e)

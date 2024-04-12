@@ -15,6 +15,8 @@ namespace AlwaysInTarget
             InitializeComponent();
         }
 
+        private void AlwaysOnSwitch_Toggled(object sender, ToggledEventArgs e) => DeviceDisplay.Current.KeepScreenOn = true;
+
         private async void OnWeatherButtonClick(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new Weather());
