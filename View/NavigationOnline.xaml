@@ -4,81 +4,138 @@
              x:Class="AlwaysInTarget.View.NavigationOnline"
              Shell.NavBarIsVisible="false">
 
-    <ScrollView BackgroundColor="Black">
-        <Grid Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Frame  BackgroundColor="Blue"  Padding="12" CornerRadius="5" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="0, 0, 0, 10">
+    <ScrollView>
+        <StackLayout BackgroundColor="Black">
+            <Frame BackgroundColor="Blue"  Padding="12" CornerRadius="5" Margin="5, 5, 5, 10">
                 <Label Text="Navigation online" TextColor="White" FontSize="20" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
             </Frame>
 
-            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Plane:" FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="ePlaneType" Text="{Binding PlaneType}" Placeholder="...waiting..." Keyboard="Numeric" TextColor="White" IsEnabled="False"/>
+            <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="System:" FontSize="18" TextColor="White" MaximumHeightRequest="40" Padding="6"/>
-            <Picker x:Name="eSystem" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontSize="18" MaximumHeightRequest="40" TextColor="White"
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Text="Plane:" FontSize="18" TextColor="Black" Padding="6" HorizontalTextAlignment="Center"/>
+                    <Entry Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" x:Name="ePlaneType" FontSize="18" Text="{Binding PlaneType}" Placeholder="...waiting..." Keyboard="Numeric" TextColor="Black" IsReadOnly="True" />
+                </Grid>
+            </Frame>
+
+            <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Text="System:" FontSize="18" TextColor="Black" Padding="6" HorizontalTextAlignment="Center"/>
+                    <Picker x:Name="eSystem" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontSize="18" TextColor="Black"
                     Title="...system..."    
                     ItemsSource="{Binding MeasureSystems}"
                     SelectedIndex="0"
                     SelectedItem="{Binding SelectedSystem}" 
                     SelectedIndexChanged="System_SelectedIndexChanged"
                     TitleColor="red">
-            </Picker>
+                    </Picker>
+                </Grid>
+            </Frame>
 
-            <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Text="Compas: " FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1" x:Name="eCompassHeading" Text="{Binding Course}" Placeholder="...err..." Keyboard="Numeric" MaxLength="4" TextColor="White" IsEnabled="False"/>
+            <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="1" Text="True hdg: " FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1" x:Name="eTrueHeading" Text="{Binding TrueHeading}" Placeholder="...err..." Keyboard="Numeric" MaxLength="6" TextColor="White" IsEnabled="False"/>
+                    <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Text="Heading: " FontSize="18" TextColor="Black" Padding="6"/>
+                    <Entry Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" x:Name="eCompassHeading" Text="{Binding Course}" FontSize="18" Placeholder="...err..." Keyboard="Numeric" MaxLength="4" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
 
-            <Label Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1" Text="Map:" FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="1" x:Name="eTrueCourse" Text="{Binding TrueCourse}" Placeholder=" - - - " Keyboard="Numeric" MaxLength="6" TextColor="White"/>
+                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Text="True hdg: " FontSize="18" TextColor="Black" Padding="6"/>
+                    <Entry Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" x:Name="eTrueHeading" Text="{Binding TrueHeading}" FontSize="18" Placeholder="...err..." Keyboard="Numeric" MaxLength="6" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
 
+                    <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Text="Map hdg:" FontSize="18" TextColor="Black" Padding="6"/>
+                    <Entry Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" x:Name="eTrueCourse" Text="{Binding TrueCourse}" FontSize="18" Placeholder=" - - - " Keyboard="Numeric" MaxLength="6" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </Grid>
+            </Frame>
 
+            <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="44"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="4.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="1" x:Name="lSpeedIas" FontSize="14" TextColor="White" Padding="10"/>
-            <Entry Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" x:Name="eIas" Text="{Binding IAS}" Placeholder="IAS" Keyboard="Numeric" MaxLength="4" TextColor="White" IsEnabled="False"/>
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" x:Name="lSpeedIas" FontSize="18" TextColor="Black" Padding="10"/>
+                    <Entry Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" x:Name="eIas" Text="{Binding IAS}" FontSize="18" Placeholder="IAS" Keyboard="Numeric" MaxLength="4" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
 
-            <Label Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="1" x:Name="lSpeedTas" FontSize="14" TextColor="White" Padding="10"/>
-            <Entry Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="1" x:Name="eTas" Text="{Binding TAS}" Placeholder="IAS" Keyboard="Numeric" MaxLength="4" TextColor="White" IsEnabled="False"/>
-            
-            
+                    <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" x:Name="lSpeedTas" FontSize="18" TextColor="Black" Padding="10"/>
+                    <Entry Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="1" x:Name="eTas" Text="{Binding TAS}" FontSize="18" Placeholder="IAS" Keyboard="Numeric" MaxLength="4" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
+                </Grid>
+            </Frame>
 
-            <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lAlt" FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eAltitude" Text="{Binding Altitude}" Placeholder="Altitude" Keyboard="Numeric" MaxLength="6" TextColor="White" IsEnabled="False"/>
+            <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind from:" FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eWindDirection" Text="{Binding WindDirection}" Placeholder="Wind direction" Keyboard="Numeric" MaxLength="4" TextColor="White" IsEnabled="False"/>
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="lAlt" FontSize="18" TextColor="Black" Padding="6"/>
+                    <Entry Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eAltitude" FontSize="18" Text="{Binding Altitude}" Placeholder="Altitude" Keyboard="Numeric" MaxLength="6" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
 
-            <Label Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind strength (m/s):" FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eWindStrenght" Text="{Binding WindStrenght}" Placeholder="WindStrength" Keyboard="Numeric" MaxLength="5" TextColor="White" IsEnabled="False"/>
+                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind from:" FontSize="18" TextColor="Black" Padding="6"/>
+                    <Entry Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eWindDirection"  FontSize="18" Text="{Binding WindDirection}" Placeholder="Wind direction" Keyboard="Numeric" MaxLength="4" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
 
-            <Label Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind Correction Angle:" FontSize="18" TextColor="White" Padding="6"/>
-            <Entry Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eCorrectionAngle" Text="{Binding WindCorrectionAngel}" Placeholder=" - - - " TextColor="White" IsEnabled="False"/>
+                    <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind strength (m/s):" FontSize="18" TextColor="Black" Padding="6"/>
+                    <Entry Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eWindStrenght"  FontSize="18" Text="{Binding WindStrenght}" Placeholder="WindStrength" Keyboard="Numeric" MaxLength="5" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
+                </Grid>
+            </Frame>
 
-            <Label Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Text="Bombsight deflection:" FontSize="18" TextColor="White" MaximumHeightRequest="40" Padding="6"/>
-            <Entry Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eBombsightDeflection" Text="{Binding BombSightDeflection}" Placeholder=" - - - " TextColor="White" IsEnabled="False"/>
+            <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Wind Correction Angle:" FontSize="18" TextColor="Black" Padding="6"/>
+                    <Entry Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eCorrectionAngle" FontSize="18" Text="{Binding WindCorrectionAngel}" Placeholder=" - - - " TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Bombsight def:" FontSize="18" TextColor="Black" MaximumHeightRequest="40" Padding="6"/>
+                    <Entry Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eBombsightDeflection" FontSize="18" Text="{Binding BombSightDeflection}" Placeholder=" - - - "  TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
+                </Grid>
+            </Frame>
 
             <Button Text="Back"
                 x:Name="btnBack"
@@ -91,7 +148,6 @@
                 BorderColor="Ivory"
                 BackgroundColor="Red"
                 Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2"/>
-
-        </Grid>
+        </StackLayout>
     </ScrollView>
 </ContentPage>
