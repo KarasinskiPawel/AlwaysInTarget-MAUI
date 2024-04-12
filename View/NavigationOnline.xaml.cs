@@ -66,7 +66,7 @@ public partial class NavigationOnline : ContentPage
                         break;
                 }
 
-                navigation.Course = (int)planeData.Heading;               
+                navigation.Course = planeData.Heading;               
 
                 if (navigation.Altitude > 0)
                 {

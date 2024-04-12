@@ -13,7 +13,7 @@ namespace AlwaysInTarget.Models
         public float Altitude_M { get; set; }
         public float Mmhg { get; set; }
         public float Airspeed_KM { get; set; }
-        public float Heading { get; set; }
+        public int Heading { get; set; }
         public float VerticalSpeed { get; set; }
         public float ServerVersion { get; set; }
         public string PlaneType { get; set; }
@@ -34,17 +34,17 @@ namespace AlwaysInTarget.Models
             VerticalSpeed = varticalSpeed;
         }
 
-        private int RadiansToDegrees(float radians)
+        public int RadiansToDegrees(float radians)
         {
             int output;
 
             try
             {
-                output = Convert.ToInt32((radians * Math.PI) / 180);
+                output = Convert.ToInt32((radians * 180) / Math.PI);
             }
             catch
             {
-                output = 0;
+                output = -1;
             }
 
             return output;
