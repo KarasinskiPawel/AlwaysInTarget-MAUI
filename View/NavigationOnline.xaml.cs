@@ -3,6 +3,7 @@
 using AlwaysInTarget.Auxiliary;
 using AlwaysInTarget.Calculate;
 using AlwaysInTarget.Models;
+using AlwaysInTarget.TrueHeading;
 using AlwaysInTarget.ViewModels;
 using AlwaysInTarget.WindStrengthAndDirection;
 using System.Diagnostics;
@@ -77,7 +78,7 @@ public partial class NavigationOnline : ContentPage
                 }
 
                 //poprawki
-                var output = new AccurateNavigationCalculator(navigation, conversion).Output();
+                var output = new AccurateNavigationCalculator(navigation, conversion, new TrueHeadingOnline()).Output();
 
                 navigation.WindCorrectionAngel = output.WindCorrectionAngel;
                 navigation.TrueHeading = output.Heading;

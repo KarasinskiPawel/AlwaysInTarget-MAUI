@@ -2,6 +2,7 @@
 
 using AlwaysInTarget.Auxiliary;
 using AlwaysInTarget.Models;
+using AlwaysInTarget.TrueHeading;
 using AlwaysInTarget.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace AlwaysInTarget.Calculate
         NavigationModel navigationModel;
         NavigationOnlineModel navigationOnlineModel;
         DataConversion convertedData;
+        ITrueHeading trueHeading;
 
         int DM = default(int); //wiatr z kierunku
         int NKDM = default(int); //nakazany kąt drogi magnetycznej (kurs :-) )
@@ -30,7 +32,7 @@ namespace AlwaysInTarget.Calculate
         decimal sinKZ = default(decimal); //sinus kąta znoszenia
         decimal sinKW = default(decimal); //sinus kąta wiatru
 
-        public AccurateNavigationCalculator(NavigationModel navigationModel, DataConversion convertedData)
+        public AccurateNavigationCalculator(NavigationModel navigationModel, DataConversion convertedData, ITrueHeading trueHeading)
         {
             this.navigationModel = navigationModel;
             this.convertedData = convertedData;
@@ -40,10 +42,12 @@ namespace AlwaysInTarget.Calculate
             U = navigationModel.WindStrenght;
             system = navigationModel.SelectedSystem;
 
+            this.trueHeading = trueHeading;
+
             Execute();
         }
 
-        public AccurateNavigationCalculator(NavigationOnlineModel navigationModel, DataConversion convertedData)
+        public AccurateNavigationCalculator(NavigationOnlineModel navigationModel, DataConversion convertedData, ITrueHeading trueHeading)
         {
             this.navigationOnlineModel = navigationModel;
             this.convertedData = convertedData;
@@ -52,6 +56,8 @@ namespace AlwaysInTarget.Calculate
             NKDM = navigationOnlineModel.Course;
             U = navigationOnlineModel.WindStrenght;
             system = navigationOnlineModel.SelectedSystem;
+
+            this.trueHeading = trueHeading;
 
             Execute();
         }
@@ -75,70 +81,12 @@ namespace AlwaysInTarget.Calculate
 
                     KZ = new DetremineSin().CheckAngel(sinKZ);
 
-                    decimal r = 0;
-
-                    if (NKDM == DM || NKDM == DN)
-                    {
-                        output.WindCorrectionAngel = $"Strb: {KZ}";
-                    }
-                    else
-                    {
-                        switch (new WindRose(NKDM, DM).Output())
-                        {
-                            case 1:
-                                output.WindCorrectionAngel = $"Strb: {KZ}";
-                                r = NKDM + KZ;
-
-                                if (r < 0)
-                                    r = 360 + r;
-
-                                if (r > 360)
-                                    r = r - 360;
-
-                                break;
-                            case 2:
-                                output.WindCorrectionAngel = $"Strb: {KZ}";
-                                r = NKDM + KZ;
-
-                                if (r < 0)
-                                    r = 360 + r;
-
-                                if (r > 360)
-                                    r = r - 360;
-
-                                break;
-                            case 3:
-                                output.WindCorrectionAngel = $"Port: {KZ}";
-                                r = NKDM - KZ;
-
-                                if (r < 0)
-                                    r = 360 + r;
-
-                                if (r > 360)
-                                    r = r - 360;
-
-                                break;
-                            case 4:
-                                output.WindCorrectionAngel = $"Port: {KZ}";
-                                r = NKDM - KZ;
-
-                                if (r < 0)
-                                    r = 360 + r;
-
-                                if (r > 360)
-                                    r = r - 360;
-
-                                break;
-                            default:
-
-                                break;
-                        }
-                    }
-
-                    output.Heading = r.ToString();
+                    trueHeading.SetValuesAndRun(DM, DN, NKDM, KZ);
+                    output.Heading = trueHeading.GetTrueHeading().ToString();
+                    output.WindCorrectionAngel = trueHeading.GetWindCorrectionAngel();
                     output.Correct = true;
 
-                    Storage.GetStorage().BombSightModel.Course = Convert.ToInt32(r);
+                    Storage.GetStorage().BombSightModel.Course = Convert.ToInt32(trueHeading.GetTrueHeading());
 
                     if(!(navigationModel is null))
                         Storage.GetStorage().BombSightModel.WindDirection = navigationModel.WindDirection;
@@ -147,8 +95,6 @@ namespace AlwaysInTarget.Calculate
                         Storage.GetStorage().BombSightModel.WindDirection = navigationOnlineModel.WindDirection;
 
                     Storage.GetStorage().NavigationModel.TAS_KM = Convert.ToInt32(convertedData.TAS_KM);
-
-
                 }
                 else
                 {

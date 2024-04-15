@@ -1,5 +1,6 @@
 using AlwaysInTarget.Calculate;
 using AlwaysInTarget.Models;
+using AlwaysInTarget.TrueHeading;
 using AlwaysInTarget.ViewModels;
 using AlwaysInTarget.WindStrengthAndDirection;
 using System.Diagnostics;
@@ -33,7 +34,7 @@ public partial class Navigation : ContentPage
 
 	private void OnCalculateButtonClick(object sender, EventArgs e)
 	{
-        var output = new AccurateNavigationCalculator(Storage.GetStorage().NavigationModel, new DataConversion(Storage.GetStorage().NavigationModel.IAS, Storage.GetStorage().NavigationModel.Altitude, Storage.GetStorage().NavigationModel.SelectedSystem)).Output();
+        var output = new AccurateNavigationCalculator(Storage.GetStorage().NavigationModel, new DataConversion(Storage.GetStorage().NavigationModel.IAS, Storage.GetStorage().NavigationModel.Altitude, Storage.GetStorage().NavigationModel.SelectedSystem), new TrueHeadingManual()).Output();
 
         Storage.GetStorage().NavigationModel.WindCorrectionAngel = output.WindCorrectionAngel;
         Storage.GetStorage().NavigationModel.Heading = output.Heading;
