@@ -75,11 +75,11 @@ namespace AlwaysInTarget.Calculate
                     DN = new WindTowards(DM).Output();
                     KW = new WindAngle(DN, NKDM).Output();
 
-                    sinKW = new DetremineSin().CheckSinA(KW);
+                    sinKW = new Sinus().CheckSinA(KW);
                     sinKZ = Math.Round((U * sinKW) / (convertedData.TAS_KM / 1.85M), 4);
                     sinKZ = Math.Round(sinKZ, 4);
 
-                    KZ = new DetremineSin().CheckAngel(sinKZ);
+                    KZ = new Sinus().CheckAngel(sinKZ);
 
                     trueHeading.SetValuesAndRun(DM, DN, NKDM, KZ);
                     output.Heading = trueHeading.GetTrueHeading().ToString();
@@ -93,6 +93,12 @@ namespace AlwaysInTarget.Calculate
 
                     if(!(navigationOnlineModel is null))
                         Storage.GetStorage().BombSightModel.WindDirection = navigationOnlineModel.WindDirection;
+
+                    //if(!(navigationOnlineModel is null))
+                    //    if (TimeAndDistance.Calculate())
+                    //    {
+
+                    //    }
 
                     Storage.GetStorage().NavigationModel.TAS_KM = Convert.ToInt32(convertedData.TAS_KM);
                 }

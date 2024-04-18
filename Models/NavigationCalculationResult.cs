@@ -12,5 +12,7 @@ namespace AlwaysInTarget.Models
         public string? Heading { get; set; }
         public bool Correct { get; internal set; }
         internal string? ErrorMessage { get; set; }
+        public decimal GroundSpeed { get; set; }
+        public decimal Distance { get; set; }
     }
 }

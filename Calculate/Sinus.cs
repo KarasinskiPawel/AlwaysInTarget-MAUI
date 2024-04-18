@@ -7,7 +7,7 @@ using AlwaysInTarget.DbCRUD.DbFake;
 
 namespace AlwaysInTarget.Auxiliary
 {
-    internal class DetremineSin
+    internal class Sinus
     {
         public decimal CheckSinA(int KW)
         {

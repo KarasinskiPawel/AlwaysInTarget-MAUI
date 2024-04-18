@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlwaysInTarget.DbCRUD.DbModels
 {
-    internal class TrigonometricTableM
+    internal class SinTrigonometricTableM
     {
         public int Angle { get; set; }
         public decimal SinA { get; set; }
