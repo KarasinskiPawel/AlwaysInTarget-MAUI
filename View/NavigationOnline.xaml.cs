@@ -30,7 +30,6 @@ public partial class NavigationOnline : ContentPage
 
     private void RunRefresh()
     {
-        //await Task.Run(() => RefershPlaneDataModel());
         dataRefresh = new Thread(() => RefershPlaneDataModel());
         dataRefresh.IsBackground = true;
         dataRefresh.Start();
@@ -83,6 +82,9 @@ public partial class NavigationOnline : ContentPage
                 navigation.WindCorrectionAngel = output.WindCorrectionAngel;
                 navigation.TrueHeading = output.Heading;
 
+                navigation.GroundSpeed_KM = Math.Round(output.GroundSpeed, 2);
+                navigation.Distance_KM += Math.Round(output.Distance, 2);
+
                 navigation.BombSightDeflection = Storage.GetStorage().BombSightModel.BombSightDeflection;
             }
 
@@ -93,6 +95,12 @@ public partial class NavigationOnline : ContentPage
     private void Course(float heading)
     {
 
+    }
+
+    private void OnResetButtonClick(object sender, EventArgs e)
+    {
+        navigation.Distance = 0;
+        navigation.Distance_KM = 0;
     }
 
     private async void OnBackButtonClick(object sender, EventArgs e)
@@ -117,11 +125,17 @@ public partial class NavigationOnline : ContentPage
                     lSpeedIas.Text = "IAS (km/h):";
                     lSpeedTas.Text = "TAS (km/h):";
 
+                    lGroundSpeed.Text = "Real (km/h):";
+                    lDistance.Text = "Dist. (km/h):";
+
                     lAlt.Text = "Altitude (m)";
                     break;
                 case "Imperial":
                     lSpeedIas.Text = "IAS (mph):";
                     lSpeedTas.Text = "TAS (mph):";
+
+                    lGroundSpeed.Text = "Real (mph):";
+                    lDistance.Text = "Dist. (mph):";
 
                     lAlt.Text = "Altitude (ft)";
                     break;

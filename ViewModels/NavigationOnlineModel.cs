@@ -25,6 +25,8 @@ namespace AlwaysInTarget.ViewModels
         private string _bombSightDeflection { get; set; }
         private decimal _groundSpeed;
         private decimal _distance;
+        private decimal _groundSpeed_KM;
+        private decimal _distance_KM;
         public string PlaneType {
             get => _planeType;
             set {
@@ -130,12 +132,45 @@ namespace AlwaysInTarget.ViewModels
             }
         }
 
+        public decimal GroundSpeed_KM {
+            get => _groundSpeed_KM;
+            set { 
+                _groundSpeed_KM = value;
+
+                switch (SelectedSystem)
+                {
+                    case "Metric":
+                        GroundSpeed = _groundSpeed_KM;
+                        break;
+                    case "Imperial":
+                        GroundSpeed = Math.Round(_groundSpeed_KM / 1.609M, 2);
+                        break;
+                }
+            } 
+        }
+        public decimal Distance_KM {
+            get => _distance_KM;
+            set {
+                _distance_KM = value;
+
+                switch (SelectedSystem)
+                {
+                    case "Metric":
+                        Distance = _distance_KM;
+                        break;
+                    case "Imperial":
+                        Distance = Math.Round(_distance_KM / 1.609M, 2);
+                        break;
+                }
+            }
+        }
+
         public decimal GroundSpeed
         {
             get => _groundSpeed;
             set
             {
-                if (value == _groundSpeed) return;
+                if (value == 0) return;
                 _groundSpeed = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GroundSpeed)));
             }

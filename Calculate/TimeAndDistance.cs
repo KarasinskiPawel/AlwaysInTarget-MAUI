@@ -1,4 +1,5 @@
-﻿using AlwaysInTarget.ViewModels;
+﻿using AlwaysInTarget.Models;
+using AlwaysInTarget.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,11 @@ namespace AlwaysInTarget.Calculate
 {
     public static class TimeAndDistance
     {
-        public static void Calculate(NavigationOnlineModel navigation)
+        private const decimal V = 3.6M;
+
+        public static bool Calculate(NavigationOnlineModel navigation, decimal tas, int KW, decimal U, ref SpeedAndDistanceM outputData)
         {
-            decimal groundSpeed = 0;
-            decimal distance = 0;
+            bool output = false;
 
             DateTime now = DateTime.Now;
 
@@ -21,7 +23,21 @@ namespace AlwaysInTarget.Calculate
             {
                 navigation.measuringTimePoint = now;
 
+                outputData.GroundSpeed = GroundSpeed.Calculate(Convert.ToInt32(tas), KW, U);
+
+                if(outputData.GroundSpeed > -1)
+                {
+                    outputData.Distance = ((outputData.GroundSpeed / V) / 1000);
+                }
+                else
+                {
+                    outputData.Distance = 0;
+                }
+
+                output = true;
             }
+
+            return output;
         }
     }
 }

@@ -6,6 +6,7 @@ using AlwaysInTarget.TrueHeading;
 using AlwaysInTarget.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,11 +95,16 @@ namespace AlwaysInTarget.Calculate
                     if(!(navigationOnlineModel is null))
                         Storage.GetStorage().BombSightModel.WindDirection = navigationOnlineModel.WindDirection;
 
-                    //if(!(navigationOnlineModel is null))
-                    //    if (TimeAndDistance.Calculate())
-                    //    {
+                    if (!(navigationOnlineModel is null))
+                    {
+                        SpeedAndDistanceM speedAndDistance = new SpeedAndDistanceM();
 
-                    //    }
+                        if (TimeAndDistance.Calculate(navigationOnlineModel, convertedData.TAS_KM, KW, U, ref speedAndDistance))
+                        {
+                            output.GroundSpeed = speedAndDistance.GroundSpeed;
+                            output.Distance = speedAndDistance.Distance;
+                        }
+                    }
 
                     Storage.GetStorage().NavigationModel.TAS_KM = Convert.ToInt32(convertedData.TAS_KM);
                 }
@@ -106,6 +112,8 @@ namespace AlwaysInTarget.Calculate
                 {
                     output.WindCorrectionAngel = "- - -";
                     output.Heading = "- - -";
+                    output.GroundSpeed = 0;
+                    output.Distance = 0;
                     output.Correct = false;
                 }
             }
@@ -115,6 +123,8 @@ namespace AlwaysInTarget.Calculate
 
                 output.WindCorrectionAngel = "...err...";
                 output.Heading = " ? ";
+                output.GroundSpeed = 0;
+                output.Distance = 0;
                 output.Correct = false;
             }
         }

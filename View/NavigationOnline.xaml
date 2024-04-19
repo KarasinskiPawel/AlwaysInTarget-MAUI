@@ -94,6 +94,26 @@
             <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="44"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="4.0*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" x:Name="lGroundSpeed" FontSize="18" TextColor="Black" Padding="10"/>
+                    <Entry Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" x:Name="eGroundSpeed" Text="{Binding GroundSpeed}" FontSize="18" Placeholder="- - -" Keyboard="Numeric" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
+
+                    <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" x:Name="lDistance" FontSize="18" TextColor="Black" Padding="10"/>
+                    <Entry Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="1" x:Name="eDistance" Text="{Binding Distance}" FontSize="18" Placeholder="IAS" Keyboard="Numeric" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
+                </Grid>
+            </Frame>
+
+            <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
+                <Grid>
+                    <Grid.RowDefinitions>
                         <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="40"></RowDefinition>
@@ -136,6 +156,18 @@
                     <Entry Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="eBombsightDeflection" FontSize="18" Text="{Binding BombSightDeflection}" Placeholder=" - - - "  TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
                 </Grid>
             </Frame>
+
+            <Button Text="Distance reset"
+                x:Name="btnReset"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnResetButtonClick"
+                WidthRequest="200"
+                MaximumHeightRequest="40"
+                BorderWidth="3"
+                BorderColor="Ivory"
+                BackgroundColor="Gray"
+                Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2"/>
 
             <Button Text="Back"
                 x:Name="btnBack"
