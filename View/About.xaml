@@ -18,7 +18,7 @@
 
         <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" TextColor="White"
                        VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
-                       Text="Version 4.0.1 MAUI"
+                       Text="Version 5.10.0 MAUI"
                        Margin="5, 20"/>
 
         <Button Text="Back"

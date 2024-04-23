@@ -99,7 +99,7 @@ namespace AlwaysInTarget.Calculate
                     {
                         SpeedAndDistanceM speedAndDistance = new SpeedAndDistanceM();
 
-                        if (TimeAndDistance.Calculate(navigationOnlineModel, convertedData.TAS_KM, KW, U, ref speedAndDistance))
+                        if (TimeAndDistance.Calculate(navigationOnlineModel, convertedData.TAS_KM, KW, U, NKDM, DM, ref speedAndDistance))
                         {
                             output.GroundSpeed = speedAndDistance.GroundSpeed;
                             output.Distance = speedAndDistance.Distance;

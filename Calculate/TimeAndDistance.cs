@@ -13,7 +13,7 @@ namespace AlwaysInTarget.Calculate
     {
         private const decimal V = 3.6M;
 
-        public static bool Calculate(NavigationOnlineModel navigation, decimal tas, int KW, decimal U, ref SpeedAndDistanceM outputData)
+        public static bool Calculate(NavigationOnlineModel navigation, decimal tas, int KW, decimal U, int NKDM, int DM, ref SpeedAndDistanceM outputData)
         {
             bool output = false;
 
@@ -23,7 +23,7 @@ namespace AlwaysInTarget.Calculate
             {
                 navigation.measuringTimePoint = now;
 
-                outputData.GroundSpeed = GroundSpeed.Calculate(Convert.ToInt32(tas), KW, U);
+                outputData.GroundSpeed = GroundSpeed.Calculate(Convert.ToInt32(tas), KW, U, NKDM, DM);
 
                 if(outputData.GroundSpeed > -1)
                 {

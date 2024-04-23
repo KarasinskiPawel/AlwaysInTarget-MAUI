@@ -16,6 +16,7 @@ using System.Net.Sockets;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
+//using Windows.Services.Maps;
 
 namespace AlwaysInTarget.Network
 {
@@ -43,12 +44,13 @@ namespace AlwaysInTarget.Network
         public void CloseConnection()
         {
             threadStop = true;
-            connectionM.SetConnectionStatus("0.0.0.0", "Disconnected", false);
+            connectionM.SetConnectionStatus(Storage.GetStorage().Il2DialServerModel.HostIp, "Disconnected", false);
         }
 
         public void Scan()
         {
             threadStop = false;
+
             string serverAddress = Storage.GetStorage().Il2DialServerModel.HostIp;
 
             if(serverAddress == "0.0.0.0")
@@ -107,12 +109,15 @@ namespace AlwaysInTarget.Network
                 byte[] receivedData = client.Receive(ref endPoint);
 
                 //Server found! Start another thread for the data streamer (with no timeout settings)
+                Preferences.Default.Set("IpAddress", _serverAddress);
+
                 Thread thread = new Thread(() => UDPSender(_serverAddress));
                 thread.IsBackground = true;
                 thread.Start();
             }
             catch(Exception e)
             {
+                connectionM.SetConnectionStatus(_serverAddress, e.Message, false);
                 client.Close();
             }
         }
@@ -135,7 +140,7 @@ namespace AlwaysInTarget.Network
 
             try
             {
-                while (true)
+                while (!threadStop)
                 {
                     // Sends a message to the host to which we have connected.
                     byte[] sendBytes = System.Text.Encoding.ASCII.GetBytes("IL-2 Client");
@@ -158,19 +163,22 @@ namespace AlwaysInTarget.Network
         {
             try
             {
+                connectionM.SetConnectionStatus(ep.Address.MapToIPv4().ToString(), "Connected", true);
+
                 while (!threadStop)
                 {
-                    connectionM.SetConnectionStatus(ep.Address.MapToIPv4().ToString(), "Connected", true);
-
                     //////blocking call
                     byte[] receivedData = udpClient.Receive(ref ep);
 
                     ProcessPackage(receivedData);
                 }
+
+                connectionM.SetConnectionStatus(ep.Address.MapToIPv4().ToString(), "Disconnected", false);
             }
             catch (Exception e)
             {
-                connectionM.SetConnectionStatus(ep.ToString(), e.Message, false);
+                threadStop = true;
+                connectionM.SetConnectionStatus(ep.Address.MapToIPv4().ToString(), e.Message, false);
             }
         }
 

@@ -19,14 +19,32 @@ namespace AlwaysInTarget.Calculate
         //VR - TAS
         //U - prędkość wiatru (knots)
 
-        public static decimal Calculate(int tas, int KW, decimal U)
+        public static decimal Calculate(int tas, int KW, decimal U, int NKDM, int DM)
         {
             int groundSpeed = 0;
 
             try
             {
                 decimal cosKW = new Cosinus().CheckCosA(KW);
-                groundSpeed = Convert.ToInt32(tas + U * cosKW);
+
+                switch (new WindRose(NKDM, DM).Output())
+                {
+                    case 1: //-
+                        groundSpeed = Convert.ToInt32(tas + U * (-1 * cosKW));
+                        break;
+                    case 2: //+
+                        groundSpeed = Convert.ToInt32(tas + U * cosKW);
+                        break;
+                    case 3: //+
+                        groundSpeed = Convert.ToInt32(tas + U * cosKW);
+                        break;
+                    case 4: //-
+                        groundSpeed = Convert.ToInt32(tas + U * (-1 * cosKW));
+                        break;
+                    default:
+                        groundSpeed = Convert.ToInt32(tas);
+                        break;
+                }
             }
             catch
             {

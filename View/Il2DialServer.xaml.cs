@@ -7,6 +7,7 @@ using AlwaysInTarget.ViewModels;
 using AlwaysInTarget.WindStrengthAndDirection;
 using Microsoft.Maui.Controls;
 using System.Diagnostics;
+using System.Net;
 
 namespace AlwaysInTarget.View;
 
@@ -15,8 +16,15 @@ public partial class Il2DialServer : ContentPage
     public Il2DialServer()
 	{
         BindingContext = Storage.GetStorage().Il2DialServerModel;
+        string ipAddress = string.Empty;
 
-		InitializeComponent();
+        if (Preferences.Default.ContainsKey("IpAddress"))
+            ipAddress = Preferences.Default.Get("IpAddress", "0.0.0.0");
+
+        if (!(ipAddress is null) && ipAddress.Length > 0)
+            Storage.GetStorage().Il2DialServerModel.HostIp = ipAddress;
+
+        InitializeComponent();
 	}
 
     private async void OnConnectButtonClick(object sender, EventArgs e)
