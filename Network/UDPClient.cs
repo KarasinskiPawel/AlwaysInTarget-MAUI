@@ -178,7 +178,7 @@ namespace AlwaysInTarget.Network
             catch (Exception e)
             {
                 threadStop = true;
-                connectionM.SetConnectionStatus(ep.Address.MapToIPv4().ToString(), e.Message, false);
+                connectionM.SetConnectionStatus(ep.Address.MapToIPv4().ToString(), "Disconnected", false);
             }
         }
 
