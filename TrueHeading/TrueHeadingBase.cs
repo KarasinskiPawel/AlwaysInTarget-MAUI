@@ -11,10 +11,10 @@ namespace AlwaysInTarget.TrueHeading
         protected string windCorrectionAngel = string.Empty;
         protected int trueHeading = 0;
 
-        protected int _dm;
-        protected int _dn;
-        protected int _nkdm;
-        protected int _kz;
+        protected int _dm; // skąd wieje wiatr
+        protected int _dn; // dokąd wieje wiatr
+        protected int _nkdm; // nakazany kąt drogi magnetycznej - dokąd ma lecieć samolot.
+        protected int _kz; // kąt znoszenia
 
         protected TrueHeadingBase()
         {

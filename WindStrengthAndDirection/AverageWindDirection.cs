@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace AlwaysInTarget.WindStrengthAndDirection
 {
-    internal class AverageWindDirection
+    public class AverageWindDirection
     {
         int minAlt { get; set; }
         int maxAlt { get; set; }
@@ -18,8 +19,9 @@ namespace AlwaysInTarget.WindStrengthAndDirection
             this.minAlt = min;
             this.maxAlt = max;  
             this.alt = alt;
-            this.minWindFrom = minWindFrom;
-            this.maxWindFrom = maxWindFrom;
+
+            this.minWindFrom = minWindFrom == 0 ? 360 : minWindFrom;
+            this.maxWindFrom = maxWindFrom == 0 ? 360 : maxWindFrom;
 
             Execute();
         }
@@ -43,23 +45,66 @@ namespace AlwaysInTarget.WindStrengthAndDirection
 
                 houndredsCountToPlane = (alt - minAlt) / 100;
 
-                if (minWindFrom <= maxWindFrom)
+                int tmp = 0;
+
+                if (minWindFrom > 270 && minWindFrom < 360 && maxWindFrom > 0 && maxWindFrom < 90)
                 {
-                    int tmp = maxWindFrom - minWindFrom;
+                    tmp = (360 - minWindFrom) + maxWindFrom;
+
                     averageWind = tmp / hundredsCount;
-                    averageWindFrom = Convert.ToInt32((houndredsCountToPlane * averageWind) + minWindFrom);
+
+                    if (minWindFrom <= maxWindFrom)
+                    {
+                        averageWindFrom = Convert.ToInt32(minWindFrom - (houndredsCountToPlane * averageWind));
+
+                        if(averageWindFrom > 360)
+                            averageWindFrom = averageWindFrom - 360;
+                        
+                    }
+                    else
+                    {
+                        averageWindFrom = Convert.ToInt32((houndredsCountToPlane * averageWind) + minWindFrom);
+
+                        if (averageWindFrom > 360)
+                            averageWindFrom = averageWindFrom - 360;
+                    }
                 }
                 else
                 {
-                    int tmp = minWindFrom - maxWindFrom;
+                    tmp = minWindFrom - maxWindFrom;
+
                     averageWind = tmp / hundredsCount;
-                    averageWindFrom = Convert.ToInt32(minWindFrom - (houndredsCountToPlane * averageWind));
+
+                    if (minWindFrom <= maxWindFrom)
+                    {
+                        //int tmp = minWindFrom - maxWindFrom;
+
+                        averageWindFrom = Convert.ToInt32((houndredsCountToPlane * averageWind) + minWindFrom);
+                    }
+                    else
+                    {
+                        //int tmp = minWindFrom - maxWindFrom;
+
+                        averageWindFrom = Convert.ToInt32(minWindFrom - (houndredsCountToPlane * averageWind));
+                    }
                 }
             }
             catch
             {
                 averageWindFrom = 0;
             }
+
+            if(averageWindFrom == 360) averageWindFrom = 0;
+        }
+
+        static double DegreeToRadian(double degree)
+        {
+            return degree * Math.PI / 180;
+        }
+
+        static double RadianToDegree(double radian)
+        {
+            return radian * 180 / Math.PI;
         }
 
         public decimal Output()
