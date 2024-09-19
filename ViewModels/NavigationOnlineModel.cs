@@ -23,9 +23,9 @@ namespace AlwaysInTarget.ViewModels
         private decimal _windStrenght { get; set; }
         private string _windCorrectionAngel { get; set; }
         private string _bombSightDeflection { get; set; }
-        private decimal _groundSpeed;
+        private int _groundSpeed;
         private decimal _distance;
-        private decimal _groundSpeed_KM;
+        private int _groundSpeed_KM;
         private decimal _distance_KM;
         public string PlaneType {
             get => _planeType;
@@ -135,7 +135,7 @@ namespace AlwaysInTarget.ViewModels
         public decimal GroundSpeed_KM {
             get => _groundSpeed_KM;
             set { 
-                _groundSpeed_KM = value;
+                _groundSpeed_KM = Convert.ToInt32(value);
 
                 switch (SelectedSystem)
                 {
@@ -171,7 +171,7 @@ namespace AlwaysInTarget.ViewModels
             set
             {
                 if (value == 0) return;
-                _groundSpeed = value;
+                _groundSpeed = Convert.ToInt32(value);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GroundSpeed)));
             }
         }
