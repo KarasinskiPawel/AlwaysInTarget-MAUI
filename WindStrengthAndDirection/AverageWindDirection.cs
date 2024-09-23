@@ -14,10 +14,10 @@ namespace AlwaysInTarget.WindStrengthAndDirection
         int maxWindFrom { get; set; } = 0;
 
         int averageWindFrom = 0;
-        public AverageWindDirection(int min, int max, int alt, int minWindFrom, int maxWindFrom)
+        public AverageWindDirection(int minAlt, int maxAlt, int alt, int minWindFrom, int maxWindFrom)
         { 
-            this.minAlt = min;
-            this.maxAlt = max;  
+            this.minAlt = minAlt;
+            this.maxAlt = maxAlt;  
             this.alt = alt;
 
             this.minWindFrom = minWindFrom == 0 ? 360 : minWindFrom;
@@ -71,19 +71,19 @@ namespace AlwaysInTarget.WindStrengthAndDirection
                 }
                 else
                 {
-                    tmp = minWindFrom - maxWindFrom;
-
-                    averageWind = tmp / hundredsCount;
+                    //tmp = minWindFrom - maxWindFrom;
 
                     if (minWindFrom <= maxWindFrom)
                     {
-                        //int tmp = minWindFrom - maxWindFrom;
+                        tmp = maxWindFrom - minWindFrom;
+                        averageWind = tmp / hundredsCount;
 
                         averageWindFrom = Convert.ToInt32((houndredsCountToPlane * averageWind) + minWindFrom);
                     }
                     else
                     {
-                        //int tmp = minWindFrom - maxWindFrom;
+                        tmp = minWindFrom - maxWindFrom;
+                        averageWind = tmp / hundredsCount;
 
                         averageWindFrom = Convert.ToInt32(minWindFrom - (houndredsCountToPlane * averageWind));
                     }

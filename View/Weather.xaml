@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlwaysInTarget.View.Weather"
              Shell.NavBarIsVisible="false">
-    
+
     <ScrollView BackgroundColor="Black">
         <StackLayout Margin="5">
             <Frame  BackgroundColor="Blue"  Padding="12" CornerRadius="5" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="0, 0, 0, 10">
@@ -52,7 +52,43 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Text="Confirm"
+            <Grid Margin="5, 5, 5, 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Text="Add"
+                Grid.Row="0" Grid.Column="0"
+                x:Name="btnAdd"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnAddClick"
+                WidthRequest="160"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
+                />
+
+                <Button Text="Remove"
+                 Grid.Row="0" Grid.Column="1"        
+                x:Name="btnRemove"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                Clicked="OnRemoveClick"
+                WidthRequest="160"
+                BorderWidth="3"
+                BorderColor="Gray"
+                BackgroundColor="ivory"
+                TextColor="Black"
+                />
+            </Grid>
+
+            <!--<Button Text="Confirm"
                 x:Name="btnConfirm"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
@@ -62,7 +98,7 @@
                 BorderColor="Gray"
                 BackgroundColor="ivory"
                 TextColor="Black"
-                />
+                />-->
 
             <Button Text="Back"
                 x:Name="btnBack"

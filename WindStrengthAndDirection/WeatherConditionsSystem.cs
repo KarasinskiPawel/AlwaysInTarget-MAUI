@@ -36,7 +36,9 @@ namespace AlwaysInTarget.WindStrengthAndDirection
                     }
                     else if (i + 1 < WeatherConditions.Count && data.Altitude_M > WeatherConditions[i].Alt && data.Altitude_M < WeatherConditions[i + 1].Alt)
                     {
-                        output = new AverageWindStrenght(WeatherConditions[i].Alt, WeatherConditions[i + 1].Alt, Convert.ToInt32(data.Altitude_M), WeatherConditions[i].WindStregngth, WeatherConditions[i + 1].WindStregngth).Output();
+                        output = new AverageWindStrenght(
+                            WeatherConditions[i].Alt, WeatherConditions[i + 1].Alt, Convert.ToInt32(data.Altitude_M), WeatherConditions[i].WindStregngth, WeatherConditions[i + 1].WindStregngth
+                            ).Output();
                         break;
                     }
                     else if (i + 1 >= WeatherConditions.Count && data.Altitude_M > WeatherConditions[i].Alt)
@@ -71,7 +73,9 @@ namespace AlwaysInTarget.WindStrengthAndDirection
                     }
                     else if (i + 1 < WeatherConditions.Count && data.Altitude_M > WeatherConditions[i].Alt && data.Altitude_M < WeatherConditions[i + 1].Alt)
                     {
-                        output = new AverageWindDirection(WeatherConditions[i].Alt, WeatherConditions[i + 1].Alt, Convert.ToInt32(data.Altitude_M), WeatherConditions[i].WindFrom, WeatherConditions[i + 1].WindFrom).Output();
+                        output = new AverageWindDirection(
+                            WeatherConditions[i].Alt, WeatherConditions[i + 1].Alt, Convert.ToInt32(data.Altitude_M), WeatherConditions[i].WindFrom, WeatherConditions[i + 1].WindFrom
+                            ).Output();
                         break;
                     }
                     else if (i + 1 >= WeatherConditions.Count && data.Altitude_M > WeatherConditions[i].Alt)

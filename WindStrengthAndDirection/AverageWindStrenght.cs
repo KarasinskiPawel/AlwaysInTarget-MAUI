@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlwaysInTarget.WindStrengthAndDirection
 {
-    internal class AverageWindStrenght
+    public class AverageWindStrenght
     {
         int minAlt { get; set; }
         int maxAlt { get; set; }
@@ -15,11 +15,11 @@ namespace AlwaysInTarget.WindStrengthAndDirection
 
         decimal averageWindStrength { get; set; }
 
-        public AverageWindStrenght(int min, int max, int alt, decimal minWindStrength, decimal maxWindStrength)
+        public AverageWindStrenght(int minAlt, int maxAlt, int planeAlt, decimal minWindStrength, decimal maxWindStrength)
         {
-            minAlt = min;
-            maxAlt = max;
-            this.alt = alt;
+            this.minAlt = minAlt;
+            this.maxAlt = maxAlt;
+            this.alt = planeAlt;
             this.minWindStrength = minWindStrength;
             this.maxWindStrength = maxWindStrength;
 
@@ -58,7 +58,7 @@ namespace AlwaysInTarget.WindStrengthAndDirection
 
                     houndredsCountToPlane = minToPlaneHeightDifference / 100;
 
-                    averageWindStrength = (houndredsCountToPlane * windStrengthPer100) + minWindStrength;
+                    averageWindStrength = minWindStrength - (houndredsCountToPlane * windStrengthPer100);
                 }
             }
             catch

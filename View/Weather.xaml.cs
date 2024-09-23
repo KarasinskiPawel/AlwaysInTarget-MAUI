@@ -1,34 +1,48 @@
 using AlwaysInTarget.Models;
+using AlwaysInTarget.ViewModels;
 using System;
 
 namespace AlwaysInTarget.View;
 
 public partial class Weather : ContentPage
 {
-	public List<WeatherConditionM> WeatherConditions { get; set; }
+    WeatherModel weatherModel = new WeatherModel(Storage.GetStorage().WeatherConditions);
 	public Weather()
     {
         InitializeComponent();
 
         NavigationPage.SetHasBackButton(this, false);
 
-        WeatherConditions = Storage.GetStorage().WeatherConditions;
-        BindingContext = this;
+        BindingContext = weatherModel;
 	}
 
-    private async void OnConfirmClick(object sender, EventArgs e)
+    private async void OnAddClick(object sender, EventArgs e)
     {
-        try
+        if (!weatherModel.Add())
         {
-            Storage.GetStorage().WeatherConditions = WeatherConditions;
-
-            await DisplayAlert("Weather", "Data approved.", "OK");
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Weather", ex.Message.ToString(), "OK");
+            await DisplayAlert("Weather", "Something went wrong", "OK");
         }
     }
+
+    private async void OnRemoveClick(object sender, EventArgs e)
+    {
+        if (!weatherModel.Remove())
+        {
+            await DisplayAlert("Weather", "Something went wrong", "OK");
+        }
+    }
+
+    //private async void OnConfirmClick(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        await DisplayAlert("Weather", "Data approved.", "OK");
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        await DisplayAlert("Weather", ex.Message.ToString(), "OK");
+    //    }
+    //}
 
     private async void OnBackButtonClick(object sender, EventArgs e)
     {

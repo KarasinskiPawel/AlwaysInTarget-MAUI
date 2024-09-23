@@ -28,8 +28,8 @@ namespace AlwaysInTarget
 
         private Storage()
         {
-            WeatherConditions = new RWeatherConditions().Output();
-            //WeatherConditions = new RWeatherConditionsMock().Output();
+            //WeatherConditions = new RWeatherConditions().Output();
+            WeatherConditions = new RWeatherConditionsMock().Output();
 
             NavigationModel = new NavigationModel();
             NavigationOnlineModel = new NavigationOnlineModel();
