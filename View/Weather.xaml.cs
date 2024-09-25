@@ -20,7 +20,7 @@ public partial class Weather : ContentPage
     {
         if (!weatherModel.Add())
         {
-            await DisplayAlert("Weather", "Something went wrong", "OK");
+            await DisplayAlert("Weather", "The maximum number of rows has been reached.", "OK");
         }
     }
 
@@ -28,21 +28,9 @@ public partial class Weather : ContentPage
     {
         if (!weatherModel.Remove())
         {
-            await DisplayAlert("Weather", "Something went wrong", "OK");
+            await DisplayAlert("Weather", "It is not possible to delete all rows.", "OK");
         }
     }
-
-    //private async void OnConfirmClick(object sender, EventArgs e)
-    //{
-    //    try
-    //    {
-    //        await DisplayAlert("Weather", "Data approved.", "OK");
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        await DisplayAlert("Weather", ex.Message.ToString(), "OK");
-    //    }
-    //}
 
     private async void OnBackButtonClick(object sender, EventArgs e)
     {

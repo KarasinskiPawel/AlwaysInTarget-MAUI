@@ -31,8 +31,9 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Frame BorderColor="Black" Padding="1" Margin="0" >
-                                <Grid>
+                            <!--Błąd frameworku - obiekt frame wywala aplikacje przy dynamicznym manipulowaniu widokiem-->
+                            <!--<Frame BorderColor="Black" Padding="1" Margin="0" >-->
+                                <Grid BackgroundColor="White">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="40"></RowDefinition>
                                     </Grid.RowDefinitions>
@@ -46,7 +47,7 @@
                                     <Entry Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding WindFrom}" TextColor="black" Placeholder="IAS" FontSize="18" Keyboard="Numeric" MaxLength="3"></Entry>
                                     <Entry Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding WindStregngth}" TextColor="black" Placeholder="IAS" FontSize="18" Keyboard="Numeric" MaxLength="5"></Entry>
                                 </Grid>
-                            </Frame>
+                            <!--</Frame>-->
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
