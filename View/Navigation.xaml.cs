@@ -34,7 +34,11 @@ public partial class Navigation : ContentPage
 
 	private void OnCalculateButtonClick(object sender, EventArgs e)
 	{
-        var output = new AccurateNavigationCalculator(Storage.GetStorage().NavigationModel, new DataConversion(Storage.GetStorage().NavigationModel.IAS, Storage.GetStorage().NavigationModel.Altitude, Storage.GetStorage().NavigationModel.SelectedSystem), new TrueHeadingManual()).Output();
+        var output = new AccurateNavigationCalculator(
+                Storage.GetStorage().NavigationModel,
+                new DataConversion(Storage.GetStorage().NavigationModel.IAS, Storage.GetStorage().NavigationModel.Altitude,
+                Storage.GetStorage().NavigationModel.SelectedSystem), new TrueHeadingManual()
+            ).Output();
 
         Storage.GetStorage().NavigationModel.WindCorrectionAngel = output.WindCorrectionAngel;
         Storage.GetStorage().NavigationModel.Heading = output.Heading;
