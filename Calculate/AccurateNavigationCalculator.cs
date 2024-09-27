@@ -96,15 +96,17 @@ namespace AlwaysInTarget.Calculate
                     if(!(navigationOnlineModel is null))
                     {
                         Storage.GetStorage().BombSightModel.WindDirection = navigationOnlineModel.WindDirection;
+                        Storage.GetStorage().BombSightModel.Course = NKDM;
 
-                        if (trueHeading.GetTrueHeading() == 0)
-                        {
-                            Storage.GetStorage().BombSightModel.Course = NKDM;
-                        }
-                        else
-                        {
-                            Storage.GetStorage().BombSightModel.Course = Convert.ToInt32(trueHeading.GetTrueHeading());
-                        }
+                        //if (trueHeading.GetTrueHeading() == 0)
+                        //{
+                        //    Storage.GetStorage().BombSightModel.Course = NKDM;
+                        //}
+                        //else
+                        //{
+                        //    Storage.GetStorage().BombSightModel.Course = Convert.ToInt32(trueHeading.GetTrueHeading());
+                        //    Storage.GetStorage().BombSightModel.Course = NKDM;
+                        //}
                     }
 
                     if (!(navigationOnlineModel is null))
