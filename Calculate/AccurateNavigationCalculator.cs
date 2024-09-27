@@ -87,13 +87,25 @@ namespace AlwaysInTarget.Calculate
                     output.WindCorrectionAngel = trueHeading.GetWindCorrectionAngel();
                     output.Correct = true;
 
-                    Storage.GetStorage().BombSightModel.Course = Convert.ToInt32(trueHeading.GetTrueHeading());
-
-                    if(!(navigationModel is null))
+                    if (!(navigationModel is null))
+                    {
                         Storage.GetStorage().BombSightModel.WindDirection = navigationModel.WindDirection;
+                        Storage.GetStorage().BombSightModel.Course = Convert.ToInt32(trueHeading.GetTrueHeading());
+                    }
 
                     if(!(navigationOnlineModel is null))
+                    {
                         Storage.GetStorage().BombSightModel.WindDirection = navigationOnlineModel.WindDirection;
+
+                        if (trueHeading.GetTrueHeading() == 0)
+                        {
+                            Storage.GetStorage().BombSightModel.Course = NKDM;
+                        }
+                        else
+                        {
+                            Storage.GetStorage().BombSightModel.Course = Convert.ToInt32(trueHeading.GetTrueHeading());
+                        }
+                    }
 
                     if (!(navigationOnlineModel is null))
                     {

@@ -28,11 +28,19 @@ namespace AlwaysInTarget.TestDataGenerator
         {
             Random random = new Random();
 
-            planeData.Altitude_M = random.Next(0, 17000);
+            //planeData.Altitude_M = random.Next(0, 17000);
+            //planeData.Mmhg = 0;
+            //planeData.Airspeed_KM = random.Next(220, 500);
+            //planeData.Heading = random.Next(0, 359); ;
+            //planeData.VerticalSpeed = random.Next(0, 10);
+            //planeData.ServerVersion = 0.65F;
+            //planeData.PlaneType = "A 20 Boston";
+
+            planeData.Altitude_M = 1500;
             planeData.Mmhg = 0;
-            planeData.Airspeed_KM = random.Next(220, 500);
-            planeData.Heading = random.Next(0, 359); ;
-            planeData.VerticalSpeed = random.Next(0, 10);
+            planeData.Airspeed_KM = 300;
+            planeData.Heading = 120;
+            planeData.VerticalSpeed = 0;
             planeData.ServerVersion = 0.65F;
             planeData.PlaneType = "A 20 Boston";
         }

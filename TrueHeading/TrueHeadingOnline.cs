@@ -17,9 +17,17 @@ namespace AlwaysInTarget.TrueHeading
         {
             try
             {
-                if (_nkdm == _dm || _nkdm == _dn)
+                if (_nkdm == _dm)
                 {
-                    windCorrectionAngel = $"Strb: {_nkdm}";
+                    windCorrectionAngel = $"{_nkdm - _dm}";
+                }
+                else if (_nkdm == _dn)
+                {
+                    windCorrectionAngel = $"{_nkdm - _dn}";
+                }
+                else if ((_nkdm + 180) == _dn)
+                {
+                    windCorrectionAngel = $"180";
                 }
                 else
                 {

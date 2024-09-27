@@ -201,6 +201,7 @@ namespace AlwaysInTarget.Network
 
                 //test
                 //planeDataM = new Generator().Output();
+                //planeDataM = GeneratorAsync.GetTestData().Result;
             }
 
             //Debug.WriteLine($"Plane alt: {planeDataM.Altitude}, plane speed: {planeDataM.Airspeed}, plane heading: {planeDataM.Heading}");
