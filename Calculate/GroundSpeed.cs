@@ -27,24 +27,28 @@ namespace AlwaysInTarget.Calculate
             {
                 decimal cosKW = new Cosinus().CheckCosA(KW);
 
-                switch (new WindRose(NKDM, DM).Output())
-                {
-                    case 1: //-
-                        groundSpeed = Convert.ToInt32(tas + U * (-1 * cosKW));
-                        break;
-                    case 2: //+
-                        groundSpeed = Convert.ToInt32(tas + U * cosKW);
-                        break;
-                    case 3: //+
-                        groundSpeed = Convert.ToInt32(tas + U * cosKW);
-                        break;
-                    case 4: //-
-                        groundSpeed = Convert.ToInt32(tas + U * (-1 * cosKW));
-                        break;
-                    default:
-                        groundSpeed = Convert.ToInt32(tas);
-                        break;
-                }
+                //Obiczenie prędkości względem ziemi z uwzględnieniem siły i kierunku wiatru
+                //switch (new WindRose(NKDM, DM).Output())
+                //{
+                //    case 1: //-
+                //        groundSpeed = Convert.ToInt32(tas + U * (-1 * cosKW));
+                //        break;
+                //    case 2: //+
+                //        groundSpeed = Convert.ToInt32(tas + U * cosKW);
+                //        break;
+                //    case 3: //+
+                //        groundSpeed = Convert.ToInt32(tas + U * cosKW);
+                //        break;
+                //    case 4: //-
+                //        groundSpeed = Convert.ToInt32(tas + U * (-1 * cosKW));
+                //        break;
+                //    default:
+                //        groundSpeed = Convert.ToInt32(tas);
+                //        break;
+                //}
+
+                //Prędkość względem ziemi == TAS - do testów (Ił 2 prawdopodobnie siłę wiatru uwzględnia już w IAS)
+                groundSpeed = Convert.ToInt32(tas);
             }
             catch
             {
