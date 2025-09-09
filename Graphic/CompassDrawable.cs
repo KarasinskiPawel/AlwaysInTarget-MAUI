@@ -5,6 +5,9 @@ namespace AlwaysInTarget.Graphic
 {
     public class CompassDrawable : IDrawable
     {
+        private const float Margin = 30f;
+        private const float MarginFlightDirectionArrow = 12f;
+
         public float Heading { get; set; } // kurs w stopniach
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
@@ -14,8 +17,7 @@ namespace AlwaysInTarget.Graphic
             float centerX = dirtyRect.Center.X;
             float centerY = dirtyRect.Center.Y;
 
-            float margin = 30f; // margines od krawędzi
-            float radius = Math.Min(w, h) / 2f - margin;
+            float radius = Math.Min(w, h) / 2f - Margin;
             if (radius <= 0) return;
 
             // tło
@@ -24,7 +26,7 @@ namespace AlwaysInTarget.Graphic
 
             // --- 1) Strzałka N-S (fixed) ---
             //DrawArrow(canvas, centerX, centerY, radius - 10, Colors.Red, Colors.White);
-            DrawLineWithArrow(canvas, centerX, centerY, radius - 10, margin, Convert.ToUInt32(Heading).ToString());
+            FlightDirectionArrow(canvas, centerX, centerY, radius - 10, MarginFlightDirectionArrow, Convert.ToUInt32(Heading).ToString());
 
             // --- 2) Obrót całego koła o -Heading ---
             canvas.SaveState();
@@ -66,23 +68,23 @@ namespace AlwaysInTarget.Graphic
             canvas.FontColor = Colors.White;
             canvas.FontSize = 16;
             canvas.DrawString(
-                Heading.ToString("0") + "°",
+                "TRK:" + Heading.ToString("0") + "°",
                 centerX - 15,
                 centerY - 10,
-                30,
+                80,
                 20,
-                HorizontalAlignment.Center,
+                HorizontalAlignment.Justified,
                 VerticalAlignment.Center,
                 TextFlow.ClipBounds,
                 0);
         }
 
         // Pomocnicza metoda do rysowania strzałki N-S
-        private void DrawLineWithArrow(ICanvas canvas,
+        private void FlightDirectionArrow(ICanvas canvas,
             float centerX,
             float centerY,
             float radius,
-            float margin,
+            float Margin,
             string headingText)
         {
             canvas.StrokeColor = Colors.Red;
@@ -91,8 +93,8 @@ namespace AlwaysInTarget.Graphic
             // --- 1) Strzałka pionowa (N-S) z przerwą na kurs ---
             float gapHeight = 30f; // wysokość przerwy na kurs
 
-            float topY = centerY - (radius - margin);
-            float bottomY = centerY + (radius - margin);
+            float topY = centerY - (radius - Margin);
+            float bottomY = centerY + (radius - Margin);
 
             // linia od góry do przerwy
             canvas.DrawLine(centerX, topY, centerX, centerY - gapHeight / 2f);
@@ -101,7 +103,7 @@ namespace AlwaysInTarget.Graphic
             canvas.DrawLine(centerX, bottomY, centerX, centerY + gapHeight / 2f);
 
             // --- 2) Grot trójkątny na górze strzałki ---
-            float arrowHeight = 12f;
+            float arrowHeight = 32f;
             float arrowWidth = 14f;
 
             float tipX = centerX;
