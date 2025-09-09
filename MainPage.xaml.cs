@@ -37,6 +37,12 @@ namespace AlwaysInTarget
             await Navigation.PushAsync(new NavigationOnline());
         }
 
+        //Testy kompasu online
+        private async void OnCompassOnlineClick(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CompassOnline());
+        }
+
         private async void OnFlightplanButtonClick(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new FlightPlan());

@@ -37,12 +37,12 @@
 
                     <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Text="System:" FontSize="18" TextColor="Black" Padding="6" HorizontalTextAlignment="Center"/>
                     <Picker x:Name="eSystem" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontSize="18" TextColor="Black"
-                    Title="...system..."    
-                    ItemsSource="{Binding MeasureSystems}"
-                    SelectedIndex="0"
-                    SelectedItem="{Binding SelectedSystem}" 
-                    SelectedIndexChanged="System_SelectedIndexChanged"
-                    TitleColor="red">
+                        Title="...system..."    
+                        ItemsSource="{Binding MeasureSystems}"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding SelectedSystem}" 
+                        SelectedIndexChanged="System_SelectedIndexChanged"
+                        TitleColor="red">
                     </Picker>
                 </Grid>
             </Frame>

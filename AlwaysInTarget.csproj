@@ -77,6 +77,9 @@
 	  <MauiXaml Update="View\BombSight.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\CompassOnline.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\FlightPlan.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
