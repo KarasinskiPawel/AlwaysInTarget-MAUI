@@ -18,8 +18,8 @@
                     <ColumnDefinition Width="2.0*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Text="System:" FontSize="18" TextColor="Black" Padding="6" HorizontalTextAlignment="Center"/>
-                <Picker x:Name="eSystem" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontSize="18" TextColor="Black"
+                <Entry Grid.Row="0" Grid.Column="0" x:Name="ePlaneType" FontSize="18" Text="{Binding PlaneType}" Placeholder="...plane..." Keyboard="Numeric" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
+                <Picker x:Name="eSystem" Grid.Row="0" Grid.Column="1" FontSize="18" TextColor="Black" HorizontalTextAlignment="Center"
                         Title="...system..."    
                         ItemsSource="{Binding MeasureSystems}"
                         SelectedIndex="0"
@@ -33,6 +33,30 @@
         <GraphicsView x:Name="CompassView"
                       HeightRequest="360"
                       WidthRequest="360"/>
+
+        <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                    <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                    <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                    <ColumnDefinition Width="2.0*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Text="Heading: " FontSize="18" TextColor="Black" Padding="6"/>
+                <Entry Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" x:Name="eCompassHeading" Text="{Binding Course}" FontSize="18" Placeholder="...err..." Keyboard="Numeric" MaxLength="4" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Text="Map hdg:" FontSize="18" TextColor="Black" Padding="6"/>
+                <Entry Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" x:Name="eTrueCourse" Text="{Binding TrueCourse}" FontSize="18" Placeholder=" - - - " Keyboard="Numeric" MaxLength="6" TextColor="Black" HorizontalTextAlignment="Center"/>
+
+                <Switch Grid.Row="1" Grid.Column="2" IsToggled="{Binding IsMapHeadingEnabled}" Toggled="SwitchMapHdgArrow"/>
+            </Grid>
+        </Frame>
+
         <Slider x:Name="HeadingSlider" 
                 Minimum="0" Maximum="360"
                 ValueChanged="HeadingSlider_ValueChanged"/>

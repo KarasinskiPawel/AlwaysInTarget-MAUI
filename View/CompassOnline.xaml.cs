@@ -94,9 +94,14 @@ public partial class CompassOnline : ContentPage
                 navigation.Distance_KM += Math.Round(output.Distance, 2);
 
                 navigation.BombSightDeflection = Storage.GetStorage().BombSightModel.BombSightDeflection;
+
+                _compassDrawable.SetCurrentFlightParameters(navigation);
+
+                if(CompassView is not null)
+                    CompassView.Invalidate();
             }
 
-            Thread.Sleep(17);
+            Thread.Sleep(1000);
         }
     }
 
@@ -140,7 +145,12 @@ public partial class CompassOnline : ContentPage
 
     private void HeadingSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
-        _compassDrawable.Heading = (float)e.NewValue;
+        _compassDrawable.TrueHeading = (float)e.NewValue;
         CompassView.Invalidate(); // odœwie¿ rysowanie
+    }
+
+    private void SwitchMapHdgArrow(object sender, ToggledEventArgs e)
+    {
+
     }
 }

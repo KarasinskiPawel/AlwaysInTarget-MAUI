@@ -152,4 +152,9 @@ public partial class NavigationOnline : ContentPage
             DisplayAlert("Error", "B³¹d podczas zmiany sytemu.", "OK");
         }
     }
+
+    private void SwitchMapHdgArrow(object sender, ToggledEventArgs e)
+    {
+
+    }
 }

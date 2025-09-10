@@ -51,7 +51,6 @@ namespace AlwaysInTarget.ViewModels
             }
         }
         public int TrueCourse { get; set; }
-
         public int IAS { 
             get => _ias;
             set 
@@ -88,7 +87,6 @@ namespace AlwaysInTarget.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Altitude)));
             }
         }
-
         public int WindDirection
         {
             get => _windDirection;
@@ -131,7 +129,6 @@ namespace AlwaysInTarget.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BombSightDeflection)));
             }
         }
-
         public decimal GroundSpeed_KM {
             get => _groundSpeed_KM;
             set { 
@@ -164,7 +161,6 @@ namespace AlwaysInTarget.ViewModels
                 }
             }
         }
-
         public decimal GroundSpeed
         {
             get => _groundSpeed;
@@ -175,7 +171,6 @@ namespace AlwaysInTarget.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GroundSpeed)));
             }
         }
-
         public decimal Distance
         {
             get => _distance;
@@ -186,16 +181,14 @@ namespace AlwaysInTarget.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Distance)));
             }
         }
+        public bool IsMapHeadingEnabled { get; set; } = false;
 
         public NavigationOnlineModel()
         {
             SelectedSystem = "Metric";
         }
-
         public PlaneDataM planeDataM { get; set; }
-
         public DateTime measuringTimePoint = DateTime.Now;
-
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

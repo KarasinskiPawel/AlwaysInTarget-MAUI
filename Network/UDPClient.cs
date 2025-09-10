@@ -197,11 +197,11 @@ namespace AlwaysInTarget.Network
 
             if (!testPrediction)
             {
-                planeDataM = new PlaneDataM(floats[0], floats[1], floats[2], floats[3], floats[6]);
+                //planeDataM = new PlaneDataM(floats[0], floats[1], floats[2], floats[3], floats[6]);
 
                 //test
                 //planeDataM = new Generator().Output();
-                //planeDataM = GeneratorAsync.GetTestData().Result;
+                planeDataM = GeneratorAsync.GetTestData().Result;
             }
 
             //Debug.WriteLine($"Plane alt: {planeDataM.Altitude}, plane speed: {planeDataM.Airspeed}, plane heading: {planeDataM.Heading}");
