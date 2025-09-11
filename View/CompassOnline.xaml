@@ -89,7 +89,7 @@
         </Frame>
 
         <!-- Wind Correction Angle i Bombsight -->
-        <Frame>
+        <!--<Frame>
             <Grid ColumnDefinitions="2*,2*,2*,2*" RowDefinitions="Auto,Auto">
                 <Label Text="Wind Correction Angle:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
                 <Entry x:Name="eCorrectionAngle"
@@ -105,7 +105,7 @@
                        Placeholder=" - - - "
                        IsReadOnly="True"/>
             </Grid>
-        </Frame>
+        </Frame>-->
 
         <Frame>
             <Grid ColumnDefinitions="2*, 2*, 2*, 2*" RowDefinitions="Auto">
@@ -131,7 +131,7 @@
                 BackgroundColor="Gray"/>
 
         <Button Text="Back"
-                Margin="2"
+                Margin="5"
                 x:Name="btnBack"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"

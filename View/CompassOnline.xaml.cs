@@ -97,11 +97,18 @@ public partial class CompassOnline : ContentPage
 
                 _compassDrawable.SetCurrentFlightParameters(navigation);
 
-                if(CompassView is not null)
-                    CompassView.Invalidate();
+                try
+                {
+                    if (CompassView is not null)
+                        CompassView.Invalidate();
+                }
+                catch
+                { 
+                
+                }
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(17);
         }
     }
 
