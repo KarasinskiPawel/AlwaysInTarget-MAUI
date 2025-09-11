@@ -15,6 +15,8 @@ namespace AlwaysInTarget.TrueHeading
         }
         private protected override void Run()
         {
+            int i = 0;
+
             try
             {
                 if (_nkdm == _dm)

@@ -1,7 +1,8 @@
 ﻿#nullable disable
 
+using AlwaysInTarget.Helpers;
 using AlwaysInTarget.ViewModels;
-//using Java.Security;
+
 using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Graphics;
 
@@ -16,10 +17,16 @@ namespace AlwaysInTarget.Graphic
         private float TrueCourse { get; set; } //kurs z mapy
         private float Heading { get; set; } //kurs w stopniach
         private float WindDirection { get; set; }
-        private float WindStrength { get; set; }
+        private decimal WindStrength { get; set; }
 
         private string WindCorrectionAngel { get; set; }
         private string BombSightDeflection { get; set; }
+
+        private int IndicatedAirspeed { get; set; }
+        private int TrueAirSpeed { get; set; }
+        private int Altitude { get; set; }
+
+        private bool IsMapHeadingEnabled { get; set; }
 
         public void SetCurrentFlightParameters(NavigationOnlineModel navigationOnlineModel)
         {
@@ -32,10 +39,17 @@ namespace AlwaysInTarget.Graphic
             }
 
             WindDirection = Convert.ToSingle(navigationOnlineModel.WindDirection);
-            WindStrength = Convert.ToSingle(navigationOnlineModel.WindStrenght);
+            WindStrength = Math.Round(navigationOnlineModel.WindStrenght, 1);
 
             WindCorrectionAngel = navigationOnlineModel.WindCorrectionAngel;
             BombSightDeflection = navigationOnlineModel.BombSightDeflection;
+
+            IndicatedAirspeed = navigationOnlineModel.IAS;
+            TrueAirSpeed = navigationOnlineModel.TAS;
+
+            Altitude = navigationOnlineModel.Altitude;
+
+            IsMapHeadingEnabled = navigationOnlineModel.IsMapHeadingEnabled;
         }
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
@@ -67,6 +81,9 @@ namespace AlwaysInTarget.Graphic
             //Kierunek wiatru
             DrawWindDirectionMarker(canvas, centerX, centerY, radius);
 
+            if(IsMapHeadingEnabled)
+                DrawTrueCourseNeedle(canvas, centerX, centerY, radius);
+
             // litery N, E, S, W
             AddingCompassMarkings(canvas, centerX, centerY, radius);
 
@@ -74,7 +91,119 @@ namespace AlwaysInTarget.Graphic
 
             // --- 3) Wyświetlenie kursu w środku strzałki ---
             DisplayingTheAircraftHeading(canvas, centerX, centerY);
+
             BombsightDeflectionIndicator(canvas, centerX, centerY, radius);
+            BombsightWindIndicator(canvas, centerX, centerY, radius);
+
+            DisplayIndicatedAirspeed(canvas, centerX, centerY, radius);
+            DisplayTrueAirSpeed(canvas, centerX, centerY, radius);
+            
+            DisplayHeading(canvas, centerX, centerY, radius);
+            DisplayIndicatedAltitude(canvas, centerX, centerY, radius);
+        }
+
+        private void DisplayIndicatedAirspeed(ICanvas canvas, float centerX, float centerY, float radius)
+        {
+            float boxWidth = 80f;
+            float boxHeight = 20f;
+            float offsetX = radius / 8f; // odległość od środka do prostokąta
+            float offsetY = radius / 2f; // odległość od środka do prostokąta
+
+            RectF iasRect = new RectF(centerX - offsetX - boxWidth, centerY + offsetY - boxHeight, boxWidth, boxHeight);
+
+            canvas.FillColor = Colors.White;
+            canvas.FillRectangle(iasRect);
+
+            canvas.StrokeColor = Colors.WhiteSmoke;
+            canvas.StrokeSize = 2;
+            canvas.DrawRectangle(iasRect);
+
+            canvas.FontColor = Colors.Black;
+            canvas.FontSize = 15;
+            canvas.DrawString(
+                $"IAS: {IndicatedAirspeed}"
+                , iasRect
+                , HorizontalAlignment.Center
+                , VerticalAlignment.Center
+                );
+        }
+
+        public void DisplayTrueAirSpeed(ICanvas canvas, float centerX, float centerY, float radius)
+        {
+            float boxWidth = 80f;
+            float boxHeight = 20f;
+            float offsetX = radius / 8f; // odległość od środka do prostokąta
+            float offsetY = radius / 2f; // odległość od środka do prostokąta
+
+            RectF iasRect = new RectF(centerX + offsetX, centerY + offsetY - boxHeight, boxWidth, boxHeight);
+
+            canvas.FillColor = Colors.White;
+            canvas.FillRectangle(iasRect);
+
+            canvas.StrokeColor = Colors.WhiteSmoke;
+            canvas.StrokeSize = 2;
+            canvas.DrawRectangle(iasRect);
+
+            canvas.FontColor = Colors.Black;
+            canvas.FontSize = 15;
+            canvas.DrawString(
+                $"Tas: {TrueAirSpeed}"
+                , iasRect
+                , HorizontalAlignment.Center
+                , VerticalAlignment.Center
+                );
+        }
+
+        private void DisplayHeading(ICanvas canvas, float centerX, float centerY, float radius)
+        {
+            float boxWidth = 80f;
+            float boxHeight = 20f;
+            float offsetX = radius / 8f; // odległość od środka do prostokąta
+            float offsetY = radius / 2f; // odległość od środka do prostokąta
+
+            RectF iasRect = new RectF(centerX - offsetX - boxWidth, centerY - offsetY, boxWidth, boxHeight);
+
+            canvas.FillColor = Colors.White;
+            canvas.FillRectangle(iasRect);
+
+            canvas.StrokeColor = Colors.WhiteSmoke;
+            canvas.StrokeSize = 2;
+            canvas.DrawRectangle(iasRect);
+
+            canvas.FontColor = Colors.Black;
+            canvas.FontSize = 15;
+            canvas.DrawString(
+                $"HDG: {Heading}"
+                , iasRect
+                , HorizontalAlignment.Center
+                , VerticalAlignment.Center
+                );
+        }
+
+        private void DisplayIndicatedAltitude(ICanvas canvas, float centerX, float centerY, float radius)
+        {
+            float boxWidth = 80f;
+            float boxHeight = 22f;
+            float offsetX = radius / 8f; // odległość od środka do prostokąta
+            float offsetY = radius / 2f; // odległość od środka do prostokąta
+
+            RectF altRect = new RectF(centerX + offsetX, centerY - offsetY, boxWidth, boxHeight);
+
+            canvas.FillColor = Colors.White;
+            canvas.FillRectangle(altRect);
+
+            canvas.StrokeColor = Colors.WhiteSmoke;
+            canvas.StrokeSize = 2;
+            canvas.DrawRectangle(altRect);
+
+            canvas.FontColor = Colors.Black;
+            canvas.FontSize = 15;
+            canvas.DrawString(
+                $"Alt: {NumberFormatter.FormatWithSpaces(Altitude)}"
+                , altRect
+                , HorizontalAlignment.Center
+                ,VerticalAlignment.Center
+                );
         }
 
         private void BombsightDeflectionIndicator(ICanvas canvas, float centerX, float centerY, float radius)
@@ -86,31 +215,7 @@ namespace AlwaysInTarget.Graphic
             RectF portRect = new RectF(centerX - offset - boxWidth, centerY - boxHeight / 2f, boxWidth, boxHeight);
             RectF strbRect = new RectF(centerX + offset, centerY - boxHeight / 2f, boxWidth, boxHeight);
 
-            if(BombSightDeflection.Length == 1 || BombSightDeflection.Length == 3)
-            {
-                canvas.FillColor = Colors.Red;
-                canvas.FillRectangle(strbRect);
-
-                canvas.StrokeColor = Colors.WhiteSmoke;
-                canvas.StrokeSize = 2;
-                canvas.DrawRectangle(strbRect);
-
-                canvas.FontColor = Colors.White;
-                canvas.FontSize = 13;
-                canvas.DrawString(BombSightDeflection, strbRect, HorizontalAlignment.Center, VerticalAlignment.Center);
-
-                canvas.FillColor = Colors.Red;
-                canvas.FillRectangle(portRect);
-
-                canvas.StrokeColor = Colors.WhiteSmoke;
-                canvas.StrokeSize = 2;
-                canvas.DrawRectangle(portRect);
-
-                canvas.FontColor = Colors.White;
-                canvas.FontSize = 13;
-                canvas.DrawString(BombSightDeflection, portRect, HorizontalAlignment.Center, VerticalAlignment.Center);
-            }
-            else if (BombSightDeflection.Contains("Strb"))
+            if (BombSightDeflection.Contains("Strb") || BombSightDeflection.Length == 3)
             {
                 canvas.FillColor = Colors.Red;
                 canvas.FillRectangle(strbRect);
@@ -135,6 +240,43 @@ namespace AlwaysInTarget.Graphic
                 canvas.FontColor = Colors.White;
                 canvas.FontSize = 13;
                 canvas.DrawString(BombSightDeflection, portRect, HorizontalAlignment.Center, VerticalAlignment.Center);
+            }
+        }
+
+        public void BombsightWindIndicator(ICanvas canvas, float centerX, float centerY, float radius)
+        {
+            float boxWidth = 60f;
+            float boxHeight = 30f;
+            float offset = radius / 3f; // odległość od środka do prostokąta
+
+            RectF portRect = new RectF(centerX - offset - boxWidth, centerY - boxHeight / 2f, boxWidth, boxHeight);
+            RectF strbRect = new RectF(centerX + offset, centerY - boxHeight / 2f, boxWidth, boxHeight);
+
+            if (BombSightDeflection.Contains("Strb") || BombSightDeflection.Length == 3)
+            {
+                canvas.FillColor = Colors.Blue;
+                canvas.FillRectangle(portRect);
+
+                canvas.StrokeColor = Colors.WhiteSmoke;
+                canvas.StrokeSize = 2;
+                canvas.DrawRectangle(portRect);
+
+                canvas.FontColor = Colors.White;
+                canvas.FontSize = 13;
+                canvas.DrawString($"{WindStrength} m/s", portRect, HorizontalAlignment.Center, VerticalAlignment.Center);
+            }
+            else
+            {
+                canvas.FillColor = Colors.Blue;
+                canvas.FillRectangle(strbRect);
+
+                canvas.StrokeColor = Colors.WhiteSmoke;
+                canvas.StrokeSize = 2;
+                canvas.DrawRectangle(strbRect);
+
+                canvas.FontColor = Colors.White;
+                canvas.FontSize = 13;
+                canvas.DrawString($"{WindStrength} m/s", strbRect, HorizontalAlignment.Center, VerticalAlignment.Center);
             }
         }
 
@@ -192,7 +334,7 @@ namespace AlwaysInTarget.Graphic
             triangle.LineTo(baseX - px * (arrowWidth / 2f), baseY - py * (arrowWidth / 2f));
             triangle.Close();
 
-            canvas.FillColor = Colors.DeepSkyBlue; // np. niebieski dla wiatru
+            canvas.FillColor = Colors.Blue; // np. niebieski dla wiatru
             canvas.FillPath(triangle);
             canvas.StrokeColor = Colors.White;
             canvas.StrokeSize = 1;
@@ -201,88 +343,22 @@ namespace AlwaysInTarget.Graphic
 
         public void AddingCompassMarkings(ICanvas canvas, float centerX, float centerY, float radius)
         {
-            //string[] dirs = { "N", "E", "S", "W" };
-            //canvas.FontColor = Colors.White;
-            //canvas.FontSize = 18;
-            //float labelRadius = radius + 18f;
-
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    double angle = (i * 90 - 90) * Math.PI / 180.0;
-            //    float lx = centerX + (float)Math.Cos(angle) * labelRadius;
-            //    float ly = centerY + (float)Math.Sin(angle) * labelRadius;
-            //    canvas.DrawString(
-            //        dirs[i],
-            //        lx - 20,
-            //        ly - 20,
-            //        40,
-            //        40,
-            //        HorizontalAlignment.Center,
-            //        VerticalAlignment.Center,
-            //        TextFlow.ClipBounds,
-            //        0);
-            //}
-
-            float mainLabelRadius = radius + 18f;
-            float extraLabelRadius = radius + 12f; // mniejsze liczby dla pośrednich kierunków
-
-            // główne kierunki
-            var mainDirs = new Dictionary<int, string>
-    {
-        { 0, "N" },
-        { 90, "E" },
-        { 180, "S" },
-        { 270, "W" }
-    };
-
-            // pośrednie kąty
-            var extraDirs = new Dictionary<int, string>
-    {
-        { 30, "30" },
-        { 60, "60" },
-        { 120, "120" },
-        { 150, "150" },
-        { 210, "210" },
-        { 240, "240" },
-        { 300, "300" },
-        { 330, "330" }
-    };
-
-            // rysujemy główne kierunki
+            string[] dirs = { "N", "E", "S", "W" };
             canvas.FontColor = Colors.White;
             canvas.FontSize = 18;
-            foreach (var kvp in mainDirs)
+            float labelRadius = radius + 18f;
+
+            for (int i = 0; i < 4; i++)
             {
-                double angle = (kvp.Key - 90) * Math.PI / 180.0;
-                float lx = centerX + (float)Math.Cos(angle) * mainLabelRadius;
-                float ly = centerY + (float)Math.Sin(angle) * mainLabelRadius;
-
+                double angle = (i * 90 - 90) * Math.PI / 180.0;
+                float lx = centerX + (float)Math.Cos(angle) * labelRadius;
+                float ly = centerY + (float)Math.Sin(angle) * labelRadius;
                 canvas.DrawString(
-                    kvp.Value,
-                    lx - 12,
-                    ly - 12,
-                    24,
-                    24,
-                    HorizontalAlignment.Center,
-                    VerticalAlignment.Center,
-                    TextFlow.ClipBounds,
-                    0);
-            }
-
-            // rysujemy pośrednie kąty
-            canvas.FontSize = 12; // mniejsze liczby
-            foreach (var kvp in extraDirs)
-            {
-                double angle = (kvp.Key - 90) * Math.PI / 180.0;
-                float lx = centerX + (float)Math.Cos(angle) * extraLabelRadius;
-                float ly = centerY + (float)Math.Sin(angle) * extraLabelRadius;
-
-                canvas.DrawString(
-                    kvp.Value,
-                    lx - 10,
-                    ly - 10,
-                    20,
-                    20,
+                    dirs[i],
+                    lx - 20,
+                    ly - 20,
+                    40,
+                    40,
                     HorizontalAlignment.Center,
                     VerticalAlignment.Center,
                     TextFlow.ClipBounds,
@@ -335,6 +411,8 @@ namespace AlwaysInTarget.Graphic
             canvas.DrawPath(triangle);
         }
 
+
+
         private void CompassCircumference(ICanvas canvas, float centerX, float centerY, float radius)
         {
             canvas.StrokeColor = Colors.White;
@@ -361,6 +439,39 @@ namespace AlwaysInTarget.Graphic
                 canvas.StrokeSize = (deg % 5 == 0) ? 2 : 1;
                 canvas.DrawLine(xInner, yInner, xOuter, yOuter);
             }
+        }
+
+        private void DrawTrueCourseNeedle(ICanvas canvas, float centerX, float centerY, float radius)
+        {
+            if (TrueCourse < 0 || TrueCourse > 360) return;
+
+            canvas.SaveState();
+
+            // ustaw środek jako punkt odniesienia
+            canvas.Translate(centerX, centerY);
+
+            // obróć znacznik o TrueCourse
+            canvas.Rotate(TrueCourse);
+
+            // parametry znaczników
+            float markerLength = 12f;   // długość prostokąta w kierunku promienia
+            float markerWidth = 5f;     // szerokość prostokąta wzdłuż obwodu
+            float gap = 5f;             // przerwa między prostokątami
+
+            // położenie prostokątów po wewnętrznej stronie obwodu
+            float yStart = -radius + 5f + markerLength;
+
+            // lewy prostokąt (po lewej stronie przerwy)
+            RectF rectLeft = new RectF(-markerWidth - gap / 2f, yStart, markerWidth, markerLength);
+            canvas.FillColor = Colors.LimeGreen;
+            canvas.FillRectangle(rectLeft);
+
+            // prawy prostokąt (po prawej stronie przerwy)
+            RectF rectRight = new RectF(gap / 2f, yStart, markerWidth, markerLength);
+            canvas.FillColor = Colors.LimeGreen;
+            canvas.FillRectangle(rectRight);
+
+            canvas.RestoreState();
         }
     }
 }

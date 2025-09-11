@@ -99,19 +99,19 @@
                 IsEnabled="{Binding Connected}"
                 />
 
-            <!--Testy kompasu online-->
-            <Button Text="Compass online"
-                x:Name="btnCompassOnline"
+            <Button Text="Flight director"
+                x:Name="btnFlightDirector"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
-                Clicked="OnCompassOnlineClick"
+                Clicked="OnFlightDirectorClick"
                 WidthRequest="200"
                 HeightRequest="40"
                 BorderWidth="3"
                 BorderColor="Gray"
                 BackgroundColor="Ivory"
                 TextColor="Black"
-                Grid.Row="7" Grid.Column="1"/>
+                Grid.Row="7" Grid.Column="1"
+                IsEnabled="{Binding Connected}"/>
 
             <Button Text="Il 2 Dial Server"
                 x:Name="btnDialServer"

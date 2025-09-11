@@ -38,7 +38,7 @@ namespace AlwaysInTarget
         }
 
         //Testy kompasu online
-        private async void OnCompassOnlineClick(object sender, EventArgs e)
+        private async void OnFlightDirectorClick(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new CompassOnline());
         }

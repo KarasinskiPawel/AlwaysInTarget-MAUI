@@ -143,10 +143,16 @@ public partial class CompassOnline : ContentPage
         }
     }
 
-    private void HeadingSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+    public void OnResetButtonClick(object sender, EventArgs e)
     {
-        _compassDrawable.TrueHeading = (float)e.NewValue;
-        CompassView.Invalidate(); // odœwie¿ rysowanie
+        navigation.Distance_KM = 0;
+    }
+
+    private async void OnBackButtonClick(object sender, EventArgs e)
+    {
+        dataRefreshStop = true;
+
+        await Navigation.PushAsync(new MainPage());
     }
 
     private void SwitchMapHdgArrow(object sender, ToggledEventArgs e)

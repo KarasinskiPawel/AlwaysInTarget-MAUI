@@ -3,62 +3,144 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlwaysInTarget.View.CompassOnline"
              Shell.NavBarIsVisible="False">
+
+    <!-- 🔹 Wspólne style dla całej strony -->
+    <ContentPage.Resources>
+        <!-- Domyślny wygląd ramek -->
+        <Style TargetType="Frame">
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Margin" Value="5,2"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="BorderColor" Value="Black"/>
+            <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
+        </Style>
+
+        <!-- Domyślny wygląd labeli -->
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+
+        <!-- Domyślny wygląd pól Entry -->
+        <Style TargetType="Entry">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <!--<Setter Property="HeightRequest" Value="32"/>-->
+        </Style>
+
+        <!-- Domyślny wygląd Picker -->
+        <Style TargetType="Picker">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <!--<Setter Property="HeightRequest" Value="32"/>-->
+        </Style>
+    </ContentPage.Resources>
+
     <VerticalStackLayout BackgroundColor="Black">
-        <Frame BackgroundColor="Blue"  Padding="12" CornerRadius="5" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="5, 5, 5, 10">
-            <Label Text="Compass online" TextColor="White" FontSize="20" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+
+        <!-- Nagłówek -->
+        <Frame BackgroundColor="Blue" Padding="8" Margin="5,5,5,8">
+            <Label Text="Flight director"
+                   TextColor="White"
+                   FontSize="20"
+                   HorizontalTextAlignment="Center"
+                   FontAttributes="Bold"/>
         </Frame>
 
-        <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2.0*"></ColumnDefinition>
-                    <ColumnDefinition Width="2.0*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-                <Entry Grid.Row="0" Grid.Column="0" x:Name="ePlaneType" FontSize="18" Text="{Binding PlaneType}" Placeholder="...plane..." Keyboard="Numeric" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
-                <Picker x:Name="eSystem" Grid.Row="0" Grid.Column="1" FontSize="18" TextColor="Black" HorizontalTextAlignment="Center"
-                        Title="...system..."    
+        <!-- Typ samolotu i system -->
+        <Frame>
+            <Grid ColumnDefinitions="2*,2*">
+                <Entry x:Name="ePlaneType"
+                       Text="{Binding PlaneType}"
+                       Placeholder="...plane..."
+                       IsReadOnly="True"/>
+                <Picker x:Name="eSystem"
+                        Grid.Column="1"
+                        Title="...system..."
                         ItemsSource="{Binding MeasureSystems}"
                         SelectedIndex="0"
-                        SelectedItem="{Binding SelectedSystem}" 
+                        SelectedItem="{Binding SelectedSystem}"
                         SelectedIndexChanged="System_SelectedIndexChanged"
-                        TitleColor="red">
-                </Picker>
+                        TitleColor="Red"/>
             </Grid>
         </Frame>
 
+        <!-- Kompas -->
         <GraphicsView x:Name="CompassView"
                       HeightRequest="360"
-                      WidthRequest="360"/>
+                      WidthRequest="360"
+                      Margin="0,4"/>
 
-        <Frame BorderColor="Black" BackgroundColor="WhiteSmoke"  Padding="6" CornerRadius="5" Margin="5, 3, 5, 3">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2.0*"></ColumnDefinition>
-                    <ColumnDefinition Width="2.0*"></ColumnDefinition>
-                    <ColumnDefinition Width="2.0*"></ColumnDefinition>
-                    <ColumnDefinition Width="2.0*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-                <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Text="Heading: " FontSize="18" TextColor="Black" Padding="6"/>
-                <Entry Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" x:Name="eCompassHeading" Text="{Binding Course}" FontSize="18" Placeholder="...err..." Keyboard="Numeric" MaxLength="4" TextColor="Black" IsReadOnly="True" HorizontalTextAlignment="Center"/>
-
-                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Text="Map hdg:" FontSize="18" TextColor="Black" Padding="6"/>
-                <Entry Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" x:Name="eTrueCourse" Text="{Binding TrueCourse}" FontSize="18" Placeholder=" - - - " Keyboard="Numeric" MaxLength="6" TextColor="Black" HorizontalTextAlignment="Center"/>
-
-                <Switch Grid.Row="1" Grid.Column="2" IsToggled="{Binding IsMapHeadingEnabled}" Toggled="SwitchMapHdgArrow"/>
+        <!-- Heading i Map HDG -->
+        <Frame>
+            <Grid ColumnDefinitions="2*,2*,2*,2*" RowDefinitions="Auto">
+                <Label Text="Map HDG:" Grid.Row="1" Grid.Column="0"/>
+                <Entry x:Name="eTrueCourse"
+                       Grid.Row="1" Grid.Column="1"
+                       Text="{Binding TrueCourse}"
+                       Placeholder=" - - - "/>
+                <Switch Grid.Row="1" Grid.Column="2"
+                        IsToggled="{Binding IsMapHeadingEnabled}"
+                        Toggled="SwitchMapHdgArrow"/>
             </Grid>
         </Frame>
 
-        <Slider x:Name="HeadingSlider" 
-                Minimum="0" Maximum="360"
-                ValueChanged="HeadingSlider_ValueChanged"/>
+        <!-- Wind Correction Angle i Bombsight -->
+        <Frame>
+            <Grid ColumnDefinitions="2*,2*,2*,2*" RowDefinitions="Auto,Auto">
+                <Label Text="Wind Correction Angle:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Entry x:Name="eCorrectionAngle"
+                       Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
+                       Text="{Binding WindCorrectionAngel}"
+                       Placeholder=" - - - "
+                       IsReadOnly="True"/>
+
+                <Label Text="Bombsight def:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Entry x:Name="eBombsightDeflection"
+                       Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
+                       Text="{Binding BombSightDeflection}"
+                       Placeholder=" - - - "
+                       IsReadOnly="True"/>
+            </Grid>
+        </Frame>
+
+        <Frame>
+            <Grid ColumnDefinitions="2*, 2*, 2*, 2*" RowDefinitions="Auto">
+                <Label Text="Dist:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <Entry x:Name="eDistance"
+                       Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
+                       Text="{Binding Distance}"
+                       Placeholder=" - - - "
+                       IsReadOnly="True"/>
+            </Grid>
+        </Frame>
+
+        <Button Text="Distance reset"
+                Margin="2"
+                x:Name="btnReset"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Clicked="OnResetButtonClick"
+                WidthRequest="200"
+                MaximumHeightRequest="40"
+                BorderWidth="3"
+                BorderColor="Ivory"
+                BackgroundColor="Gray"/>
+
+        <Button Text="Back"
+                Margin="2"
+                x:Name="btnBack"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Clicked="OnBackButtonClick"
+                WidthRequest="200"
+                MaximumHeightRequest="40"
+                BorderWidth="3"
+                BorderColor="Ivory"
+                BackgroundColor="Red"/>
+
     </VerticalStackLayout>
 </ContentPage>
