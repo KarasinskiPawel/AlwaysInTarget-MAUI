@@ -107,6 +107,11 @@ public partial class NavigationOnline : ContentPage
     {
         dataRefreshStop = true;
 
+        if (dataRefresh != null && dataRefresh.IsAlive)
+        {
+            dataRefresh.Join(); // blokuje do czasu zakoñczenia w¹tku
+        }
+
         await Navigation.PushAsync(new MainPage());
     }
 

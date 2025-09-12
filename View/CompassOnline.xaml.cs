@@ -13,34 +13,44 @@ namespace AlwaysInTarget.View;
 public partial class CompassOnline : ContentPage
 {
     private CompassDrawable _compassDrawable;
+    private IDispatcherTimer _refreshTimer;
 
     NavigationOnlineModel navigation = new NavigationOnlineModel();
+
     Thread dataRefresh;
+
     bool dataRefreshStop = false;
     public CompassOnline()
 	{
         InitializeComponent();
-
         BindingContext = navigation;
-
-        SetLabels(navigation.SelectedSystem);
-
-        RunRefresh();
 
         _compassDrawable = new CompassDrawable();
         CompassView.Drawable = _compassDrawable;
+
+        StartUdpThread();
+        StartFindDirectorRefreshTimer();
     }
 
-    private void RunRefresh()
+    private void StartUdpThread()
     {
         dataRefresh = new Thread(() => RefershPlaneDataModel());
         dataRefresh.IsBackground = true;
         dataRefresh.Start();
     }
 
-    private void System_SelectedIndexChanged(object sender, EventArgs e)
+    private void StartFindDirectorRefreshTimer()
     {
-        SetLabels(navigation.SelectedSystem);
+        _refreshTimer = Dispatcher.CreateTimer();
+        _refreshTimer.Interval = TimeSpan.FromMilliseconds(33); // ~30 FPS
+        _refreshTimer.Tick += (s, e) =>
+        {
+            MainThread.BeginInvokeOnMainThread(() => {
+                if (CompassView is not null)
+                    CompassView.Invalidate();
+            });
+        };
+        _refreshTimer.Start();
     }
 
     private void RefershPlaneDataModel()
@@ -96,57 +106,9 @@ public partial class CompassOnline : ContentPage
                 navigation.BombSightDeflection = Storage.GetStorage().BombSightModel.BombSightDeflection;
 
                 _compassDrawable.SetCurrentFlightParameters(navigation);
-
-                try
-                {
-                    if (CompassView is not null)
-                        CompassView.Invalidate();
-                }
-                catch
-                { 
-                
-                }
             }
 
             Thread.Sleep(17);
-        }
-    }
-
-    private void SetLabels(string selectedSystem)
-    {
-        try
-        {
-            //switch (selectedSystem)
-            //{
-            //    case "Metric":
-            //        lSpeedIas.Text = "IAS (km/h):";
-            //        lSpeedTas.Text = "TAS (km/h):";
-
-            //        lGroundSpeed.Text = "Real (km/h):";
-            //        lDistance.Text = "Dist. (km/h):";
-
-            //        lAlt.Text = "Altitude (m)";
-            //        break;
-            //    case "Imperial":
-            //        lSpeedIas.Text = "IAS (mph):";
-            //        lSpeedTas.Text = "TAS (mph):";
-
-            //        lGroundSpeed.Text = "Real (mph):";
-            //        lDistance.Text = "Dist. (mph):";
-
-            //        lAlt.Text = "Altitude (ft)";
-            //        break;
-            //    default:
-            //        lSpeedIas.Text = "Error";
-            //        lSpeedTas.Text = "Error";
-
-            //        lAlt.Text = "Error";
-            //        break;
-            //}
-        }
-        catch
-        {
-            DisplayAlert("Error", "B³¹d podczas zmiany sytemu.", "OK");
         }
     }
 
@@ -158,6 +120,11 @@ public partial class CompassOnline : ContentPage
     private async void OnBackButtonClick(object sender, EventArgs e)
     {
         dataRefreshStop = true;
+
+        if (dataRefresh != null && dataRefresh.IsAlive)
+        {
+            dataRefresh.Join(); // blokuje do czasu zakoñczenia w¹tku
+        }
 
         await Navigation.PushAsync(new MainPage());
     }

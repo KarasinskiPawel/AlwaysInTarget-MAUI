@@ -9,6 +9,12 @@ namespace AlwaysInTarget
             InitializeComponent();
 
             MainPage = new AppShell();
-        }       
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+            DeviceDisplay.KeepScreenOn = true;
+        }
     }
 }

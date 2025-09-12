@@ -242,7 +242,7 @@ namespace AlwaysInTarget.Graphic
                 canvas.FillColor = Colors.Red;
                 canvas.FillRectangle(strbRect);
 
-                canvas.StrokeColor = Colors.WhiteSmoke;
+                canvas.StrokeColor = Colors.White;
                 canvas.StrokeSize = 2;
                 canvas.DrawRectangle(strbRect);
 
@@ -255,7 +255,7 @@ namespace AlwaysInTarget.Graphic
                 canvas.FillColor = Colors.Red;
                 canvas.FillRectangle(portRect);
 
-                canvas.StrokeColor = Colors.WhiteSmoke;
+                canvas.StrokeColor = Colors.White;
                 canvas.StrokeSize = 2;
                 canvas.DrawRectangle(portRect);
 
