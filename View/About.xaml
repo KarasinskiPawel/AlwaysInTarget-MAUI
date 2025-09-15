@@ -18,12 +18,12 @@
 
         <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" TextColor="White"
                        VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
-                       Text="Version 6.00.3 MAUI"
+                       Text="Version 6.10.0 MAUI"
                        Margin="5, 20"/>
 
         <Button Text="Back"
                 x:Name="btnBack"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Clicked="OnBackButtonClick"
                 WidthRequest="200"
