@@ -11,14 +11,14 @@
             <Setter Property="Padding" Value="4"/>
             <Setter Property="Margin" Value="5,2"/>
             <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="BorderColor" Value="Black"/>
-            <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
+            <Setter Property="BorderColor" Value="Gray"/>
+            <Setter Property="BackgroundColor" Value="Black"/>
         </Style>
 
         <!-- Domyślny wygląd labeli -->
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="TextColor" Value="WhiteSmoke"/>
             <Setter Property="Padding" Value="2"/>
             <Setter Property="VerticalOptions" Value="Center"/>
         </Style>
@@ -26,7 +26,7 @@
         <!-- Domyślny wygląd pól Entry -->
         <Style TargetType="Entry">
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="TextColor" Value="WhiteSmoke"/>
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
             <!--<Setter Property="HeightRequest" Value="32"/>-->
         </Style>
@@ -34,7 +34,7 @@
         <!-- Domyślny wygląd Picker -->
         <Style TargetType="Picker">
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="TextColor" Value="WhiteSmoke"/>
             <!--<Setter Property="HeightRequest" Value="32"/>-->
         </Style>
     </ContentPage.Resources>
@@ -42,7 +42,7 @@
     <VerticalStackLayout BackgroundColor="Black">
 
         <!-- Nagłówek -->
-        <Frame BackgroundColor="Blue" Padding="8" Margin="5,5,5,8">
+        <Frame BackgroundColor="Black" BorderColor="Gray" Padding="8" Margin="5,5,5,8">
             <Label Text="Flight director"
                    TextColor="White"
                    FontSize="20"
@@ -63,6 +63,8 @@
                         ItemsSource="{Binding MeasureSystems}"
                         SelectedIndex="0"
                         SelectedItem="{Binding SelectedSystem}"
+                        HorizontalTextAlignment="Center"
+                        TextColor="WhiteSmoke"
                         TitleColor="Red"/>
             </Grid>
         </Frame>
@@ -73,62 +75,84 @@
                       WidthRequest="360"
                       Margin="0,4"/>
 
-        <!-- Heading i Map HDG -->
         <Frame>
-            <Grid ColumnDefinitions="2*,2*,2*,2*" RowDefinitions="Auto">
-                <Label Text="Map HDG:" Grid.Row="1" Grid.Column="0"/>
-                <Entry x:Name="eTrueCourse"
-                       Grid.Row="1" Grid.Column="1"
-                       Text="{Binding TrueCourse}"
+            <Grid ColumnDefinitions="2*, 2*, 2*, 2*" RowDefinitions="Auto, Auto">
+                <Label Text="Map HDG:" Grid.Row="0" Grid.Column="0"></Label>
+                <Entry Grid.Row="0" Grid.Column="1"
+                       x:Name="eMapHDG"
                        Keyboard="Numeric"
-                       Placeholder=" - - - "/>
-                <Switch Grid.Row="1" Grid.Column="2"
-                        IsToggled="{Binding IsMapHeadingEnabled}"
-                        Toggled="SwitchMapHdgArrow"/>
+                       Text="{Binding TrueCourse}"
+                       IsEnabled="{Binding IsMapHeadingEnabled}"
+                       TextChanged="OnChangeMapHDG"
+                       ></Entry>
+                <Button Grid.Row="0" Grid.Column="2"
+                        WidthRequest="60" HeightRequest="40"
+                        Text="1"
+                        BackgroundColor="{Binding NavigationComputerDatas[0].ButtonColor}"
+                        BorderWidth="2"
+                        BorderColor="WhiteSmoke"
+                        Clicked="NavigationComputerButton" CommandParameter="1"
+                        />
+                <Button Grid.Row="0" Grid.Column="3"
+                        WidthRequest="60" HeightRequest="40"
+                        Text="2"
+                        BackgroundColor="{Binding NavigationComputerDatas[1].ButtonColor}"
+                        BorderWidth="2"
+                        BorderColor="WhiteSmoke"
+                        Clicked="NavigationComputerButton" CommandParameter="2"
+                        />
+
+
+                <Label Text="Map dist:" Grid.Row="1" Grid.Column="0"></Label>
+                <Entry Grid.Row="1" Grid.Column="1"
+                       x:Name="eMapDist"
+                       Keyboard="Numeric"
+                       Text="{Binding MapDistance}"
+                       IsEnabled="{Binding IsMapHeadingEnabled}"
+                       TextChanged="OnChangeMapDist"
+                       ></Entry>
+                <Button Grid.Row="1" Grid.Column="2"
+                        WidthRequest="60" HeightRequest="40"
+                        Text="3"
+                        BackgroundColor="{Binding NavigationComputerDatas[2].ButtonColor}"
+                        BorderWidth="2"
+                        BorderColor="WhiteSmoke"
+                        Clicked="NavigationComputerButton" CommandParameter="3"
+                        />
+                <Button Grid.Row="1" Grid.Column="3"
+                        WidthRequest="60" HeightRequest="40"
+                        Text="4"
+                        BackgroundColor="{Binding NavigationComputerDatas[3].ButtonColor}"
+                        BorderWidth="2"
+                        BorderColor="WhiteSmoke"
+                        Clicked="NavigationComputerButton" CommandParameter="4"
+                        />
+
             </Grid>
         </Frame>
-
-        <!-- Wind Correction Angle i Bombsight -->
-        <!--<Frame>
-            <Grid ColumnDefinitions="2*,2*,2*,2*" RowDefinitions="Auto,Auto">
-                <Label Text="Wind Correction Angle:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-                <Entry x:Name="eCorrectionAngle"
-                       Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
-                       Text="{Binding WindCorrectionAngel}"
-                       Placeholder=" - - - "
-                       IsReadOnly="True"/>
-
-                <Label Text="Bombsight def:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
-                <Entry x:Name="eBombsightDeflection"
-                       Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
-                       Text="{Binding BombSightDeflection}"
-                       Placeholder=" - - - "
-                       IsReadOnly="True"/>
-            </Grid>
-        </Frame>-->
 
         <Frame>
             <Grid ColumnDefinitions="2*, 2*, 2*, 2*" RowDefinitions="Auto">
                 <Label Text="Dist:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
                 <Entry x:Name="eDistance"
-                       Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
+                       Grid.Row="0" Grid.Column="1" 
                        Text="{Binding Distance}"
                        Placeholder=" - - - "
                        IsReadOnly="True"/>
+
+                <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
+                    Text="Distance reset"
+                    Margin="2"
+                    x:Name="btnReset"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Clicked="OnResetButtonClick"
+                    MaximumHeightRequest="40"
+                    BorderWidth="2"
+                    BorderColor="Black"
+                    BackgroundColor="Gray"/>
             </Grid>
         </Frame>
-
-        <Button Text="Distance reset"
-                Margin="2"
-                x:Name="btnReset"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Clicked="OnResetButtonClick"
-                WidthRequest="200"
-                MaximumHeightRequest="40"
-                BorderWidth="3"
-                BorderColor="Ivory"
-                BackgroundColor="Gray"/>
 
         <Button Text="Back"
                 Margin="5"

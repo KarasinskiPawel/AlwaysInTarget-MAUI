@@ -1,8 +1,11 @@
 ﻿#nullable disable
 
+using AlwaysInTarget.DbCRUD.DbFake;
+using AlwaysInTarget.DbCRUD.Dto;
 using AlwaysInTarget.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -50,7 +53,25 @@ namespace AlwaysInTarget.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TrueHeading)));
             }
         }
-        public int TrueCourse { get; set; }
+        private int _trueCourse;
+        public int TrueCourse
+        {
+            get => _trueCourse;
+            set
+            {
+                _trueCourse = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TrueCourse)));
+            }
+        }
+        private int _mapDistance;
+        public int MapDistance
+        {
+            get => _mapDistance;
+            set {
+                _mapDistance = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapDistance)));   
+            }
+        }
         public int IAS { 
             get => _ias;
             set 
@@ -181,11 +202,23 @@ namespace AlwaysInTarget.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Distance)));
             }
         }
-        public bool IsMapHeadingEnabled { get; set; } = false;
+        private bool _isMapHeadingEnabled;
+        public bool IsMapHeadingEnabled
+        {
+            get => _isMapHeadingEnabled;
+            set
+            {
+                if (_isMapHeadingEnabled == value) return;
+                _isMapHeadingEnabled = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMapHeadingEnabled)));
+            }
+        }
+        public ObservableCollection<NavigationComputerDataM> NavigationComputerDatas { get; set; }
 
         public NavigationOnlineModel()
         {
             SelectedSystem = "Metric";
+            NavigationComputerDatas = new ObservableCollection<NavigationComputerDataM>(new NavigationComputerDataTable().Output());
         }
         public PlaneDataM planeDataM { get; set; }
         public DateTime measuringTimePoint = DateTime.Now;
