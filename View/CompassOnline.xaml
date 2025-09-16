@@ -40,8 +40,6 @@
     </ContentPage.Resources>
 
     <VerticalStackLayout BackgroundColor="Black">
-
-        <!-- Nagłówek -->
         <Frame BackgroundColor="Black" BorderColor="Gray" Padding="8" Margin="5,5,5,8">
             <Label Text="Flight director"
                    TextColor="White"
