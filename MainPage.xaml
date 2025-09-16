@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlwaysInTarget.MainPage"
@@ -7,18 +7,18 @@
     <ScrollView BackgroundColor="Black">
         <Grid Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="48"/>
                 <RowDefinition Height="240" />
-                <RowDefinition Height="44" />
-                <RowDefinition Height="44" />
-                <RowDefinition Height="44" />
-                <RowDefinition Height="44" />
-                <RowDefinition Height="44" />
-                <RowDefinition Height="44" />
-                <RowDefinition Height="44" />
-                <RowDefinition Height="44" />
-                <RowDefinition Height="44" />
-                <RowDefinition Height="44" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100" />
@@ -26,15 +26,15 @@
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
 
-            <Frame  BackgroundColor="Blue"  Padding="12" CornerRadius="5" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BorderColor="LightGray">
-                <Label Text="Always in target" TextColor="White" FontSize="20" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
-            </Frame>
+            <Border  BackgroundColor="Blue"  Padding="12" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
+                <Label Text="Always in target" TextColor="White" FontSize="18" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+            </Border>
 
             <Image Source="logo" Grid.Row="1" Grid.ColumnSpan="3" WidthRequest="200"/>
 
             <Button Text="Weather"
                 x:Name="btnWeather"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Clicked="OnWeatherButtonClick"
                 WidthRequest="200"
@@ -43,11 +43,12 @@
                 BorderColor="Gray"
                 BackgroundColor="ivory"
                 TextColor="Black"
-                Grid.Row="2" Grid.Column="1"/>
+                Grid.Row="2" Grid.Column="1"
+                />
 
             <Button Text="Bomb sight"
                 x:Name="btnBombSight"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Clicked="OnBombSightButtonClick"
                 WidthRequest="200"
@@ -60,7 +61,7 @@
 
             <Button Text="Navigation"
                 x:Name="btnNavigation"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Clicked="OnNavigationButtonClick"
                 WidthRequest="200"
@@ -73,7 +74,7 @@
 
             <Button Text="Flight plan"
                 x:Name="btnFlightplan"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Clicked="OnFlightplanButtonClick"
                 WidthRequest="200"
@@ -86,7 +87,7 @@
 
             <Button Text="Navigation online"
                 x:Name="btnNavigationOnline"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Clicked="OnNavigationOnlineButtonClick"
                 WidthRequest="200"
@@ -101,7 +102,7 @@
 
             <Button Text="Flight director"
                 x:Name="btnFlightDirector"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Clicked="OnFlightDirectorClick"
                 WidthRequest="200"
@@ -115,7 +116,7 @@
 
             <Button Text="Il 2 Dial Server"
                 x:Name="btnDialServer"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Clicked="OnDialServerClick"
                 WidthRequest="200"
@@ -128,7 +129,7 @@
 
             <Button Text="About"
                 x:Name="btnAbout"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Clicked="OnAboutButtonClick"
                 WidthRequest="200"

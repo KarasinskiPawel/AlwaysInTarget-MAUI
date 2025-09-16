@@ -67,17 +67,38 @@ namespace AlwaysInTarget.Graphic
         {
             try
             {
+                //float w = dirtyRect.Width;
+                //float h = dirtyRect.Height;
+                //float centerX = dirtyRect.Center.X;
+                //float centerY = dirtyRect.Center.Y;
+
+                //float radius = Math.Min(w, h) / 2f - Margin;
+                //if (radius <= 0) return;
+
+                //// tło
+                //canvas.FillColor = Colors.Black;
+                //canvas.FillRectangle(dirtyRect);
+
                 float w = dirtyRect.Width;
                 float h = dirtyRect.Height;
                 float centerX = dirtyRect.Center.X;
                 float centerY = dirtyRect.Center.Y;
 
-                float radius = Math.Min(w, h) / 2f - Margin;
+                // promień koła
+                float radius = Math.Min(w, h) / 2f - Margin; //
                 if (radius <= 0) return;
 
-                // tło
+                // wypełnienie tła przezroczyste (opcjonalnie)
+                //canvas.FillColor = Colors.Black;
+                //canvas.FillCircle(centerX, centerY, radius);
+
+                // obramowanie 3px w czarnym kolorze
+                canvas.StrokeColor = Colors.LightSteelBlue;
+                canvas.StrokeSize = 5;
+                canvas.DrawCircle(centerX, centerY, Math.Min(w, h) / 1.9f);
+
                 canvas.FillColor = Colors.Black;
-                canvas.FillRectangle(dirtyRect);
+                canvas.FillCircle(centerX, centerY, Math.Min(w, h) / 1.9f);
 
                 // --- 1) Strzałka kierunku lotu (czerwona) ---
                 FlightDirectionArrow(canvas, centerX, centerY, radius - 10, MarginFlightDirectionArrow, Convert.ToUInt32(TrueHeading).ToString());

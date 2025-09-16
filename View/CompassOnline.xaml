@@ -2,16 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlwaysInTarget.View.CompassOnline"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundImageSource="metal_a.jpg">
 
     <!-- 🔹 Wspólne style dla całej strony -->
     <ContentPage.Resources>
         <!-- Domyślny wygląd ramek -->
-        <Style TargetType="Frame">
-            <Setter Property="Padding" Value="4"/>
+        <Style TargetType="Border">
+            <Setter Property="Padding" Value="2"/>
             <Setter Property="Margin" Value="5,2"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="BorderColor" Value="Gray"/>
             <Setter Property="BackgroundColor" Value="Black"/>
         </Style>
 
@@ -39,23 +38,24 @@
         </Style>
     </ContentPage.Resources>
 
-    <VerticalStackLayout BackgroundColor="Black">
-        <Frame BackgroundColor="Black" BorderColor="Gray" Padding="8" Margin="5,5,5,8">
-            <Label Text="Flight director"
+    <Grid>
+        <VerticalStackLayout BackgroundColor="Transparent">
+            <Border Padding="8" Margin="5,5,5,8" Stroke="LightSteelBlue" StrokeShape="RoundRectangle 10, 10">
+                <Label Text="Flight director"
                    TextColor="White"
                    FontSize="20"
                    HorizontalTextAlignment="Center"
                    FontAttributes="Bold"/>
-        </Frame>
+            </Border>
 
-        <!-- Typ samolotu i system -->
-        <Frame>
-            <Grid ColumnDefinitions="2*,2*">
-                <Entry x:Name="ePlaneType"
+            <!-- Typ samolotu i system -->
+            <Border Stroke="LightSteelBlue"  StrokeShape="RoundRectangle 10, 10">
+                <Grid ColumnDefinitions="2*,2*">
+                    <Entry x:Name="ePlaneType"
                        Text="{Binding PlaneType}"
                        Placeholder="...plane..."
                        IsReadOnly="True"/>
-                <Picker x:Name="eSystem"
+                    <Picker x:Name="eSystem"
                         Grid.Column="1"
                         Title="...system..."
                         ItemsSource="{Binding MeasureSystems}"
@@ -64,26 +64,26 @@
                         HorizontalTextAlignment="Center"
                         TextColor="WhiteSmoke"
                         TitleColor="Red"/>
-            </Grid>
-        </Frame>
+                </Grid>
+            </Border>
 
-        <!-- Kompas -->
-        <GraphicsView x:Name="CompassView"
+            <!-- Kompas -->
+            <GraphicsView x:Name="CompassView"
                       HeightRequest="360"
                       WidthRequest="360"
-                      Margin="0,4"/>
+                      Margin="0,15"/>
 
-        <Frame>
-            <Grid ColumnDefinitions="2*, 2*, 2*, 2*" RowDefinitions="Auto, Auto">
-                <Label Text="Map HDG:" Grid.Row="0" Grid.Column="0"></Label>
-                <Entry Grid.Row="0" Grid.Column="1"
+            <Border Margin="0.5" Stroke="LightSteelBlue" StrokeShape="RoundRectangle 10, 10">
+                <Grid ColumnDefinitions="2*, 2*, 2*, 2*" RowDefinitions="50, 50">
+                    <Label Text="Map HDG:" Grid.Row="0" Grid.Column="0"></Label>
+                    <Entry Grid.Row="0" Grid.Column="1"
                        x:Name="eMapHDG"
                        Keyboard="Numeric"
                        Text="{Binding TrueCourse}"
                        IsEnabled="{Binding IsMapHeadingEnabled}"
                        TextChanged="OnChangeMapHDG"
                        ></Entry>
-                <Button Grid.Row="0" Grid.Column="2"
+                    <Button Grid.Row="0" Grid.Column="2"
                         WidthRequest="60" HeightRequest="40"
                         Text="1"
                         BackgroundColor="{Binding NavigationComputerDatas[0].ButtonColor}"
@@ -91,7 +91,7 @@
                         BorderColor="WhiteSmoke"
                         Clicked="NavigationComputerButton" CommandParameter="1"
                         />
-                <Button Grid.Row="0" Grid.Column="3"
+                    <Button Grid.Row="0" Grid.Column="3"
                         WidthRequest="60" HeightRequest="40"
                         Text="2"
                         BackgroundColor="{Binding NavigationComputerDatas[1].ButtonColor}"
@@ -101,15 +101,15 @@
                         />
 
 
-                <Label Text="Map dist:" Grid.Row="1" Grid.Column="0"></Label>
-                <Entry Grid.Row="1" Grid.Column="1"
+                    <Label Text="Map dist:" Grid.Row="1" Grid.Column="0"></Label>
+                    <Entry Grid.Row="1" Grid.Column="1"
                        x:Name="eMapDist"
                        Keyboard="Numeric"
                        Text="{Binding MapDistance}"
                        IsEnabled="{Binding IsMapHeadingEnabled}"
                        TextChanged="OnChangeMapDist"
                        ></Entry>
-                <Button Grid.Row="1" Grid.Column="2"
+                    <Button Grid.Row="1" Grid.Column="2"
                         WidthRequest="60" HeightRequest="40"
                         Text="3"
                         BackgroundColor="{Binding NavigationComputerDatas[2].ButtonColor}"
@@ -117,7 +117,7 @@
                         BorderColor="WhiteSmoke"
                         Clicked="NavigationComputerButton" CommandParameter="3"
                         />
-                <Button Grid.Row="1" Grid.Column="3"
+                    <Button Grid.Row="1" Grid.Column="3"
                         WidthRequest="60" HeightRequest="40"
                         Text="4"
                         BackgroundColor="{Binding NavigationComputerDatas[3].ButtonColor}"
@@ -126,19 +126,19 @@
                         Clicked="NavigationComputerButton" CommandParameter="4"
                         />
 
-            </Grid>
-        </Frame>
+                </Grid>
+            </Border>
 
-        <Frame>
-            <Grid ColumnDefinitions="2*, 2*, 2*, 2*" RowDefinitions="Auto">
-                <Label Text="Dist:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-                <Entry x:Name="eDistance"
+            <Border Margin="0, 5" Stroke="LightSteelBlue"  StrokeShape="RoundRectangle 10, 10">
+                <Grid ColumnDefinitions="2*, 2*, 2*, 2*" RowDefinitions="Auto">
+                    <Label Text="Dist:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="eDistance"
                        Grid.Row="0" Grid.Column="1" 
                        Text="{Binding Distance}"
                        Placeholder=" - - - "
                        IsReadOnly="True"/>
 
-                <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
+                    <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
                     Text="Distance reset"
                     Margin="2"
                     x:Name="btnReset"
@@ -146,13 +146,13 @@
                     VerticalOptions="Center"
                     Clicked="OnResetButtonClick"
                     MaximumHeightRequest="40"
-                    BorderWidth="2"
-                    BorderColor="Black"
+                    BorderWidth="3"
+                    BorderColor="Ivory"
                     BackgroundColor="Gray"/>
-            </Grid>
-        </Frame>
+                </Grid>
+            </Border>
 
-        <Button Text="Back"
+            <Button Text="Back"
                 Margin="5"
                 x:Name="btnBack"
                 HorizontalOptions="Center"
@@ -162,7 +162,9 @@
                 MaximumHeightRequest="40"
                 BorderWidth="3"
                 BorderColor="Ivory"
-                BackgroundColor="Red"/>
+                BackgroundColor="Gray"/>
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+
 </ContentPage>

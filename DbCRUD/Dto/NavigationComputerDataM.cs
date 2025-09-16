@@ -24,7 +24,7 @@ namespace AlwaysInTarget.DbCRUD.Dto
             {
                 if (_isEnabled == value) return;
                 _isEnabled = value;
-                ButtonColor = value ? Colors.LightGreen : Colors.Gray;
+                ButtonColor = value ? Colors.YellowGreen : Colors.Gray;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabled)));
             }
         }
