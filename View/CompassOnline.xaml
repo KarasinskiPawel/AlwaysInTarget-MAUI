@@ -34,7 +34,6 @@
         <Style TargetType="Picker">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="TextColor" Value="WhiteSmoke"/>
-            <!--<Setter Property="HeightRequest" Value="32"/>-->
         </Style>
     </ContentPage.Resources>
 
@@ -85,14 +84,19 @@
                        ></Entry>
                     <Button Grid.Row="0" Grid.Column="2"
                         WidthRequest="60" HeightRequest="40"
+                        FontSize="18"
+                        FontAttributes="Bold"
                         Text="1"
                         BackgroundColor="{Binding NavigationComputerDatas[0].ButtonColor}"
                         BorderWidth="2"
                         BorderColor="WhiteSmoke"
                         Clicked="NavigationComputerButton" CommandParameter="1"
                         />
+
                     <Button Grid.Row="0" Grid.Column="3"
                         WidthRequest="60" HeightRequest="40"
+                        FontSize="18"
+                        FontAttributes="Bold"
                         Text="2"
                         BackgroundColor="{Binding NavigationComputerDatas[1].ButtonColor}"
                         BorderWidth="2"
@@ -111,14 +115,18 @@
                        ></Entry>
                     <Button Grid.Row="1" Grid.Column="2"
                         WidthRequest="60" HeightRequest="40"
+                        FontSize="18"
+                        FontAttributes="Bold"
                         Text="3"
                         BackgroundColor="{Binding NavigationComputerDatas[2].ButtonColor}"
                         BorderWidth="2"
                         BorderColor="WhiteSmoke"
                         Clicked="NavigationComputerButton" CommandParameter="3"
                         />
-                    <Button Grid.Row="1" Grid.Column="3"
+                    <Button Grid.Row="1" Grid.Column="3" 
                         WidthRequest="60" HeightRequest="40"
+                        FontSize="18"
+                        FontAttributes="Bold"
                         Text="4"
                         BackgroundColor="{Binding NavigationComputerDatas[3].ButtonColor}"
                         BorderWidth="2"

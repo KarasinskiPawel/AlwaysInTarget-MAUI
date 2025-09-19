@@ -15,8 +15,21 @@ namespace AlwaysInTarget.ViewModels
             get => _connected;
             set
             {
+                if (_connected == value) return;
                 _connected = value;
+                MainButtonColor = value ? Colors.Ivory : Colors.LightGray;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Connected)));
+            }
+        }
+        private Color _mainButtonColor = Colors.DarkGrey;
+        public Color MainButtonColor
+        {
+            get => _mainButtonColor;
+            set
+            {
+                if (_mainButtonColor == value) return;
+                _mainButtonColor = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MainButtonColor)));
             }
         }
 

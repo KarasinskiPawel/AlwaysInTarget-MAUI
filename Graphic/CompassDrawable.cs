@@ -5,6 +5,7 @@ using AlwaysInTarget.ViewModels;
 
 using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Graphics;
+using System.Diagnostics;
 
 namespace AlwaysInTarget.Graphic
 {
@@ -28,6 +29,9 @@ namespace AlwaysInTarget.Graphic
 
         private bool IsMapHeadingEnabled { get; set; }
 
+        private int MapDistance { get; set; } = 0;
+        private decimal Distance { get; set; } = 0;
+
         public void SetCurrentFlightParameters(NavigationOnlineModel navigationOnlineModel)
         {
             Heading = SafeConvertToFloat(navigationOnlineModel.Course);
@@ -48,6 +52,9 @@ namespace AlwaysInTarget.Graphic
             Altitude = navigationOnlineModel.Altitude;
 
             IsMapHeadingEnabled = navigationOnlineModel.IsMapHeadingEnabled;
+
+            MapDistance = navigationOnlineModel.MapDistance;
+            Distance = navigationOnlineModel.Distance;
         }
 
         private static float SafeConvertToFloat(object? value)
@@ -67,18 +74,6 @@ namespace AlwaysInTarget.Graphic
         {
             try
             {
-                //float w = dirtyRect.Width;
-                //float h = dirtyRect.Height;
-                //float centerX = dirtyRect.Center.X;
-                //float centerY = dirtyRect.Center.Y;
-
-                //float radius = Math.Min(w, h) / 2f - Margin;
-                //if (radius <= 0) return;
-
-                //// tło
-                //canvas.FillColor = Colors.Black;
-                //canvas.FillRectangle(dirtyRect);
-
                 float w = dirtyRect.Width;
                 float h = dirtyRect.Height;
                 float centerX = dirtyRect.Center.X;
@@ -87,10 +82,6 @@ namespace AlwaysInTarget.Graphic
                 // promień koła
                 float radius = Math.Min(w, h) / 2f - Margin; //
                 if (radius <= 0) return;
-
-                // wypełnienie tła przezroczyste (opcjonalnie)
-                //canvas.FillColor = Colors.Black;
-                //canvas.FillCircle(centerX, centerY, radius);
 
                 // obramowanie 3px w czarnym kolorze
                 canvas.StrokeColor = Colors.LightSteelBlue;
@@ -135,8 +126,14 @@ namespace AlwaysInTarget.Graphic
 
                 DisplayHeading(canvas, centerX, centerY, radius);
                 DisplayIndicatedAltitude(canvas, centerX, centerY, radius);
+
+                DistanceIndicator(canvas, dirtyRect);
+
+                //DrawAngleLine(canvas, centerX, centerY, radius, 140f, Colors.Green); // 140°
+                //DrawAngleLine(canvas, centerX, centerY, radius, 220f, Colors.Blue);  // 220°
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine($"[CompassDrawable] Draw error: {e}");
             }
@@ -495,7 +492,7 @@ namespace AlwaysInTarget.Graphic
             canvas.DrawLine(centerX, topY, centerX, centerY - gapHeight / 2f);
 
             // linia od dołu do przerwy
-            canvas.DrawLine(centerX, bottomY, centerX, centerY + gapHeight / 2f);
+            canvas.DrawLine(centerX, bottomY / 1.2f, centerX, centerY + gapHeight / 2f);
 
             // --- 2) Grot trójkątny na górze strzałki ---
             float arrowHeight = 32f;
@@ -520,6 +517,107 @@ namespace AlwaysInTarget.Graphic
             canvas.DrawPath(triangle);
         }
 
+        private void DistanceIndicator(ICanvas canvas, RectF dirtyRect)
+        {
+            float moveBy1 = 52f;
+            float moveBy2 = 58f;
+
+            float centerX = dirtyRect.Center.X;
+            float centerY = dirtyRect.Center.Y;
+            float radius = Math.Min(dirtyRect.Width, dirtyRect.Height) / 2 - 10;
+
+            // Rysowanie łuku od 140° do 220°
+            canvas.StrokeColor = Colors.WhiteSmoke;
+            canvas.StrokeSize = 2;
+
+            float arcRadius = radius - moveBy1;
+            canvas.DrawArc(
+                centerX - arcRadius,
+                centerY - arcRadius,
+                arcRadius * 2,
+                arcRadius * 2,
+                305f,
+                235f,
+                true, // useCenter
+                false
+            );
+
+            arcRadius = radius - moveBy2;
+            canvas.DrawArc(
+                centerX - arcRadius,
+                centerY - arcRadius,
+                arcRadius * 2,
+                arcRadius * 2,
+                305f,
+                235f,
+                true, // useCenter
+                false
+            );
+
+            if (!IsMapHeadingEnabled)
+                return;
+
+            float distanceValue = TraveledDistance();
+
+            if (distanceValue < 305f)
+                canvas.StrokeColor = Colors.WhiteSmoke;
+            else
+                canvas.StrokeColor = Colors.Red;
+
+            arcRadius += 3;
+            canvas.StrokeSize = 4;
+            canvas.DrawArc(
+                centerX - arcRadius,
+                centerY - arcRadius,
+                arcRadius * 2,
+                arcRadius * 2,
+                TraveledDistance(),
+                235f,
+                true, // useCenter
+                false
+            );
+        }
+
+        private float TraveledDistance()
+        {
+            float result = 0f;
+
+            try
+            {
+                if (MapDistance > 0 && Distance > 0)
+                {
+                    if (Distance > MapDistance)
+                        return 305f;
+
+                    float scale = (70f / Convert.ToSingle(MapDistance));
+
+                    result = (float)Convert.ToSingle(Distance) * scale;
+
+                    Debug.WriteLine($"Result {result + 235f}");
+
+                    return result + 235f;
+                }
+            }
+            catch
+            {
+                return 235f;
+            }
+
+            return 235f;
+        }
+
+
+        void DrawAngleLine(ICanvas canvas, float centerX, float centerY, float radius, float angleDegrees, Color color)
+        {
+            float angleRad = (angleDegrees - 90f) * (float)Math.PI / 180f;
+
+            float endX = centerX + radius * (float)Math.Cos(angleRad);
+            float endY = centerY + radius * (float)Math.Sin(angleRad);
+
+            canvas.StrokeColor = color;
+            canvas.StrokeSize = 2;
+            canvas.DrawLine(centerX, centerY, endX, endY);
+        }
 
 
         private void CompassCircumference(ICanvas canvas, float centerX, float centerY, float radius)
