@@ -492,7 +492,7 @@ namespace AlwaysInTarget.Graphic
             canvas.DrawLine(centerX, topY, centerX, centerY - gapHeight / 2f);
 
             // linia od dołu do przerwy
-            canvas.DrawLine(centerX, bottomY / 1.2f, centerX, centerY + gapHeight / 2f);
+            canvas.DrawLine(centerX, bottomY / 1.1f, centerX, centerY + gapHeight / 2f);
 
             // --- 2) Grot trójkątny na górze strzałki ---
             float arrowHeight = 32f;
